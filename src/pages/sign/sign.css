@@ -1,0 +1,114 @@
+@charset "utf-8";
+
+/************************** 공통 정의 *******************************/
+.signContainer {
+	width: var(--widthRegistLoginPage);
+	min-height: var(--heightSignContentMin);
+	background-color: var(--bgContentBasicBgColor);
+	border-radius: var(--radiusBasic);
+	display: flex;
+	justify-content: center;
+}
+
+.signContainer > section {
+	width: 40rem;
+}
+
+.signTitleArea {
+	margin: 4rem 0 4rem 0;
+}
+
+
+/************************** 로그인 *******************************/
+.alertArea {
+	padding: var(--paddingAlertBasic);
+	/*border: 1px solid red;*/
+	margin-bottom: 3rem;
+	display: none;
+}
+
+.loginSubMenuArea {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 5rem;
+}
+
+.loginSubMenu {
+	font-size: 1.4rem;
+	font-weight: var(--fontWeightMiddle);
+	color: var(--fontBasicColor);
+	margin: 0 2.5rem 0 2.5rem;
+	cursor: pointer;
+}
+
+/* 로그인 및 회원가입 가입경로 선택 페이지 */
+.naverLogin {
+	width: 40rem;
+	height: 4.5rem;
+	text-align: center;
+	background-color: #03c75a;
+	border-radius: var(--radiusBasic);
+	color: var(--fontWhiteColor);
+	font-weight: var(--fontWeightBold);
+	padding-top: 0.9rem;
+	margin-bottom: 1rem;
+}
+
+.kakaoLogin {
+	width: 40rem;
+	height: 4.5rem;
+	text-align: center;
+	background-color: #fee500;
+	border-radius: var(--radiusBasic);
+	color: var(--fontColorBasic);
+	font-weight: var(--fontWeightBold);
+	padding-top: 0.9rem;
+	margin-bottom: 15rem;
+}
+
+/************************** 회원 분류 선택 *******************************/
+.classifyInfo {
+	color: var(--fontInfoColor);
+	font-size: 1.4rem;
+	font-weight: var(--fontWeightBold);
+	text-align: center;
+	margin: 7rem 0 7rem 0;
+}
+
+.goLogin {
+	font-size: 1.4rem;
+	color: var(--fontBasicColor);
+	font-weight: var(--fontWeightBold);
+	text-align: center;
+}
+
+
+/************************** 개인회원 약관 동의 *******************************/
+.policyArea {
+	width: 90%;
+}
+
+.policyTitle {
+	font-size: 2rem;
+	color: var(--fontBasicColor);
+	font-weight: var(--fontWeightBold);
+	margin-bottom: 1rem;
+}
+
+.policyContent {
+	width: 100%;
+	height: 35rem;
+	border: 0.5px solid #ececec;
+	border-radius: var(--radiusBasic);
+	padding: 1rem;
+	margin-bottom: 1rem;
+	font-size: 1.3rem;
+	overflow-y: scroll;
+}
+
+.buttonArea {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 4rem;
+}

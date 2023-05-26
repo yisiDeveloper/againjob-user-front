@@ -1,0 +1,270 @@
+@charset "utf-8";
+
+/************************** 공통 정의 *******************************/
+.mainContainer {
+	width: var(--comContainerSize);
+	/*border: 1px solid red;*/
+	display: flex;
+	flex-direction: column;
+	align-content: flex-start;
+}
+
+.sectionTitleArea {
+	color: var(--fontBasicColor);
+	font-size: var(--fontSizeMainTitle);
+	font-weight: var(--fontWeightBold);
+	margin-bottom: 1.5rem;
+	margin-left: 1rem;
+	/*border: 1px solid orange;*/
+}
+
+
+.mainMore {
+	margin-left: 2rem;
+}
+
+/************************** 검색 영역 *******************************/
+.searchInput {
+	background-color: #fff;
+	border-radius: 0.3rem;
+	width: 51rem;
+	height: 6rem;
+	display: flex;
+}
+
+.searchInput > input {
+	outline: none;
+	border-radius: 0;
+	border-top: 0;
+	border-right: 0;
+	border-left: 0;
+	/*width: 100%;*/
+	color: var(--fontUserWriteColor);
+	font-size: 2rem;
+	padding-left: 2rem;
+/* iOS에서 모서리가 둥글게 나오는 현상 해결
+-webkit-appearance: none;
+-webkit-border-radius: var(--radiusBasic);
+*/
+}
+
+.searchInput > input::placeholder {
+	font-size: 2rem;
+}
+
+.searchInput > input:focus {
+	border-bottom: 0;
+}
+
+.totalSearch {
+	display: inline-block;
+	height: 6rem;
+	width: 46rem;
+	/*border: 1px solid blue;*/
+	border: 0;
+	border-radius: 0.3rem;
+	font-weight: var(--fontWeightBold);
+	font-size: 2rem;
+	color: var(--fontUserWriteColor);
+}
+
+.readingGlasses {
+	display: inline-block;
+	width: 4rem;
+	height: 6rem;
+	background: url('../../assets/icons/main_reading_glasses.png') center center no-repeat;
+}
+
+/************************** 공지사항영역 *******************************/
+.annArea {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.annTitle {
+	font-size: 1.6rem;
+	color: var(--fontBasicColor);
+	font-weight: var(--fontWeightBold);
+	margin-left: 6rem;
+}
+
+.annMore {
+	width: 2.5rem;
+	height: 3rem;
+	background: url('../../assets/icons/arrow_main_more_small.png') center center no-repeat;
+}
+
+.annContent {
+	font-size: 1.6rem;
+	width: 44.3rem;
+	font-weight: var(--fontWeightMiddle);
+	color: var(--fontBasicColor);
+	/*border: 1px solid red;*/
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+/************************** Tag 영역 *******************************/
+.tagRow {
+	height: 6rem;
+	width: 100%;
+	border-bottom: 0.05rem solid var(--tableTrTdBetweenLine);
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+/* row 중 가장 마지막 row */
+.tagRow:last-child {
+	border: 0;
+}
+
+.tagRow > div:last-child {
+	/*padding-right: 1rem;*/
+	white-space: nowrap;
+	overflow: hidden;
+	width: 101rem;
+}
+
+.tagTitle {
+	font-size: 1.6rem;
+	color: var(--fontBasicColor);
+	font-weight: var(--fontWeightBold);
+	padding-left: 2rem;
+	width: 10rem;
+}
+
+/************************** 채용정보 *******************************/
+.recruitCell {
+	height: 22rem;
+	width: 28.25rem;
+	border-bottom: 0.05rem solid var(--tableTrTdBetweenLine);
+	border-right: 0.05rem solid var(--tableTrTdBetweenLine);
+	cursor: pointer;
+	padding: 1.5rem;
+}
+
+.recruitCell:nth-child(5), .recruitCell:nth-child(6), .recruitCell:nth-child(7), .recruitCell:nth-child(8){
+	border-bottom: 0;
+}
+.recruitCell:nth-child(4), .recruitCell:nth-child(8) {
+	border-right: 0;
+}
+
+.recruitCoName {
+	font-size: 1.2rem;
+	font-weight: var(--fontWeightBold);
+	color: #798F9A;
+	/*border: 1px solid blue;*/
+}
+
+.companyLogo {
+	height: 9rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	/*border: 1px solid red;*/
+}
+
+.recruitName {
+	height: 5rem;
+	font-size: 1.6rem;
+	font-weight: 500;
+	/*border: 1px solid yellowgreen;*/
+	color: var(--fontBasicColor);
+	overflow: hidden;
+}
+
+.iconArea {
+	display: flex;
+	height: 3.5rem;
+	justify-content: flex-start;
+	align-items: flex-end;
+	/*border: 1px solid red;*/
+}
+
+.applyPeriod {
+	text-align: right;
+	height: 2.5rem;
+	font-size: 1.2rem;
+	flex-grow: 1;
+	padding-top: 0.3rem;
+	/*border: 1px solid yellowgreen;*/
+}
+
+
+/************************** 일거리 정보 *******************************/
+.workName {
+	font-size: 1.8rem;
+	color: var(--fontBasicColor);
+	font-weight: var(--fontWeightBold);
+}
+
+.workIcon {
+	padding: 1.2rem 0 1.2rem 0;
+}
+
+.workTableArea {
+	background-color: #EEF2F4;
+	height: 8.5rem;
+	padding-left: 1rem;
+	padding-top: 1rem;
+}
+.workTable {
+	width: 90%;
+	height: 90%;
+	border-radius: var(--radiusBasic);
+	/*border: 1px solid red;*/
+}
+
+.workTable > tr > td {
+	font-size: 1.2rem;
+	font-weight: var(--fontWeightBold);
+}
+
+.workTable > tr > td:first-child {
+	color: #798F9A;
+}
+
+.workTable > tr > td:last-child {
+	font-size: 1.2rem;
+	font-weight: var(--fontWeightBold);
+	color: #414550;
+	padding-left: 2rem;
+}
+
+/************************** 인재 정보 *******************************/
+.talentCell {
+	height: 8.5rem;
+	width: 50%;
+	border-bottom: 0.05rem solid var(--tableTrTdBetweenLine);
+	border-right: 0.05rem solid var(--tableTrTdBetweenLine);
+	cursor: pointer;
+	padding: 1.5rem;
+}
+
+.talentCell:nth-child(2), .talentCell:nth-child(4), .talentCell:nth-child(6), .talentCell:nth-child(8){
+	border-right: 0;
+}
+
+.talentCell:nth-child(7), .talentCell:nth-child(8) {
+	border-bottom: 0;
+}
+
+.talentTitle {
+	font-size: 1.8rem;
+	font-color: #414550;
+	font-weight: var(--fontWeightBold);
+	white-space: nowrap;
+	overflow: hidden;
+	/*border: 1px solid rebeccapurple;*/
+	padding-bottom: 0.2rem;
+}
+
+.talentTag {
+	/*border: 1px solid red;*/
+	white-space: nowrap;
+	overflow: hidden;
+	padding-top: 0.2rem;
+}

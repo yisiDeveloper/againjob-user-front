@@ -1,0 +1,44 @@
+@charset "utf-8";
+
+/************************** 공통 정의 *******************************/
+input {
+	outline: none;
+	border-radius: 0;
+	border-top: 0;
+	border-right: 0;
+	border-left: 0;
+	border-bottom: var(--inputLineWeight) solid var(--inputLineBasic);
+	font-family: "Noto Sans KR", sans-serif;
+	height: 4.8rem;
+	width: 100%;
+	color: var(--fontUserWriteColor);
+	font-size: var(--fontSizeInputText);
+	padding-left: var(--paddingInputBasic);
+	/* iOS에서 모서리가 둥글게 나오는 현상 해결
+	-webkit-appearance: none;
+	-webkit-border-radius: var(--radiusBasic);
+	*/
+}
+
+input::placeholder {
+	font-size: var(--fontSizeInputText);
+	font-weight: var(--fontWeightBasic);
+	color: var(--fontPlaceHolderColor);
+}
+
+ input:focus {
+ 		border-bottom: var(--inputLineWeight) solid var(--inputLineFocus);
+  	/* border 두께가 변경되면서 글자가 움직이는 현상을 잡기 위함 */
+  	/* margin: -0.3px; */
+  }
+
+.inputArea {
+	width: 100%;
+}
+
+.inputTitle {
+	font-size: var(--fontSizeInputTitle);
+	font-weight: var(--fontWeightMiddle);
+	color: var(--fontInputTitleColor);
+	padding-left: 0.5rem;
+}
