@@ -72,19 +72,19 @@ function Gnb() {
 		<>
 			{/************************************** 	광고/공지사항 영역		**************************************/}
 			<AdWrap wrapdisplay={adDP?.toString()}>
-				<AdContentarea>
+				<div className={'adContentarea'}>
 					AgainJob Grand Open Event 2023-07-01 ~ 2023-08-31
-				</AdContentarea>
-				<AdContentCloseButton>
+				</div>
+				<div className={'adContentCloseButton'}>
 					<CloseButton onClick={closeAd} />
-				</AdContentCloseButton>
+				</div>
 			</AdWrap>
 
 			{/**************************************		GNB 영역		**************************************/}
-			<GnbArea>
-				<GnbWrap>
-					<CIWrap><span onClick={(e) => goToURL(e, '/', navigate)} style={{cursor: 'pointer'}}>AgainJob</span></CIWrap>
-					<MenuWrap>
+			<nav className={'gnbArea'}>
+				<div className={'gnbWrap'}>
+					<div className={'cIWrap'}><span onClick={(e) => goToURL(e, '/', navigate)} style={{cursor: 'pointer'}}>AgainJob</span></div>
+					<div className={'MenuWrap'}>
 						<EachMenuWrap rightmargin='7rem'>채용정보</EachMenuWrap>
 						<EachMenuWrap rightmargin='7rem'>인재정보</EachMenuWrap>
 						<EachMenuWrap rightmargin='7rem'>일거리정보</EachMenuWrap>
@@ -95,95 +95,69 @@ function Gnb() {
 						 :
 						<><EachMenuWrap rightmargin='7rem'>지원관리</EachMenuWrap><EachMenuWrap rightmargin='4.5rem'>참여관리</EachMenuWrap></>
 					}
-					</MenuWrap>
-					<SubMenuIconWrap>
+					</div>
+					<div className={'subMenuIconWrap'}>
 						<SubMenuButton submenu={subMenu?.toString()} onClick={subMenuHandler} />
-					</SubMenuIconWrap>
-				</GnbWrap>
-			</GnbArea>
+					</div>
+				</div>
+			</nav>
 			<SubArea subdisplay={subMenu?.toString()}>
-				<SubWrap>
+				<div className={'subWrap'}>
 					{/*****************	로그인 전 *****************/}
 					{(memberNumber == '') &&
 					<>
+<<<<<<< HEAD
 						<SubInfoText>휴대전화번호로 회원 가입이 가능합니다. 회원가입 후 다양한 서비스를 받아보세요.</SubInfoText>
 						<SearchMyInfo onClick={(e) => goToURL(e,pageURL_Sign_PE_FindID, navigate)}>아이디찾기</SearchMyInfo>
 						<SubMenuBar />
 						<SearchMyInfo onClick={(e) => goToURL(e,pageURL_Sign_PE_FindPwd, navigate)}>비밀번호 찾기</SearchMyInfo>
 						<SubButtonArea onClick={(e) => goToURL(e,pageURL_Sign_ChoiceClassify, navigate)}>
+=======
+						<div className={'subInfoText'}>휴대전화번호로 회원 가입이 가능합니다. 회원가입 후 다양한 서비스를 받아보세요.</div>
+						<div className={'subFindIDPwd'}>아이디찾기</div>
+						<div className={'subMenuBar'} />
+						<div className={'subFindIDPwd'}>비밀번호 찾기</div>
+						<div className={'subButtonArea'} onClick={(e) => goToURL(e,pageURL_Sign_ChoiceClassify, navigate)}>
+>>>>>>> b3f5a9ad071a6f2d5cafc173a00962f4f7a6aedd
 							<ButtonRound title='회원가입' buttontype='special' />
-						</SubButtonArea>
-						<SubButtonArea onClick={(e) => goToURL(e, pageURL_Sign_Login, navigate)} style={{marginRight:'25px'}}>
+						</div>
+						<div className={'subButtonArea'} onClick={(e) => goToURL(e, pageURL_Sign_Login, navigate)} style={{marginRight:'25px'}}>
 							<ButtonRound title='로그인' buttontype='normal' />
-						</SubButtonArea>
+						</div>
 					</>}
 					{/*****************	로그인 후: 개인 *****************/}
 					{(memberType === '1') &&
 					<>
-						<SubMenuPeople style={{marginLeft: '23.5rem'}}>내 정보</SubMenuPeople>
-						<SubMenuPeople>이력서관리</SubMenuPeople>
-						<SubMenuPeople>받은요청</SubMenuPeople>
-						<SubMenuPeople>평가관리</SubMenuPeople>
-						<SubMenuPeople>결제내역</SubMenuPeople>
-						<SubMenuPeople>이용권</SubMenuPeople>
-						<SubButtonArea onClick={() => alert('로그아웃')}>
+						<div className={'subMenuPeople'} style={{marginLeft: '23.5rem'}}>내 정보</div>
+						<div className={'subMenuPeople'}>이력서관리</div>
+						<div className={'subMenuPeople'}>받은요청</div>
+						<div className={'subMenuPeople'}>평가관리</div>
+						<div className={'subMenuPeople'}>결제내역</div>
+						<div className={'subMenuPeople'}>이용권</div>
+						<div className={'subButtonArea'} onClick={() => alert('로그아웃')}>
 							<ButtonRound title='로그아웃' buttontype='normal' />
-						</SubButtonArea>
+						</div>
 					</>}
 					{(memberType === '0') &&
 					<>
 						{/*****************	로그인 후: 기업 *****************/}
-						<SubMenuPeople style={{marginLeft: '23.5rem'}}>기업정보</SubMenuPeople>
-						<SubMenuPeople>지원요청</SubMenuPeople>
-						<SubMenuPeople>참여요청</SubMenuPeople>
-						<SubMenuPeople>평가관리</SubMenuPeople>
-						<SubMenuPeople>결제내역</SubMenuPeople>
-						<SubMenuPeople>이용권</SubMenuPeople>
-						<SubButtonArea onClick={() => alert('로그아웃')}>
+						<div className={'subMenuPeople'} style={{marginLeft: '23.5rem'}}>기업정보</div>
+						<div className={'subMenuPeople'}>지원요청</div>
+						<div className={'subMenuPeople'}>참여요청</div>
+						<div className={'subMenuPeople'}>평가관리</div>
+						<div className={'subMenuPeople'}>결제내역</div>
+						<div className={'subMenuPeople'}>이용권</div>
+						<div className={'subButtonArea'} onClick={() => alert('로그아웃')}>
 							<ButtonRound title='로그아웃' buttontype='normal' />
-						</SubButtonArea>
+						</div>
 					</>}
-				</SubWrap>
+				</div>
 			</SubArea>
 		</>
 	)
 }
 
 /****************************************** GNB 영역 **********************************************/
-const GnbArea = styled.nav`
-	width: 100%;
-	height: 6.5rem;
-	background-color: var(--comMainColor);
-	display: flex;
-	justify-content: center;
-	align-content: center;
-`
-
-const GnbWrap = styled.div`
-	width: var(--comContainerSize);
-	display: flex;
-	justify-content: flex-start; 
-`
-
-const CIWrap = styled.div`
-	width: 22rem;
-	height: 100%;
-	font-size: 2rem;
-	color: #fff;
-	padding-left: 3rem;
-	padding-top: 1.5rem;
-	//border: 1px solid yellow;
-`
-
-const MenuWrap = styled.div`
-	width: 84rem;
-	height: 100%;
-	//border: 1px solid orange;
-	display: flex;
-	justify-content: flex-start;
-	align-items: center;
-`
-
 type menuRightMargin = {
 	rightmargin: string|null
 }
@@ -201,14 +175,6 @@ const MenuBar = styled.div<menuRightMargin>`
 	height: 1.5rem;
 	background-color: #F6F2EE;
 	margin-right: ${props => props.rightmargin};
-`
-const SubMenuIconWrap = styled.div`
-	width: 8rem;
-	height: 100%;
-	//border: 1px solid blue;
-	display: flex;
-	justify-content: center;
-	align-items: center;
 `
 
 type subMenuType = {
@@ -238,6 +204,7 @@ const SubArea = styled.div<subDisplayType>`
 	align-content: center;
 `
 
+<<<<<<< HEAD
 const SubWrap = styled.div`
 	width: var(--comContainerSize);
 	//border: 1px solid dodgerblue;
@@ -289,6 +256,8 @@ const SubMenuPeople = styled.div`
 
 /****************************************** Sub 영역 기업 **********************************************/
 
+=======
+>>>>>>> b3f5a9ad071a6f2d5cafc173a00962f4f7a6aedd
 /****************************************** 배너/중요 공지사항 영역 **********************************************/
 type WrapDisplayType = {
 	wrapdisplay: string
@@ -302,26 +271,6 @@ const AdWrap = styled.div<WrapDisplayType>`
 	justify-content: center;
 `
 
-/* 배너/중요 공지사항의 컨텐츠 영역 */
-const AdContentarea = styled.div`
-	width: calc(var(--comContainerSize) - 8rem);
-	height: 100%;
-	//border: 1px solid red;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	color: var(--fontWhiteColor);
-	font-size: 30px;
-`
-
-/* 배너/중요 공지사항의 close button */
-const AdContentCloseButton = styled.div`
-	width: 10rem;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-`
-
 const CloseButton = styled.button`
 	width: 4rem;
 	height: 4rem;
@@ -333,5 +282,4 @@ const CloseButton = styled.button`
 	background-position: center;
 	cursor: pointer;
 `
-
 export default React.memo(Gnb)
