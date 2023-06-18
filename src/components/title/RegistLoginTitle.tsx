@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
+import './title.css'
 
 
 interface TitleType {
@@ -11,17 +11,10 @@ function RegistLoginTitle({
 }:TitleType) {
 
 	return (
-		<TitleStyle>
+		<div className={'titleStyle'}>
 			{title}
-		</TitleStyle>
+		</div>
 	)
 }
 
-const TitleStyle = styled.div`
-	font-size: var(--fontSizeRegistLoginPageTitle);
-	color: var(--fontBasicColor);
-	text-align: center;
-	font-weight: var(--fontWeightBold);
-)
-`
 export default React.memo(RegistLoginTitle)

@@ -1,0 +1,15 @@
+@charset "utf-8";
+
+/************************** 공통 정의 *******************************/
+.titleStyle {
+    font-size: var(--fontSizeRegistLoginPageTitle);
+    color: var(--fontBasicColor);
+    text-align: center;
+    font-weight: var(--fontWeightBold);
+}
+
+.pageTitle {
+    color: var(--fontBasicColor);
+    /*margin-left: var(--marginLeftPageTitle)*/
+    margin-left: 2rem;
+}
