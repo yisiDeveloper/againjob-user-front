@@ -14,6 +14,7 @@ export const GlobalStyle = createGlobalStyle`
 	/****************** common ***********************/
 	--comMainColor: #207945;
 	--comContainerSize: 113rem;
+	--opacityPopupBg: 75%;
 
 	
 	/******************* Font Color **********************/
@@ -57,12 +58,16 @@ export const GlobalStyle = createGlobalStyle`
 	--fontSizePopupTitle: 3rem;
 	--fontSizePopupListMain: 1.4rem;
 	--fontSizePopupListSub: 1.2rem;
+	--fontSizePopupButton: 1.3rem;
+	--fontSizePopupContent: 1.6rem;
 	
 	--fontSizeFooterText: 1.2rem;
 	--fontSizeMainTitle: 2rem;
 	
 	--fontSizeBasicButton: 1.4rem;
 	--fontSizeActionButton: 1.6rem;
+	
+	--fontSizeInfo: 1.4rem;
 
 	
 	/******************* Weight **********************/
@@ -94,6 +99,8 @@ export const GlobalStyle = createGlobalStyle`
 
 	--bgBarTypeLine: #BAC9D1;
 	
+	--bgPopup: #282C36;
+	
 	/******************* Radius **********************/
 	--radiusBasic: 0.3rem;
 	--radiusButtonRound: 1.5rem;
@@ -112,16 +119,26 @@ export const GlobalStyle = createGlobalStyle`
 	--widthButtonFull: 40rem;
 	--widthButtonLarge: 30rem;
 	--widthButtonMiddle: 17rem;
+	--widthPopupMin: 30rem;
+	--widthPopupMax: 40rem;
+	--widthButtonPopup: 10rem;
 
 	/******************* height **********************/
 	--heightButtonBasic: 3rem;
 	--heightButtonFull: 4rem;
+	--heightButtonMiddle: 3.5rem;
+	--heightButtonPopup: 3.5rem;
 	--heightSignContentMin: 90rem;
+	--heightInputBasic: 4.8rem;
+	--heightEmptyDiv: 4rem;
+	--heightPopupMin: 20rem;
 
 	/******************* Padding  **********************/
+	--paddingConentBasic: 3rem;
 	--paddingInputBasic: 1.5rem;
 	--paddingButtonRound: 0 2rem 0 2rem;
 	--paddingAlertBasic: 0 1rem 0 1rem;
+	--paddingInfoBasic: 0 1rem 0 0.5rem;
 
 	/******************* margin **********************/
 	--marginRightSubMenu: 8rem;
@@ -264,9 +281,9 @@ select {
 	border: 0;
 	width: 100%;
 	height: 36px;
-	border-bottom: 0.5px solid #ccc;	
+	border-bottom: 0.05rem solid var(--inputLineBasic);	
 	padding: 10px 10px 6px 10px;
-	font-size: 16px;
+	font-size: var(--fontSizeInputText);
 	-webkit-appearance: none;  /* 네이티브 외형 감추기 */
     -moz-appearance: none;
     appearance: none;
@@ -278,7 +295,7 @@ select::-ms-expand {
 	display: none;
 }
 select:focus {
-	// border-bottom: var(--comLineWeightFocus) solid var(--comColorFocus);	
+	border-bottom: 0.05rem solid var(--inputLineFocus);	
 	outline: none;
 	//background: url('assets/icons/dropdown_expandless.png') right 10px center no-repeat;
 	background-color: #fff;
@@ -318,6 +335,19 @@ table {
 	border-spacing: 0;
 }
 
+/************************************** content basic css ***********************************/
+main {
+	width: var(--comContainerSize);
+	/*border: 1px solid red;*/
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	//background-color: var(--bgContentBasicBgColor);
+	border-radius: var(--basicRadius);
+	//padding: var(--paddingConentBasic);
+}
+
+
 // Table Grid div
 .tableGrid	{
 	width: 100%;
@@ -341,13 +371,14 @@ table {
 	justify-content: flex-start;	
 }
 
-// input, checkbox등의 alert
-.alert {
-	color: var(--fontInputAlertColor);
-	font-size: var(--fontSizeInputAlert);
-	font-weight: var(--fontWeightBold);
+.inputTitle {
+	font-size: var(--fontSizeInputTitle);
+	font-weight: var(--fontWeightMiddle);
+	color: var(--fontInputTitleColor);
+	padding-left: 0.5rem;
 }
 
-
-
+.emptyDivHeight {
+	height: var(--heightEmptyDiv)
+}
 `

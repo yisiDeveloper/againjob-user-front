@@ -1,0 +1,43 @@
+@charset "utf-8";
+
+/************************** 공통 정의 *******************************/
+.errorContainer {
+	width: var(--comContainerSize);
+	/*border: 1px solid red;*/
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	background-color: var(--bgContentBasicBgColor);
+	border-radius: var(--basicRadius);
+	padding: var(--paddingConentBasic);
+}
+
+.errorTitle {
+	font-size: 4rem;
+	font-weight: var(--fontWeightBold);
+	text-align: center;
+	margin: 20rem 0 9rem 0;
+}
+
+.errorContent {
+	font-size: 3.2rem;
+	font-weight: var(--fontWeightMiddle);
+	text-align: center;
+	margin: 0 0 10rem 0;
+	white-space: pre-wrap;
+}
+
+.errorBtnArea {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 25rem;
+}
+
+.errorBtn {
+	width: 30rem;
+	background-color: var(--bgBtnBasic);
+	text-align: center;
+	margin: 0 1rem 0 1rem;
+	cursor: pointer;
+}
+

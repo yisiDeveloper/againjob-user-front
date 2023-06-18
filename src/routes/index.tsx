@@ -1,11 +1,21 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import {
 	Login,
 	Main,
-	Member,
 	Classify,
 	ChoiceChannel,
-	PePolicy
+	PePolicy,
+	PeInfo,
+	CoInfo,
+	SignUpEnd,
+	NotiForCS,
+	Error404,
+	CoPolicy,
+	PeFindId,
+	CoFindId,
+	PeFindPwd,
+	CoFindPwd,
+	ChangeTempPwd, WithdrawPolicy, WithdrawComplete
 } from '@pages'
 import { Layout } from '@components'
 import PrivateRoute from './PrivateRoute'
@@ -14,36 +24,60 @@ import {
 	pageURL_Sign_Login,
 	pageURL_Sign_ChoiceClassify,
 	pageURL_Sign_ChoiceChannel,
-	pageURL_Sign_PE_AgreePolicy
+	pageURL_Sign_PE_AgreePolicy,
+	pageURL_Sign_CO_AgreePolicy,
+	pageURL_Sign_PE_Info,
+	pageURL_Sign_Complete,
+	pageURL_Sign_CO_Info,
+	pageURL_ERROR_NotiForCS,
+	pageURL_Sign_CO_FindID,
+	pageURL_Sign_PE_FindPwd,
+	pageURL_Sign_PE_FindID,
+	pageURL_Sign_CO_FindPwd,
+	pageURL_Member_WithdrawComplete,
+	pageURL_Member_WithdrawPolicy,
+	pageURL_Sign_ChangeTempPwd
 } from '@env'
-
-
 // Error 페이지 정의
-// import Error404 from "pages/common/error/Error404";
+
 
 // Layout 페이지 정의
 
 export default function Router() {
+
+	// let tmpState = {errorCode: '404'}
+
 	return (
 		<BrowserRouter>
-			<GlobalStyle />
+			<GlobalStyle/>
 			<Routes>
-				<Route path="/" element={<Layout />}>
+				<Route path="/" element={<Layout/>}>
 
-					<Route index element={<Main />} />
+					<Route index element={<Main/>}/>
 					{/* 인증 여부 상관 없이 접속 가능한 페이지 정의 */}
-					{/* <Route index element={<DefaultLayout><MainPage/></DefaultLayout>}/> */}
+					{/*<Route path={pageURL_ERROR_NotiForCS} element={<NotiForCS/>}/>*/}
+
 					{/* 인증을 반드시 하지 않아야만 접속 가능한 페이지 정의 */}
-					<Route element={<PrivateRoute authentication={false} />}>
-						<Route path={pageURL_Sign_Login} element={<Login />} />
-						<Route path={pageURL_Sign_ChoiceClassify} element={<Classify />} />
-						<Route path={pageURL_Sign_ChoiceChannel} element={<ChoiceChannel />} />
-						<Route path={pageURL_Sign_PE_AgreePolicy} element={<PePolicy />} />
+					<Route element={<PrivateRoute authentication={false}/>}>
+						<Route path={pageURL_Sign_Login} element={<Login/>}/>
+						<Route path={pageURL_Sign_ChoiceClassify} element={<Classify/>}/>
+						<Route path={pageURL_Sign_ChoiceChannel} element={<ChoiceChannel/>}/>
+						<Route path={pageURL_Sign_PE_AgreePolicy} element={<PePolicy/>}/>
+						<Route path={pageURL_Sign_CO_AgreePolicy} element={<CoPolicy/>}/>
+						<Route path={pageURL_Sign_PE_Info} element={<PeInfo/>}/>
+						<Route path={pageURL_Sign_CO_Info} element={<CoInfo/>}/>
+						<Route path={pageURL_Sign_Complete} element={<SignUpEnd />}/>
+						<Route path={pageURL_Sign_PE_FindID} element={<PeFindId />}/>
+						<Route path={pageURL_Sign_CO_FindID} element={<CoFindId />}/>
+						<Route path={pageURL_Sign_PE_FindPwd} element={<PeFindPwd />}/>
+						<Route path={pageURL_Sign_CO_FindPwd} element={<CoFindPwd />}/>
+						<Route path={pageURL_Sign_ChangeTempPwd} element={<ChangeTempPwd />}/>
+						<Route path={pageURL_Member_WithdrawComplete} element={<WithdrawComplete />}/>
 					</Route>
 
 					{/* 인증을 반드시 해야지만 접속 가능한 페이지 정의 */}
-					<Route element={<PrivateRoute authentication={true} />}>
-						<Route path="/member" element={<Member />} />
+					<Route element={<PrivateRoute authentication={true}/>}>
+						<Route path={pageURL_Member_WithdrawPolicy} element={<WithdrawPolicy/>}/>
 						{/*<Route path="/member/:id" element={<MemberDetail />} />*/}
 					</Route>
 
@@ -57,11 +91,10 @@ export default function Router() {
 					</Route> */}
 
 					{/* 인증/권한 여부와 상관 없이 접근 가능한 Error 페이지 정의 */}
-					{/* <Route path="/*" element={<Error404 />} /> */}
-
+					<Route path="/*" element={<Error404 />} />
+					<Route path={pageURL_ERROR_NotiForCS} element={<NotiForCS/>}/>
 				</Route>
-
 			</Routes>
 		</BrowserRouter>
-	);
+	)
 }

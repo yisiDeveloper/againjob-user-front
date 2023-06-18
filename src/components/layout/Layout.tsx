@@ -4,14 +4,16 @@ import { Outlet } from 'react-router'
 import Gnb from './Gnb'
 import Footer from './Footer'
 import {blockEnterKey} from '@handler'
+import {useLocation} from 'react-router-dom'
 
 interface LayoutDefaultProps {
-	children?: React.ReactElement;
+	children?: React.ReactElement
 }
 
 blockEnterKey();
 
 function Layout({children}: LayoutDefaultProps) {
+
 	return (
 		<AgainJobWrapper>
 			<Gnb />
@@ -29,7 +31,6 @@ const AgainJobWrapper = styled.div`
 	//width: 100%;
 	// width: 100vw;
 	//height: 100vh;
-	
 `
 
 const PageArea = styled.div`

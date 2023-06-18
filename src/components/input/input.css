@@ -9,7 +9,7 @@ input {
 	border-left: 0;
 	border-bottom: var(--inputLineWeight) solid var(--inputLineBasic);
 	font-family: "Noto Sans KR", sans-serif;
-	height: 4.8rem;
+	height: var(--heightInputBasic);
 	width: 100%;
 	color: var(--fontUserWriteColor);
 	font-size: var(--fontSizeInputText);
@@ -36,9 +36,3 @@ input::placeholder {
 	width: 100%;
 }
 
-.inputTitle {
-	font-size: var(--fontSizeInputTitle);
-	font-weight: var(--fontWeightMiddle);
-	color: var(--fontInputTitleColor);
-	padding-left: 0.5rem;
-}

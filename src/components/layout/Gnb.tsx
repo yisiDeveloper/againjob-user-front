@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react'
-import { useNavigate} from 'react-router-dom'
+import {useLocation, useNavigate} from 'react-router-dom'
 import styled from 'styled-components'
 import {
 	ButtonCloseWhiteLarge,
@@ -8,8 +8,14 @@ import {
 } from '@assets'
 import {contentStore, memberStore} from '@service'
 import {ButtonRound} from '@components'
-import {pageURL_Sign_Login, pageURL_Sign_ChoiceClassify} from '@env'
+import {
+	pageURL_Sign_Login,
+	pageURL_Sign_ChoiceClassify,
+	pageURL_Sign_PE_FindID,
+	pageURL_Sign_PE_FindPwd
+} from '@env'
 import {goToURL} from '@handler'
+
 
 function Gnb() {
 
@@ -31,6 +37,9 @@ function Gnb() {
 	// 최상단 광고 팝업 창의 노출여부
 	const [adDP, setAdDP] = useState<boolean>(false)
 	// Sub menu 노출 여부, 나중에는 Local Storage 또는 Global Store에 저장해 놓고 써야 할 듯
+
+	const location = useLocation()
+	// console.log('gnb location', location.state)
 
 
 
@@ -54,7 +63,7 @@ function Gnb() {
 		// setMemberNumber('')
 		// setMemberId('yisiStory')
 		// setMemberType('')
-		setAdDP(true)
+		setAdDP(false)
 		// setSubMenu(false)
 	},[])
 
@@ -98,9 +107,9 @@ function Gnb() {
 					{(memberNumber == '') &&
 					<>
 						<SubInfoText>휴대전화번호로 회원 가입이 가능합니다. 회원가입 후 다양한 서비스를 받아보세요.</SubInfoText>
-						<SearchMyInfo>아이디찾기</SearchMyInfo>
+						<SearchMyInfo onClick={(e) => goToURL(e,pageURL_Sign_PE_FindID, navigate)}>아이디찾기</SearchMyInfo>
 						<SubMenuBar />
-						<SearchMyInfo>비밀번호 찾기</SearchMyInfo>
+						<SearchMyInfo onClick={(e) => goToURL(e,pageURL_Sign_PE_FindPwd, navigate)}>비밀번호 찾기</SearchMyInfo>
 						<SubButtonArea onClick={(e) => goToURL(e,pageURL_Sign_ChoiceClassify, navigate)}>
 							<ButtonRound title='회원가입' buttontype='special' />
 						</SubButtonArea>
@@ -254,6 +263,7 @@ const SearchMyInfo = styled.div`
 	color: var(--fontBasicColor);
 	font-weight: var(--fontWeightBold);
 	margin-right: 2rem;
+	cursor: pointer;
 `
 
 // 로그인 전 아이디 찾기 옆 세로라인

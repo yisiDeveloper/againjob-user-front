@@ -1,14 +1,69 @@
-interface checkedType {
-	isChecked: boolean,
-	alertMessage: string,
-	value: any
+import {commMessage, memberMessage} from '@env'
+
+/***************************************************************************
+	name: element 이름
+	value: element에 입력된 값
+	min: 최소 글자
+	max: 최대 글자
+	type: 어떤 종류의 입력 값인지
+		- email: 이메일 타입
+		- password: 비밀번호
+		- number: 숫자만 허용
+		- korean: 한글만 허용
+		- english: 영어만 허용
+ 		- name: 각종 이름 (한글, 영문만 허용)
+		- all: 모두 허용
+ 	return: isChecked: true | false
+ 			alertMessage: message를 string형태로 리턴
+ **************************************************************************/
+export default function comValidate(name: string, value: any, min: number, type:string) {
+
+	type resultType = {
+		isChecked: boolean,
+		alertMessage: string
+	}
+
+	let result: resultType = {isChecked: true, alertMessage: ''}
+	value = dataTrim(value)
+
+	// 최소 길이 체크
+	if(!minLengthCheck(value, min)) {
+		result = {isChecked: false, alertMessage: commMessage('CHAR_SIZE_CONSTRAINT', name, min).message}
+	} else {
+		// 이메일 형식 체크
+		if(type==='email') {
+			result = emailCheck(value, min)
+		}
+
+		if(type==='number') {
+			if(!onlyNum(value)) {
+				result = {isChecked: false, alertMessage: commMessage('ONLY_NUMBER', name).message}
+			}
+		}
+
+		// 비밀번호 체크
+		if(type==='password') {
+			result = pwdCheck(value, name, min)
+		}
+
+		// 각종 이름 체크, 영문, 한글만 가능
+		if(type==='name') {
+			// 숫자가 있는지 체크
+			if(checkNum(value)) {
+				result = {isChecked: false, alertMessage: commMessage('NEVER_NUMBER', name).message}
+			}
+		}
+	}
+
+	return result
 }
+
 
 
 /*
 이메일 체크
 */
-export function emailCheck(value: string, minLength: number): checkedType {
+export function emailCheck(value: string, minLength: number) {
 	let isChecked = false;
 	let alertMessage;
 
@@ -17,14 +72,14 @@ export function emailCheck(value: string, minLength: number): checkedType {
 	let spPattern = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
 
 	if(value.match(spPattern) === null) {
-		alertMessage = '이메일 형식이 올바르지 않습니다.';
+		alertMessage = commMessage('EMAIL_ADDRESS_INVALID').message
 	} else if (!minLengthCheck(value, minLength)) {
-		alertMessage = '이메일은 최소 5자 이상이어야 합니다.';
+		alertMessage = commMessage('CHAR_SIZE_CONSTRAINT','이메일', minLength).message
 	} else if (checkKor(value)) {
-		alertMessage = '이메일은 영문만 입력 가능합니다.';
+		alertMessage = commMessage('NEVER_KOREAN').message
 	} else {
-		isChecked = true;
-		alertMessage = '';
+		isChecked = true
+		alertMessage = ''
 	}
 
 	return { isChecked, alertMessage, value }
@@ -33,7 +88,7 @@ export function emailCheck(value: string, minLength: number): checkedType {
 /*
 일반적인 input box
 */
-export function inputCheck(value: any, minLength: number, inputName: string): checkedType {
+export function inputCheck(value: any, minLength: number, inputName: string) {
 	let isChecked = false;
 	let alertMessage = '';
 	// value = dataTrim(value);
@@ -44,7 +99,7 @@ export function inputCheck(value: any, minLength: number, inputName: string): ch
 		isChecked = true;
 	}
 
-	return { isChecked, alertMessage, value }
+	return { isChecked, alertMessage }
 }
 
 /*
@@ -91,15 +146,15 @@ export function changeDate(value: string): string {
 /*
 비밀번호 체크
 */
-export function pwdCheck(value: string, minLength: number, maxLength: number): checkedType {
-	let isChecked = checkPasswordPattern(value);
+export function pwdCheck(value: string, name: string, minLength: number) {
+	let isChecked = checkPasswordPattern(value, minLength, 20);
 	let alertMessage = '';
 	value = dataTrim(value);
 
 	if(!isChecked) {
-		alertMessage = '비밀번호는 최소 ' + minLength + '자 이상, 최대 ' + maxLength + '자 이하의 문자, 숫자, 특수문자로 구성해야 합니다.';
+		alertMessage = memberMessage('INVALID_PASSWORD', name).message;
 	} else if (value.indexOf(' ') > 0) {
-		alertMessage = '비밀번호에 공백을 포함할 수 없습니다.';
+		alertMessage = commMessage('INVALID_SPACE', name).message
 	}
 
 	return { isChecked, alertMessage, value }
@@ -111,15 +166,12 @@ export function pwdCheck(value: string, minLength: number, maxLength: number): c
 
 // 최소 입력길이 체크
 function minLengthCheck(value: any, minLength: number): boolean {
-	if(value.length < minLength) {
-		return false;
-	}
-	return true;
+	return dataTrim(value).length >= minLength
 }
 
 // 데이터 양쪽 공백제거
 function dataTrim(value: any): any {
-	return value.trim();
+	return value.trim()
 }
 
 // 숫자에 콤마찍기
@@ -131,20 +183,16 @@ export function addComma(value: number): string {
 // 한글 체크
 function checkKor(str: string): boolean {
 	const regExp = /[ㄱ-ㅎㅏ-ㅣ가-힣]/g;
-	if(regExp.test(str)){
-		return true;
-	}else{
-		return false;
-	}
+	return regExp.test(str);
 }
 
 // 비밀번호 패턴 체크 (8자 이상, 문자, 숫자, 특수문자 포함여부 체크)
-function checkPasswordPattern(str: string): boolean {
+function checkPasswordPattern(str: string, min: number, max: number): boolean {
 	var pattern1 = /[0-9]/;				// 숫자
 	var pattern2 = /[a-zA-Z]/;			// 문자
 	var pattern3 = /[~!@#$%^&*()_+|<>?:{}]/;	// 특수문자
 
-	if(!pattern1.test(str) || !pattern2.test(str) || !pattern3.test(str) || str.length < 8 || str.length > 20) {
+	if(!pattern1.test(str) || !pattern2.test(str) || !pattern3.test(str) || str.length < min || str.length > max) {
 		return false;
 	} else {
 		return true;
@@ -153,25 +201,24 @@ function checkPasswordPattern(str: string): boolean {
 
 
 
-// // 숫자 체크
-// function checkNum(str: number): boolean{
-//     const regExp = /[0-9]/g;
-//     if(regExp.test(str)){
-//         return true;
-//     }else{
-//         return false;
-//     }
-// }
+// 숫자가 있는지 체크
+function checkNum(str: any): boolean{
+    //  숫자가 있는지 체크
+	const regExp = /[0-9]/g
+    return regExp.test(dataTrim(str));
+}
 
-// // 영문(영어) 체크
-// function checkEng(str: string): boolean{
-//     const regExp = /[a-zA-Z]/g; // 영어
-//     if(regExp.test(str)){
-//         return true;
-//     }else{
-//         return false;
-//     }
-// }
+// 숫자만 체크
+function onlyNum(str: any): boolean{
+	const regExp = /^[0-9]+$/;
+	return regExp.test(dataTrim(str));
+}
+
+// 영문(영어) 체크
+function checkEng(str: string): boolean{
+    const regExp = /[a-zA-Z]/g; // 영어
+    return regExp.test(str);
+}
 
 // // 영문+숫자만 입력 체크
 // function checkEngNum(str: string): boolean{

@@ -1,9 +1,11 @@
-import React, {useEffect, useState} from 'react'
-import {makeTheConfirmValue} from './common'
+import React, {useState} from 'react'
+import {makeTheValue} from './common'
+import {comValidate} from './index'
+
 
 interface useFormPropType {
 	initialValues: object,
-	validate: Function
+	initialErrors: object
 }
 
 /****************************************************************************************
@@ -14,40 +16,53 @@ interface useFormPropType {
  *		validate: 해당 값을 체크하는 validation function
  *
  ***************************************************************************************/
-function useForm({ initialValues, validate }: useFormPropType) {
+function useForm({ initialValues, initialErrors }: useFormPropType) {
 
-	const [values, setValues] = useState(initialValues)
+	// 반환 타입에 대한 에러를 방지하고자 any로 선언
+	const [values, setValues] = useState<any>(initialValues)
 	// 모든 입력값 확인을 위해 기본적인 입력완료 confirm 값을 false로 만든다.
-	const [errors, setErrors] = useState<object>(makeTheConfirmValue(initialValues))
-	// const [isLoading, setIsLoading] = useState(false)
+	const [errors, setErrors] = useState<any>(makeTheValue(initialErrors, true))
+	// 에러가 발생할 경우 리턴할 메시지를 정의
+	const [messages, setMessage] = useState<any>(makeTheValue(initialValues,''))
 
-	const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+	// input, radio를 담당
+	const inputHandler = (e: React.ChangeEvent<HTMLInputElement>, min: number, type: string, elName ='') => {
 		e.preventDefault()
 		let {name, value} = e.target
-		// console.log(e.target)
+		value = value.trim()
 		// 해당 옵션에 따라 검사한다.
-		setValues({ ...values, [name]: value})
-		validate(values)
+		let result = comValidate(elName, value, min, type)
+		if(!result.isChecked) {
+			setErrors({...errors, [name]: true})
+			setMessage({...messages, [name]: result.alertMessage})
+		} else {
+			setErrors({...errors, [name]: false})
+			setMessage({...messages,[name]: ''})
+			setValues({ ...values, [name]: value})
+		}
 	}
 
+	// Checkbox는 boolean 형태로 넣어주고 별도 처리가 필요할 수 있어서 분리
 	const checkBoxHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
 		e.preventDefault()
 		let {name, checked} = e.target
 		setValues({...values, [name]: checked})
-		// 체크를 했다면 true를 체크를 해제했다면 false를 넣게됨
-		setErrors({...errors, [name]: checked})
 	}
 
-	useEffect(() => {
-		// 모든 값이 제대로 입력됐는지 확인을 위해 최초 한번 모든 항목에 대해 false를 넣어준다.
-
-	},[])
+	// 페이지 내 별도 처리를 위해 에러 메시지가 필요한 경우
+	const setErrorMessage = (e: React.SyntheticEvent, errorName: string, errorMessage:string) => {
+		e.preventDefault()
+		setErrors({...errors, [errorName]: true})
+		setMessage({...messages, [errorName]: errorMessage })
+	}
 
 	return {
 		values,
 		errors,
+		messages,
 		inputHandler,
-		checkBoxHandler
+		checkBoxHandler,
+		setErrorMessage
 	}
 }
 

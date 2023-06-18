@@ -1,20 +1,15 @@
 import React, {useCallback, useRef, useState} from 'react'
 import './sign.css'
-import {ButtonGeneral, CustomCheckBox, RegistLoginTitle} from '@components'
-import {
-	pageURL_Sign_CO_AgreePolicy,
-} from '@env'
+import {Alert, ButtonGeneral, CustomCheckBox, RegistLoginTitle} from '@components'
+import {memberMessage, pageURL_Sign_ChoiceChannel, pageURL_Sign_PE_Info} from '@env'
 import {useNavigate} from 'react-router-dom'
-import {goToURL, findValueInObject, makeTheConfirmValue, useForm} from '@handler'
-import {checkbox_checked, checkbox_uncheck} from '@assets'
-import SignValidate from './SignValidate'
+import {goToURL, findValueInObject, makeTheValue} from '@handler'
+
 
 function PePolicy() {
 
 	/****************************************************** common basic definition ***************************************************/
 	const navigate = useNavigate()
-
-
 
 	/****************************************************** 페이지 초기 값 세팅 ***************************************************/
 	// 모든 입력값의 초기값을 만든다.
@@ -26,15 +21,12 @@ function PePolicy() {
 
 	const [values, setValues] = useState(initialValues)
 	// 모든 입력값 확인을 위해 기본적인 입력완료 confirm 값을 false로 만든다.
-	const [errors, setErrors] = useState<object>(makeTheConfirmValue(initialValues))
+	const [errors, setErrors] = useState<object>(makeTheValue(initialValues, true))
+	const [alertDP, setAlertDP] = useState<boolean>(false)
 
 	const serviceRef = useRef<any>(null)
 	const privacyRef = useRef<any>(null)
 	const allRef = useRef<any>(null)
-
-	const checkValidate = () => {
-
-	}
 
 	// const {
 	// 	values,
@@ -46,78 +38,81 @@ function PePolicy() {
 	// })
 
 	/****************************************************** Handler ***************************************************/
-	const checkBoxHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
+	const checkBoxHandler = useCallback((e: React.ChangeEvent<HTMLInputElement>): void => {
 		e.preventDefault()
 		let {name, checked} = e.target
-		// console.log(name,checked)
-		setValues({...values, [name]: checked})
-		// 체크를 했다면 true를 체크를 해제했다면 false를 넣게됨
-		setErrors({...errors, [name]: checked})
+		let allCheck = values.all
 
-		// document.getElementsByName('all')[0].setAttribute('checked','true')
-		// console.log(document.getElementsByName('all')[0].getAttribute('checked'))
-		console.log(values.all)
-
-		// All check를 해야하는지 풀어야 하는지 확인
-		if(allRef.current) {
-			if(!checked) {
-				allRef.current.style.backgroundImage = `url(${checkbox_uncheck})`
+		// 체크가 true인 경우,
+		if(checked) {
+			// 다른 하나도 check true인지를 확인하여 all check가 되도록 함
+			(values.privacypolicy || values.servicepolicy) && allRef.current.click()
+			allCheck = true
+			// 경고문구 닫힘
+			setAlertDP(false)
+		} else {	// check가 false 인 경우
+			// 다른 하나가 만약 true라면 all check는 풀지만 기존 것은 유지되도록 해야 함
+			// all이 true라면 본래 모두가 true였다는 의미이므로
+			if(values.all) {
+				allRef.current.click()
+				allCheck = false
 			}
+			// 경고문구 노출
+			setAlertDP(true)
 		}
-	}
+		// 최종적으로 모든 값을 세팅
+		setValues({ ...values, [name]: checked, all: allCheck})
+		setErrors({...values, [name]: checked, all: allCheck})
+	}, [values, errors, alertDP])
 
-	const goNext = useCallback((e: React.MouseEvent<HTMLInputElement>) => {
-		e.preventDefault()
-		goToURL(e, pageURL_Sign_CO_AgreePolicy, navigate)
-	},[])
-
-
+	/**************************** all check handler *************************/
 	const allCheck = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
 		e.preventDefault()
 
-		// let serviceElement = document.getElementsByName('servicepolicy')[0], privacyElement = document.getElementsByName('privacypolicy')[0]
-
-		// click 이벤트를 발생시킨다. 이상하게도 맨 마지막 이벤트만 된다.
-		// 그럼에도 남겨놓는 이유는 실제 checkbox가 체크되도록 하기 위함이다.
-		serviceRef.current && serviceRef.current.click()
-		privacyRef.current && privacyRef.current.click()
-
 		if(e.target.checked) {
-			// 화면상 체크박스의 배경을 바꾼다.
-			serviceRef.current.style.backgroundImage = serviceRef.current && `url(${checkbox_checked})`
-			privacyRef.current.style.backgroundImage = serviceRef.current && `url(${checkbox_checked})`
+			// 이전 값에 따라서 체크한다.
+			!values.servicepolicy && serviceRef.current.click()
+			!values.privacypolicy && privacyRef.current.click()
+			// 실제 값을 세팅한다.
 			setValues({servicepolicy: true, privacypolicy: true, all: true})
-			setErrors({servicepolicy: true, privacypolicy: true, all: true})
-		} else {
-			// 화면상 체크박스의 배경을 바꾼다.
-			serviceRef.current.style.backgroundImage = serviceRef.current && `url(${checkbox_uncheck})`
-			privacyRef.current.style.backgroundImage = serviceRef.current && `url(${checkbox_uncheck})`
-			setValues({servicepolicy: false, privacypolicy: false, all: false})
 			setErrors({servicepolicy: false, privacypolicy: false, all: false})
+			// 경고문구 숨김
+			setAlertDP(false)
+		} else {
+			// 이전 값에 따라서 체크한다.
+			values.servicepolicy && serviceRef.current.click()
+			values.privacypolicy && privacyRef.current.click()
+			// 실제 값을 세팅한다.
+			setValues({servicepolicy: false, privacypolicy: false, all: false})
+			setErrors({servicepolicy: true, privacypolicy: true, all: true})
+			// 경고문구 노출
+			setAlertDP(true)
 		}
-	},[values, errors])
+	},[values, errors, alertDP])
 
-	const onSubmit = useCallback((e: React.SyntheticEvent) => {
+	/**************************** submit handler *******************/
+	const submitHandler = useCallback((e: React.SyntheticEvent) => {
 		e.preventDefault()
 		// 하나라도 false가 있는지 확인
-		console.log('최종 value',values)
-		console.log('최종 확인', errors)
-
-		// console.log(findValueInObject(errors, false))
-		findValueInObject(errors, false) ? alert('모든 약관에 동의하셔야 합니다.') : alert('모든 약관에 동의하셨습니다.')
-	},[errors, values])
+		// console.log('last value', values)
+		if(findValueInObject(errors, true)) {
+			setAlertDP(true)
+		} else {
+			goToURL(e, pageURL_Sign_PE_Info, navigate, values)
+		}
+	},[errors, values, alertDP])
 
 
 	return (
 		<div className={'signContainer'}>
-			<div className={'policyArea'}>
+			<section className={'policyArea'}>
 				<div className={'signTitleArea'}>
 					<RegistLoginTitle title={'회원가입'} />
 				</div>
 				<div className={'policyTitle'}>
 					이용약관 동의
 				</div>
-				<div className={'policyContent'}>
+				<article className={'policyContent'}>
 					<p>주식회사 XXX(이하"회사")는 이용자의 ‘동의를 기반으로 개인정보를 수집·이용 및 제공’하고 있으며, ‘이용자의 권리 (개인정보 자기결정권)를 적극적으로 보장’합니다. 회사는 정보통신서비스제공자가 준수하여야 하는 대한민국의 관계 법령 및 개인정보보호 규정, 가이드라인을 준수하고 있습니다. “개인정보처리방침”이란 이용자의 소중한 개인정보를 보호함으로써 이용자가 안심하고 서비스를 이용할 수 있도록 회사가 준수해야 할 지침을 의미합니다. 본 개인정보처리방침은 회사가 제공하는 XXX계정 기반의 서비스(이하 ‘서비스'라 함)에 적용됩니다.<br />
 						서비스 제공을 위한 필요 최소한의 개인정보를 수집하고 있습니다.회원 가입 시 또는 서비스 이용 과정에서 홈페이지 또는 개별 어플리케이션이나 프로그램 등을 통해 아래와 같은 서비스 제공을 위해 필요한 최소한의 개인정보를 수집하고 있습니다.</p>
 					<p>[XXX계정]필수이메일, 비밀번호, 이름(닉네임), 프로필사진, 친구목록, 전화번호(이용자의 경우에 한함), 연락처, 서비스 이용내역, 서비스 내 구매 및 결제 내역<br />
@@ -138,14 +133,14 @@ function PePolicy() {
 						•온·오프라인에서 진행되는 이벤트/행사 등 참여<br />
 						서비스 이용 과정에서 이용자로부터 수집하는 개인정보는 아래와 같습니다.PC웹, 모바일 웹/앱 이용 과정에서 단말기정보(OS, 화면사이즈, 디바이스 아이디, 폰기종, 단말기 모델명), IP주소, 쿠키, 방문일시, 부정이용기록, 서비스 이용 기록 등의 정보가 자동으로 생성되어 수집될 수 있습니다.<br />
 						서비스 간 제휴, 연계 등으로 제3자로부터 개인정보를 제공받고 있습니다.</p>
-				</div>
+				</article>
 				<div style={{marginBottom: '4rem'}}>
 					<CustomCheckBox name={'servicepolicy'} title={'이용약관에 동의합니다.'} defaultFlag={false} titleType={'loginForm'} onChangeHandler={checkBoxHandler} tagRef={serviceRef} />
 				</div>
 				<div className={'policyTitle'}>
 					개인정보처리방침(개인정보 수집 및 이용동의)
 				</div>
-				<div className={'policyContent'}>
+				<article className={'policyContent'}>
 					<p>주식회사 XXX(이하"회사")는 이용자의 ‘동의를 기반으로 개인정보를 수집·이용 및 제공’하고 있으며, ‘이용자의 권리 (개인정보 자기결정권)를 적극적으로 보장’합니다. 회사는 정보통신서비스제공자가 준수하여야 하는 대한민국의 관계 법령 및 개인정보보호 규정, 가이드라인을 준수하고 있습니다. “개인정보처리방침”이란 이용자의 소중한 개인정보를 보호함으로써 이용자가 안심하고 서비스를 이용할 수 있도록 회사가 준수해야 할 지침을 의미합니다. 본 개인정보처리방침은 회사가 제공하는 XXX계정 기반의 서비스(이하 ‘서비스'라 함)에 적용됩니다.<br />
 					서비스 제공을 위한 필요 최소한의 개인정보를 수집하고 있습니다.회원 가입 시 또는 서비스 이용 과정에서 홈페이지 또는 개별 어플리케이션이나 프로그램 등을 통해 아래와 같은 서비스 제공을 위해 필요한 최소한의 개인정보를 수집하고 있습니다.</p>
 					<p>[XXX계정]필수이메일, 비밀번호, 이름(닉네임), 프로필사진, 친구목록, 전화번호(이용자의 경우에 한함), 연락처, 서비스 이용내역, 서비스 내 구매 및 결제 내역<br />
@@ -166,22 +161,24 @@ function PePolicy() {
 					•온·오프라인에서 진행되는 이벤트/행사 등 참여<br />
 					서비스 이용 과정에서 이용자로부터 수집하는 개인정보는 아래와 같습니다.PC웹, 모바일 웹/앱 이용 과정에서 단말기정보(OS, 화면사이즈, 디바이스 아이디, 폰기종, 단말기 모델명), IP주소, 쿠키, 방문일시, 부정이용기록, 서비스 이용 기록 등의 정보가 자동으로 생성되어 수집될 수 있습니다.<br />
 					서비스 간 제휴, 연계 등으로 제3자로부터 개인정보를 제공받고 있습니다.</p>
-				</div>
+				</article>
 				<div style={{marginBottom: '4rem'}}>
 					<CustomCheckBox name={'privacypolicy'} title={'개인정보처리방침에 동의합니다.'} defaultFlag={false} titleType={'loginForm'} onChangeHandler={checkBoxHandler} tagRef={privacyRef} />
 				</div>
-				<div style={{marginBottom: '5rem',textAlign:'center', display:'flex', justifyContent:'center'}}>
+				<div style={{marginBottom: '1rem',textAlign:'center', display:'flex', justifyContent:'center'}}>
 					<CustomCheckBox name={'all'} title={'AgainJob 이용약관 및 개인정보처리방침에 모두 동의합니다.'} defaultFlag={false} titleType={'loginForm'} onChangeHandler={allCheck} tagRef={allRef} />
 				</div>
+				<Alert title={memberMessage('NEED_AGREE_ALLPOLICY').message} alertdisplay={alertDP} alertStyle={'text-align:center'} />
+				<div style={{marginBottom: '5rem'}}></div>
 				<div className={'buttonArea'}>
-					<div style={{marginRight: '3rem'}}>
+					<div style={{marginRight: '3rem'}} onClick={(e) => goToURL(e, pageURL_Sign_ChoiceChannel, navigate)}>
 						<ButtonGeneral title={'취소'} buttontype={'middle'} colortype={'cancel'} />
 					</div>
-					<div onClick={onSubmit}>
+					<div onClick={submitHandler}>
 						<ButtonGeneral title={'다음'} buttontype={'middle'} colortype={'default'} />
 					</div>
 				</div>
-			</div>
+			</section>
 		</div>
 	)
 }

@@ -8,7 +8,7 @@ interface Boxtype {
 	defaultFlag: boolean,
 	titleType: string,
 	onChangeHandler: any,
-	tagRef: MutableRefObject<any>
+	tagRef?: MutableRefObject<any> | null
 }
 function CustomCheckBox({
 	title,
@@ -21,6 +21,11 @@ function CustomCheckBox({
 
 	const [checked, setChecked] = useState<boolean>(defaultFlag)
 	// const checkRef = useRef<HTMLDivElement>(null)
+	// ref가 없는 경우를 대비한다.
+	const tempRef = useRef<any>()
+	if(!tagRef) {
+		tagRef = tempRef
+	}
 
 	const checkHandler = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
 		e.preventDefault()
@@ -37,8 +42,8 @@ function CustomCheckBox({
 	},[checked])
 
 	useEffect(() => {
-		if(tagRef.current) {
-			tagRef.current.style.backgroundImage = checked ? `url(${checkbox_checked})` : `url(${checkbox_uncheck})`
+		if(tagRef!.current) {
+			tagRef!.current.style.backgroundImage = checked ? `url(${checkbox_checked})` : `url(${checkbox_uncheck})`
 		}
 	},[checked])
 
@@ -47,7 +52,7 @@ function CustomCheckBox({
 			<CheckBox onClick={checkHandler} ref={tagRef} />
 			&nbsp;&nbsp;
 			{title}
-			<input type={'checkbox'} name={name} style={{display: 'block'}} checked={checked} onClick={onChangeHandler} readOnly />
+			<input type={'checkbox'} name={name} style={{display: 'none'}} checked={checked} onClick={onChangeHandler} readOnly />
 		</CheckboxArea>
 	)
 }
@@ -64,6 +69,10 @@ const CheckboxArea = styled.div<checkTitleType>`
 		switch (texttype) {
 			case 'loginForm':
 				return css`font-size: 1.3rem; font-weight: var(--fontWeightMiddle); color: var(--fontBasicColor)`
+				break;
+			case 'register':
+				return css`font-size: 1.6rem; font-weight: var(--fontWeightMiddle);color: var(--fontBasicColor)`
+				break;
 			default:
 				return css`font-size: 1.3rem;`
 			}

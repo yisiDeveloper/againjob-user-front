@@ -16,11 +16,15 @@ export {
 } from './storageHandler'
 
 export { default as useForm } from './useForm'
-export { inputCheck } from './checkData'
+export { default as comValidate } from './comValidate'
 export {
 	getParams,
 	blockEnterKey,
 	goToURL,
-	makeTheConfirmValue,
-	findValueInObject
+	makeTheValue,
+	findValueInObject,
+	createFormData,
+	popupClose,
+	checkRequiredKeyValue,
+	findKeyInObjectByValue
 } from './common'

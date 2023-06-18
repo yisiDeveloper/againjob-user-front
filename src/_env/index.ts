@@ -3,7 +3,9 @@ export {
 	authMessage,
 	commMessage,
 	fileMessage,
-	memberMessage
+	memberMessage,
+	errorMessage,
+	infoMessage
 } from './msgDefine'
 
 /*********************************** API URL *******************************/
@@ -25,7 +27,16 @@ export {
 	pageURL_Sign_PE_AgreePolicy,
 	pageURL_Sign_CO_AgreePolicy,
 	pageURL_Sign_PE_Info,
-	pageURL_Sign_CO_Info
+	pageURL_Sign_CO_Info,
+	pageURL_Sign_Complete,
+	pageURL_ERROR_NotiForCS,
+	pageURL_Sign_PE_FindID,
+	pageURL_Sign_CO_FindID,
+	pageURL_Sign_PE_FindPwd,
+	pageURL_Sign_CO_FindPwd,
+	pageURL_Member_WithdrawComplete,
+	pageURL_Member_WithdrawPolicy,
+	pageURL_Sign_ChangeTempPwd
 } from './pageURL'
 
 export {

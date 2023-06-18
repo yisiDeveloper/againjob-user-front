@@ -10,23 +10,12 @@
 	justify-content: center;
 }
 
-.signContainer > section {
-	width: 40rem;
-}
-
 .signTitleArea {
 	margin: 4rem 0 4rem 0;
 }
 
 
 /************************** 로그인 *******************************/
-.alertArea {
-	padding: var(--paddingAlertBasic);
-	/*border: 1px solid red;*/
-	margin-bottom: 3rem;
-	display: none;
-}
-
 .loginSubMenuArea {
 	display: flex;
 	justify-content: center;
@@ -111,4 +100,105 @@
 	display: flex;
 	justify-content: center;
 	margin-bottom: 4rem;
+}
+
+/************************** 개인회원/기업회원 정보입력 *******************************/
+.infoArea {
+	width: 40rem;
+	/*border: 1px solid red;*/
+}
+
+.loginType {
+	font-weight: var(--fontWeightMiddle);
+	color: var(--fontBasicColor);
+	padding-left: 0.5rem;
+}
+
+.mobileArea {
+	display: flex;
+	align-items: center;
+}
+
+.hyphen {
+	text-align: center;
+	width: 3.5rem;
+	margin-top: 2.5rem;
+}
+
+.btnArea {
+	margin-top: 2.5rem;
+	margin-left: 1rem;
+	padding-top: 0.2rem;
+	width: 12rem;
+	height: 3.5rem;
+	text-align: center;
+	border-radius: var(--radiusBasic);
+	background-color: var(--bgBtnBasic);
+	cursor: pointer;
+	display: inline-block;
+}
+
+.btnDisabledArea {
+	display: inline-block;
+	margin-top: 2.5rem;
+	margin-left: 1rem;
+	padding-top: 0.2rem;
+	width: 12rem;
+	height: 3.5rem;
+	text-align: center;
+	border-radius: var(--radiusBasic);
+	background-color: var(--bgBtnDisabled);
+}
+
+
+/************************** 가입완료 *******************************/
+.signEndUserName {
+	font-size: 4.8rem;
+	margin-top: 15rem;
+	font-weight: var(--fontWeightBold);
+	text-align: center;
+	margin-bottom: 6rem;
+}
+
+.signEndResult {
+	font-size: 4rem;
+	font-weight: var(--fontWeightBold);
+	text-align: center;
+	margin-bottom: 3rem;
+}
+
+.signEndInfo {
+	font-size: 2rem;
+	font-weight: var(--fontWeightMiddle);
+	text-align: center;
+	margin-bottom: 10rem;
+}
+
+.signEndBtnArea {
+	display: flex;
+	justify-content: center;
+}
+
+
+/************************** 아이디찾기/비밀번호 찾기 *******************************/
+.findIdPwdTabBasic {
+	font-size: 2rem;
+	font-weight: var(--fontWeightBold);
+	height: 4.5rem;
+	text-align: center;
+	display: inline-block;
+	width: 20rem;
+	/*border: 1px solid red;*/
+	margin-bottom: 6rem;
+}
+
+.findIdPwdFocus {
+	color: var(--paginnationLineFocus);
+	border-bottom: 0.05rem solid #333742;
+}
+
+.findIdPwdNotFocus {
+	color: var(--fontListSubInfoTitle);
+	border-bottom: 0.05rem solid var(--paginationLineBasic);
+	cursor: pointer;
 }

@@ -29,10 +29,22 @@ export { default as IconRound_ForMain } from './icon/IconRound_ForMain'
 
 /************************** Title *******************************/
 export { default as RegistLoginTitle } from './title/RegistLoginTitle'
-export { default as InputWithTitle } from './input/InputWithTitle'
+export { default as InputWithoutAlert } from './input/InputWithoutAlert'
+export { default as InputWithAlert } from './input/InputWithAlert'
 
 /************************** Checkbox *******************************/
 export { default as CustomCheckBox } from './checkbox/CustomCheckBox'
+
+/************************** Radio *******************************/
+export { default as CustomRadio } from './radio/CustomRadio'
+
+/************************** Alert *******************************/
+export { default as Alert} from './alert/Alert'
+export { default as Popup } from './alert/Popup'
+export { default as InfoAlert} from './alert/InfoAlert'
+
+/************************** dropdown *******************************/
+export { default as Dropdown} from './dropdown/Dropdown'
 
 
 /************************** Editor *******************************/

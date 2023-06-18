@@ -218,9 +218,9 @@
 	/*border: 1px solid red;*/
 }
 
-.workTable > tr > td {
+.workTable > tbody > tr > td {
 	font-size: 1.2rem;
-	font-weight: var(--fontWeightBold);
+	font-weight: var(--fontWeightMiddle);
 }
 
 .workTable > tr > td:first-child {
