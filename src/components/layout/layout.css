@@ -1,0 +1,200 @@
+@charset "utf-8";
+
+/****************************************** GNB 영역 **********************************************/
+.gnbArea {
+    width: 100%;
+    height: 6.5rem;
+    background-color: var(--comMainColor);
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.gnbWrap {
+    width: var(--comContainerSize);
+    display: flex;
+    justify-content: flex-start;
+}
+
+.cIWrap {
+    width: 22rem;
+    height: 100%;
+    font-size: 2rem;
+    color: #fff;
+    padding-left: 3rem;
+    padding-top: 1.5rem;
+    /*border: 1px solid yellow;*/
+}
+
+.MenuWrap {
+                 width: 84rem;
+height: 100%;
+//border: 1px solid orange;
+display: flex;
+justify-content: flex-start;
+align-items: center;
+}
+
+.subMenuIconWrap {
+    width: 8rem;
+    height: 100%;
+    /*border: 1px solid blue;*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/****************************************** Sub 영역 공통 **********************************************/
+.subWrap {
+    width: var(--comContainerSize);
+    /*border: 1 px solid dodgerblue;*/
+    height: 5rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+/****************************************** Sub 영역 로그인 전 **********************************************/
+/* 로그인 전 안내문구*/
+.subInfoText  {
+    font-size: 1.4rem;
+    color: var(--fontBasicColor);
+    font-weight: var(--fontWeightBold);
+    padding-left: 4.5rem;
+    flex-grow: 1;
+}
+
+/*로그인 전 아이디 찾기, 비밀번호 찾기*/
+.subFindIDPwd {
+    font-size: 1.2rem;
+    color: var(--fontBasicColor);
+    font-weight: var(--fontWeightBold);
+    margin-right: 2rem;
+}
+
+/*로그인 전 아이디 찾기 옆 세로라인*/
+.subMenuBar {
+    width: 0.05rem;
+    height: 1rem;
+    background-color: #BAC9D1;
+    margin-right: 2rem;
+}
+
+.subButtonArea {
+    margin-right: 1.5rem;
+    cursor: pointer;
+}
+
+/****************************************** Sub 영역 개인 **********************************************/
+.subMenuPeople {
+    font-size: var(--fontSizeSub);
+    font-weight: var(--fontWeightBold);
+    color: var(--fontBasicColor);
+    margin-right: var(--marginRightSubMenu);
+    white-space: nowrap;
+}
+/****************************************** 배너/중요 공지사항 영역 **********************************************/
+/* 배너/중요 공지사항의 컨텐츠 영역 */
+.adContentarea {
+    width: calc(var(--comContainerSize) - 8rem);
+    height: 100%;
+    /*border: 1px solid red;*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--fontWhiteColor);
+    font-size: 30px;
+}
+
+/* 배너/중요 공지사항의 close button */
+.adContentCloseButton {
+    width: 10rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/************************** Footer *******************************/
+.footerContainer {
+    width: 100%;
+    height: 15rem;
+    background-color: #fff;
+    /*border-top: 1px solid #BAC9D1;*/
+    display: flex;
+    justify-content: center;
+}
+
+.footerWrap {
+    width: var(--comContainerSize);
+    display: flex;
+    justify-content: flex-start;
+    /*border: 1px solid red;*/
+}
+
+.ciWrap {
+    width: 18rem;
+    display: flex;
+    padding-left: 1rem;
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--fontBasicColor);
+    align-items: center;
+    /*border: 1px solid dodgerblue;*/
+}
+
+.footerContentWrap {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    /*border: 1px solid darkolivegreen;*/
+}
+
+.footerMenuWrap {
+    display: flex;
+    /*border: 1px solid darkolivegreen;*/
+    margin-top: 4rem;
+    margin-bottom: 3rem;
+    align-items: center;
+}
+
+.footerMenu {
+    font-size: var(--fontSizeFooterText);
+    font-weight: var(--fontWeightMiddle);
+    color: #798F9A;
+}
+
+.footerMenuBar {width: 0.01rem;
+    background-color: #798F9A;
+    height: 1rem;
+    margin-right: 1.5rem;
+    margin-left: 1.5rem;
+}
+
+.footerInfo {
+    width: 100%;
+    font-size: var(--fontSizeFooterText);
+    font-weight: var(--fontWeightBasic);
+    /*border: 1px solid red;*/
+    line-height: 1;
+    padding-bottom: 1rem;
+}
+
+.newsletterWrap {
+    width: 25rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*border: 1px solid yellowgreen;*/
+}
+
+.newsletterButton {
+    border-radius: 2rem;
+    width: 14.6rem;
+    height: 3.8rem;
+    color: #fff;
+    background-color: #45AD70;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: var(--fontWeightMiddle);
+    cursor: pointer;
+}
