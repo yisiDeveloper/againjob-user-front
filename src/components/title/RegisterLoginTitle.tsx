@@ -6,7 +6,7 @@ interface TitleType {
 	title: string
 }
 
-function RegistLoginTitle({
+function RegisterLoginTitle({
 	title
 }:TitleType) {
 
@@ -17,4 +17,4 @@ function RegistLoginTitle({
 	)
 }
 
-export default React.memo(RegistLoginTitle)
+export default React.memo(RegisterLoginTitle)

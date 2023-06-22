@@ -1,0 +1,15 @@
+@charset "utf-8";
+
+/************************** 공통 정의 *******************************/
+.blankDiv {
+	flex-grow: 1;
+}
+
+.policyHistory {
+	width: 20rem;
+	float: left;
+	/*border: 1px solid red;*/
+}
+.policyHistory > div {
+	height: 0rem;
+}

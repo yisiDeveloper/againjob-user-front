@@ -1,15 +1,14 @@
 import React, {useCallback, useRef, useState} from 'react'
-import {Alert, ButtonGeneral, CustomCheckBox, InputWithAlert, RegistLoginTitle} from '@components'
+import {Alert, ButtonGeneral, CustomCheckBox, InputWithAlert, RegisterLoginTitle} from '@components'
 import './sign.css'
 import styled from 'styled-components'
 import {pageURL_Sign_ChoiceChannel} from '@env'
-import {goToURL} from '@handler'
-import {useNavigate} from 'react-router-dom'
+import {useNavigation} from '@hook'
 
 function Login() {
 
 	/****************************************************** common basic definition ***************************************************/
-	const navigate = useNavigate()
+	const {goToURL} = useNavigation()
 
 	/****************************************************** contents initialization or definition ***************************************************/
 	const [values, setValues] = useState({userID: '', userPwd: '', saveId: false})
@@ -47,7 +46,7 @@ function Login() {
 			<section>
 				<form name={'loginForm'}>
 					<div className={'signTitleArea'}>
-						<RegistLoginTitle title={'로그인'} />
+						<RegisterLoginTitle title={'로그인'} />
 					</div>
 					<div className={'emptyDivHeight'} />
 					<div>
@@ -89,7 +88,7 @@ function Login() {
 						<SubMenuBar />
 						<div className={'loginSubMenu'}>비밀번호 찾기</div>
 						<SubMenuBar />
-						<div onClick={(e) => goToURL(e, pageURL_Sign_ChoiceChannel, navigate)} className={'loginSubMenu'}>회원가입</div>
+						<div onClick={(e) => goToURL(e, pageURL_Sign_ChoiceChannel)} className={'loginSubMenu'}>회원가입</div>
 					</div>
 					<div className={'naverLogin'}>네이버 로그인</div>
 					<div className={'kakaoLogin'}>카카오 로그인</div>

@@ -5,7 +5,7 @@ import {overrideTypeScript} from '@craco/craco/dist/lib/features/webpack/typescr
 import {Alert} from '@components'
 
 interface inputType {
-    title: string,
+    title?: string|null,
     titleDP: boolean,
     placeholder: string,
     name: string,
@@ -32,7 +32,16 @@ function InputWithAlert({
     return (
         <div className={'inputArea'}>
             <TitleArea titledp={titleDP.toString()}><div className={'inputTitle'}>{title}</div></TitleArea>
-            <input type={type} name={name} placeholder={placeholder} maxLength={max} onChange={onchange} disabled={disabled} />
+            <input
+                type={type}
+                name={name}
+                placeholder={placeholder}
+                maxLength={max}
+                onChange={onchange}
+                disabled={disabled}
+                defaultValue={value!}
+                // onKeyDown={onkeydown}
+            />
             {message && <Alert title={message} alertdisplay={true} />}
         </div>
     )

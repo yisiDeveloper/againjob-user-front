@@ -1,17 +1,13 @@
 import React, {useState} from 'react'
 import './error.css'
 import {errorMessage, pageURL_Sign_Login} from '@env'
-import {useLocation, useNavigate} from 'react-router-dom'
 import {ButtonGeneral} from '@components'
-import {goToURL} from '@handler'
+import {useNavigation} from '@hook'
 
 function NotiForCS() {
 
 	/****************************************************** common basic definition ***************************************************/
-	const navigate = useNavigate()
-	const location = useLocation()
-	// const propState = location.state
-	const propState = {...location.state}
+	const { goToURL, propState } = useNavigation()
 
 	// console.log('CS Page Props',propState)
 	/****************************************************** contents initialization or definition ***************************************************/
@@ -29,7 +25,7 @@ function NotiForCS() {
 				</article>
 				<div className={'errorBtnArea'}>
 					<div className={'errorBtn'}
-						 onClick={(e) => goToURL(e, '/', navigate)}
+						 onClick={(e) => goToURL(e, '/')}
 					>
 						<ButtonGeneral
 							title={'홈으로 가기'}
@@ -38,7 +34,7 @@ function NotiForCS() {
 						/>
 					</div>
 					<div className={'errorBtn'}
-						 onClick={(e) => goToURL(e, pageURL_Sign_Login, navigate)}
+						 onClick={(e) => goToURL(e, pageURL_Sign_Login)}
 					>
 						<ButtonGeneral
 							title={'로그인'}

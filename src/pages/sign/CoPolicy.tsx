@@ -1,15 +1,15 @@
 import React, {useCallback, useRef, useState} from 'react'
 import './sign.css'
-import {Alert, ButtonGeneral, CustomCheckBox, RegistLoginTitle} from '@components'
+import {Alert, ButtonGeneral, CustomCheckBox, RegisterLoginTitle} from '@components'
 import {memberMessage, pageURL_Sign_ChoiceChannel, pageURL_Sign_CO_Info} from '@env'
-import {useNavigate} from 'react-router-dom'
-import {goToURL, findValueInObject, makeTheValue} from '@handler'
+import {findValueInObject, makeTheValue} from '@handler'
+import {useNavigation} from '@hook'
 
 
 function CoPolicy() {
 
     /****************************************************** common basic definition ***************************************************/
-    const navigate = useNavigate()
+    const {goToURL} = useNavigation()
 
     /****************************************************** 페이지 초기 값 세팅 ***************************************************/
         // 모든 입력값의 초기값을 만든다.
@@ -98,7 +98,7 @@ function CoPolicy() {
         if(findValueInObject(errors, true)) {
             setAlertDP(true)
         } else {
-            goToURL(e, pageURL_Sign_CO_Info, navigate, values)
+            goToURL(e, pageURL_Sign_CO_Info, values)
         }
     },[errors, values, alertDP])
 
@@ -107,7 +107,7 @@ function CoPolicy() {
         <div className={'signContainer'}>
             <section className={'policyArea'}>
                 <div className={'signTitleArea'}>
-                    <RegistLoginTitle title={'회원가입'} />
+                    <RegisterLoginTitle title={'회원가입'} />
                 </div>
                 <div className={'policyTitle'}>
                     이용약관 동의
@@ -171,7 +171,7 @@ function CoPolicy() {
                 <Alert title={memberMessage('NEED_AGREE_ALLPOLICY').message} alertdisplay={alertDP} alertStyle={'text-align:center'} />
                 <div style={{marginBottom: '5rem'}}></div>
                 <div className={'buttonArea'}>
-                    <div style={{marginRight: '3rem'}} onClick={(e) => goToURL(e, pageURL_Sign_ChoiceChannel, navigate)}>
+                    <div style={{marginRight: '3rem'}} onClick={(e) => goToURL(e, pageURL_Sign_ChoiceChannel)}>
                         <ButtonGeneral title={'취소'} buttontype={'middle'} colortype={'cancel'} />
                     </div>
                     <div onClick={submitHandler}>

@@ -27,7 +27,7 @@ input::placeholder {
 }
 
  input:focus {
- 		border-bottom: var(--inputLineWeight) solid var(--inputLineFocus);
+ 	border-bottom: var(--inputLineWeight) solid var(--inputLineFocus);
   	/* border 두께가 변경되면서 글자가 움직이는 현상을 잡기 위함 */
   	/* margin: -0.3px; */
   }
@@ -36,3 +36,31 @@ input::placeholder {
 	width: 100%;
 }
 
+.inputAreaForSearch {
+	width: 40rem;
+	margin-left: 3rem;
+	/*border: 1px solid red;*/
+}
+
+.inputForSearch {
+	outline: none;
+	border: 0;
+	font-family: "Noto Sans KR", sans-serif;
+	height: 6rem;
+	width: 100%;
+	color: var(--fontUserWriteColor);
+	font-size: var(--fontSizePageSearch);
+	padding-left: var(--paddingInputBasic);
+	/* iOS에서 모서리가 둥글게 나오는 현상 해결
+	-webkit-appearance: none;
+	-webkit-border-radius: var(--radiusBasic);
+	*/
+}
+
+.inputForSearch:focus {
+	border: 0;
+}
+
+.inputForSearch::placeholder {
+	font-size: var(--fontSizePageSearch);
+}

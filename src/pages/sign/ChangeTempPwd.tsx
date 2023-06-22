@@ -1,18 +1,16 @@
 import React, {useCallback, useEffect, useState} from 'react'
-import {useNavigate} from 'react-router-dom'
-import {findKeyInObjectByValue, findValueInObject, goToURL, useForm} from '@handler'
+import {findKeyInObjectByValue, findValueInObject} from '@handler'
 import {
 	commMessage,
-	memberMessage,
-	pageURL_Sign_ChoiceClassify,
-	pageURL_Sign_PE_FindID
+	memberMessage
 } from '@env'
-import {Alert, ButtonGeneral, Dropdown, InfoAlert, InputWithAlert, RegistLoginTitle} from '@components'
+import {Alert, ButtonGeneral, InfoAlert, InputWithAlert, RegisterLoginTitle} from '@components'
+import {useForm, useNavigation} from '@hook'
 
 function ChangeTempPwd() {
 
 	/****************************************************** common basic definition ***************************************************/
-	const navigate = useNavigate()
+	const { goToURL } = useNavigation()
 
 	/****************************************************** contents initialization or definition ***************************************************/
 		// 찾기 결과가 없는 경우를 위한 Error Message DP
@@ -80,7 +78,7 @@ function ChangeTempPwd() {
 		<div className={'signContainer'}>
 			<section className={'infoArea'}>
 				<article className={'signTitleArea'}>
-					<RegistLoginTitle title={'임시 비밀번호 변경'} />
+					<RegisterLoginTitle title={'임시 비밀번호 변경'} />
 				</article>
 				<div className={'emptyDivHeight'} />
 				<InputWithAlert
@@ -126,7 +124,7 @@ function ChangeTempPwd() {
 					/>
 				</div>
 				<div style={{textAlign:'center'}}>
-					<div style={{marginBottom: '2rem', display:'inline-block'}} onClick={(e) => goToURL(e, '/', navigate)}>
+					<div style={{marginBottom: '2rem', display:'inline-block'}} onClick={(e) => goToURL(e, '/')}>
 						<ButtonGeneral buttontype={'middle'} title={'취소'} colortype={'cancel'} />
 					</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<div style={{marginBottom: '2rem', display: 'inline-block'}}

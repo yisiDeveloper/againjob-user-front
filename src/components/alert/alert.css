@@ -35,18 +35,6 @@
 	line-height: 20px;
 }
 
-.comBG {
-	background-color: var(--bgPopup);
-	opacity: var(--opacityPopupBg);
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	z-index: 1;
-}
-
-
 /************************** Info Message *******************************/
 .infoMessageArea {
 	color: var(--fontInfoColor);

@@ -27,12 +27,12 @@
 }
 
 .MenuWrap {
-                 width: 84rem;
-height: 100%;
-//border: 1px solid orange;
-display: flex;
-justify-content: flex-start;
-align-items: center;
+    width: 84rem;
+    height: 100%;
+    /*border: 1px solid orange;*/
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 .subMenuIconWrap {
@@ -65,11 +65,12 @@ align-items: center;
 }
 
 /*로그인 전 아이디 찾기, 비밀번호 찾기*/
-.subFindIDPwd {
+.searchMyInfo {
     font-size: 1.2rem;
     color: var(--fontBasicColor);
     font-weight: var(--fontWeightBold);
     margin-right: 2rem;
+    cursor: pointer;
 }
 
 /*로그인 전 아이디 찾기 옆 세로라인*/
@@ -161,6 +162,7 @@ align-items: center;
     font-size: var(--fontSizeFooterText);
     font-weight: var(--fontWeightMiddle);
     color: #798F9A;
+    cursor: pointer
 }
 
 .footerMenuBar {width: 0.01rem;

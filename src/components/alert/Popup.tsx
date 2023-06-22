@@ -18,7 +18,7 @@ function Popup({
    okFunc,
    cancelFunc,
    bgFunc,
-   popupType = null
+   popupType
 }: PopupProps) {
 
 	let tempMargin = window.innerHeight
@@ -34,7 +34,7 @@ function Popup({
 						<img src={popup_CLoseButton} alt='close '/>
 					</p>
 				</div>
-				<div className={'popContent'}>
+				<div className={'p opContent'}>
 					{popMsg.message}
 				</div>
 				<div style={{textAlign: 'center'}}>
@@ -55,6 +55,7 @@ function Popup({
 type wrapType = {
 	topmargin: number
 }
+
 const PopWrap = styled.section<wrapType>`
 	min-width: var(--widthPopupMin);
 	max-width: var(--widthPopupMax);
@@ -68,6 +69,6 @@ const PopWrap = styled.section<wrapType>`
 	top: ${props => props.topmargin}px;
 	flex-direction: column;
 	padding: 2.8rem;
-`;
+`
 
 export default React.memo(Popup)

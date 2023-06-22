@@ -35,6 +35,8 @@ export const commMessage = (code: string, name: string = '', min: string|number 
 			return {title: '알림', message: '한글만 입력 가능합니다.'}
 		case 'NEVER_KOREAN':
 			return {title: '알림', message: '한글을 사용할 수 없습니다.'}
+		case 'NEVER_SPECIAL_CHAR':
+			return {title: '알림', message: '특수문자는 허용되지 않습니다.'}
 		case 'ONLY_NUMBER':
 			return {title: '알림', message: name + ' 숫자만 입력 가능합니다.'}
 		case 'NEVER_NUMBER':
@@ -51,7 +53,7 @@ export const commMessage = (code: string, name: string = '', min: string|number 
 			return {title: '확인', message: '삭제하시겠습니까?'}
 		case 'CONFIRM_MODIFY':
 			return {title: '확인', message: '수정하시겠습니까?'}
-		case 'REGIST_COMPLETE':
+		case 'REGISTER_COMPLETE':
 			return {title: '알림', message: '등록되었습니다.'}
 		case 'MODIFY_COMPLETE':
 			return {title: '알림', message: '수정되었습니다.'}
@@ -163,6 +165,8 @@ export const infoMessage = (code: string): Message => {
 			return {title: '알림', message: '회원가입 시 등록하신 이메일로 임시 비밀번호를 발급해 드립니다.\n 임시 비밀번호는 1시간 동안만 사용 가능합니다.'}
 		case 'CHANGE_TEMP_PASSWORD':
 			return {title: '알림', message: '새로운 비밀번호는 대/소문자를 구별하며 영어, 숫자, 특수문자를 포함한 8자 이상 20자 이하로 입력해주세요.'}
+		case 'NEWSLETTER_INFO':
+			return {title: '알림', message: '뉴스레터 신청 취소는 발송되는 뉴스레터 링크 또는 팝업 상단의 뉴스레터 취소 메뉴에서 가능합니다.'}
 		default:
 			return {title: '주의', message: '알수없는 에러가 발생했습니다.\n아래의 코드와 함께 관리자에게 문의해주세요.\nERR_CODE:' + code}
 	}

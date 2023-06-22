@@ -36,23 +36,24 @@ export {
 	pageURL_Sign_CO_FindPwd,
 	pageURL_Member_WithdrawComplete,
 	pageURL_Member_WithdrawPolicy,
-	pageURL_Sign_ChangeTempPwd
+	pageURL_Sign_ChangeTempPwd,
+	pageURL_Policy_Service,
+	pageURL_Policy_Privacy,
+	pageURL_CS_NoticeList,
+	pageURL_CS_NoticeDetail,
+	pageURL_CS_Faq,
+	pageURL_CS_QnaList,
+	pageURL_CS_QnaDetail,
+	pageURL_CS_QnaRegister
 } from './pageURL'
 
 export {
-	tokenExpireDay,
-	maxFileSize,
-	fileTypes,
-	cookieExpireDay,
-	acTokenName,
-	rfTokenName,
-	authName
+	tokenExpireDay, cookieExpireDay, acTokenName, rfTokenName, authName,
+	maxFileSize, fileTypes,
+	noticeListOnePageSize, noticeListPageBlockSize
 } from './common'
 
 /*********************************** type *******************************/
-// export type {
-// 	alertControlType,
-// 	FileInfoType,
-// 	RequestFileInfoType,
-// 	RequestCommentType
-// } from './type'
+export type {
+	noticeType
+} from './type'

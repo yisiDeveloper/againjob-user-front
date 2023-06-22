@@ -15,16 +15,16 @@ export {
 	removeAllLocalItem
 } from './storageHandler'
 
-export { default as useForm } from './useForm'
 export { default as comValidate } from './comValidate'
 export {
 	getParams,
 	blockEnterKey,
-	goToURL,
 	makeTheValue,
 	findValueInObject,
 	createFormData,
 	popupClose,
 	checkRequiredKeyValue,
-	findKeyInObjectByValue
+	findKeyInObjectByValue,
+	calcPaginationData,
+	makePageBlock
 } from './common'

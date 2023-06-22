@@ -1,5 +1,4 @@
 import React from 'react'
-import {pageURL_ERROR_NotiForCS} from '@env'
 
 /**************************************************************************************
  *
@@ -23,16 +22,6 @@ export function blockEnterKey (): void {
 			event.preventDefault();
 		}
 	})
-}
-
-/**************************************************************************************
- *
- * 	특정 링크로 보낸다~~~
- *
- **************************************************************************************/
-export function goToURL (e: React.SyntheticEvent, URL: string, navigate: any, state: string|object|null = ''){
-	e.preventDefault()
-	navigate(URL, {replace: true, state: state})
 }
 
 /**************************************************************************************
@@ -138,7 +127,7 @@ export function popupClose (e: any, setPopDP: React.Dispatch<React.SetStateActio
  * 	오브젝트에 특정 키가 특정 값을 기지고 있는지 확인하여 없다면 에러 페이지로 보낸다.
  *
  **************************************************************************************/
-export function checkRequiredKeyValue (state: object, key:string, value:any, navigate: any, errorCode:string): void {
+export function checkRequiredKeyValue (state: object, key:string, value:any, navigate: any, errorCode:string): boolean {
 
 	// 이름과 값을 가져온다.
 	let tmpKeys = Object.keys(state)
@@ -157,5 +146,56 @@ export function checkRequiredKeyValue (state: object, key:string, value:any, nav
 	}
 	// console.log('result', result)
 	// 아예 값이 없거나 해당 값이 다르면 error페이지로
-	!result && navigate(pageURL_ERROR_NotiForCS, {replace: true, tmpState})
+	return result
+		// && navigate(pageURL_ERROR_NotiForCS, {replace: true, state: tmpState})
+}
+
+
+/**************************************************************************************
+ *
+ *	Pagination의 페이지를 계산해주는 공식
+ *
+ **************************************************************************************/
+export function calcPaginationData (currentPage: number, pageSize:number, pageBlockSize: number, totalCounts: number) {
+
+	// 전체 페이지를 계산
+	let totalPages = Math.ceil(totalCounts/pageSize)
+
+	// 페이지 블록을 계산한다. 나머지가 있는 경우 무조건 올림을 해서 페이지 블록을 만든다.
+	let totalPageBlock = Math.ceil(totalPages/pageBlockSize)
+	let currentPageBlock = Math.ceil(currentPage/pageBlockSize)
+	// 현재 페이지블록의 시작과 끝을 만든다.
+	let startPage = currentPageBlock * pageBlockSize - pageBlockSize + 1
+	let lastPage = currentPageBlock * pageBlockSize
+
+	// 만약 마지막 페이지가 전체 마지막 페이지보다 크다면 마지막 페이지를 최종 페이지로 계산
+	if(lastPage > totalPages) {
+		lastPage = totalPages
+	}
+
+	return {
+		totalPages,				// 전체 페이지 수
+		totalPageBlock,		// 페이지 블록 개수
+		currentPageBlock,	// 현재 페이지 블록 위치
+		startPage,				// 현재 페이지 블록의 시작 페이지 번호
+		lastPage					// 현재 페이지 블록의 끝 페이지 번호
+	}
+}
+
+/**************************************************************************************
+ *
+ *	현재 페이지의 블록을 만든다.
+ *
+ **************************************************************************************/
+export function makePageBlock (currentPage:number, startpage: number, lastpage: number) {
+
+	let currentPageFlag:boolean
+	let tmp:object[] = []
+
+	for(let i=startpage; i <= lastpage; i++) {
+		currentPageFlag = (i === currentPage)
+		tmp = [...tmp, {page: i, pageFlag: currentPageFlag}]
+	}
+
+	return tmp
 }

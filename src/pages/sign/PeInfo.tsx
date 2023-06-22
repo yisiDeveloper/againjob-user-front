@@ -1,24 +1,22 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react'
 import './sign.css'
-import {useLocation, useNavigate} from 'react-router-dom'
 import {
 	Alert,
 	ButtonGeneral,
 	CustomCheckBox,
 	CustomRadio,
-	RegistLoginTitle,
+	RegisterLoginTitle,
 	Dropdown,
 	InputWithAlert
 } from '@components'
-import {checkRequiredKeyValue, findKeyInObjectByValue, findValueInObject, goToURL, useForm} from '@handler'
+import {checkRequiredKeyValue, findKeyInObjectByValue, findValueInObject} from '@handler'
 import {commMessage, memberMessage, pageURL_Sign_Complete} from '@env'
+import {useForm, useNavigation} from '@hook'
 
 function PeInfo() {
 
 	/****************************************************** common basic definition ***************************************************/
-	const navigate = useNavigate()
-	const location = useLocation()
-	const propState = {...location.state}
+	const {navigate, goToURL, propState} = useNavigation()
 
 	/****************************************************** contents initialization or definition ***************************************************/
 	// 모든 입력값의 초기값을 만든다.
@@ -72,7 +70,8 @@ function PeInfo() {
 		messages,
 		inputHandler,
 		checkBoxHandler,
-		setErrorMessage
+		setErrorMessage,
+		changeHandler
 	} = useForm({
 		initialValues,
 		initialErrors
@@ -116,7 +115,7 @@ function PeInfo() {
 		e.preventDefault()
 
 		// console.log('errors', errors)
-		// console.log('values', values)
+		console.log('values', values)
 		// console.log('mobileCertNoConfirmComplete',mobileCertNoConfirmComplete)
 		// 휴대전화번호 인증을 하지 않은 경우를 대비
 		if(!mobileCertNoConfirmComplete) {
@@ -138,7 +137,7 @@ function PeInfo() {
 		// 최종 확인
 		if(!findValueInObject(errors, true)) {
 			alert('모든 확인이 완료되어 회원가입을 처리합니다.')
-			goToURL(e, pageURL_Sign_Complete, navigate, {replace:true, name: values.userName})
+			goToURL(e, pageURL_Sign_Complete, {name: values.userName}, true)
 		} else {
 			// 에러가 난 필드를 찾아 해당 필드에 에러 메시지를 뿌린다.
 			let findedKey = findKeyInObjectByValue(errors, true)
@@ -173,7 +172,7 @@ function PeInfo() {
 	// 한번 만 실행되도록 하기 위함
 	useEffect(() => {
 		// 값을 확인하여 없는 경우 에러를 발생시킨다.
-		checkRequiredKeyValue(propState, 'all', true, navigate,'NOT_NORMAL_CONNECT')
+		console.log(checkRequiredKeyValue(propState, 'all', true, navigate,'NOT_NORMAL_CONNECT'))
 	},[])
 
 	return(
@@ -181,7 +180,7 @@ function PeInfo() {
 		<div className={'signContainer'}>
 			<section className={'infoArea'}>
 				<div className={'signTitleArea'}>
-					<RegistLoginTitle title={'회원가입'} />
+					<RegisterLoginTitle title={'회원가입'} />
 				</div>
 				<CustomRadio
 					title={'로그인 방식'}
@@ -213,7 +212,7 @@ function PeInfo() {
 							title={'휴대전화번호'}
 							Options={[{id: '010',title: '010'},{id: '011', title: '011'}, {id: '017', title: '017'}]}
 							name={'mobileNumber1'}
-							onChange={(e: React.ChangeEvent<HTMLInputElement>) => inputHandler(e, 3, 'number')}
+							changeFunc={changeHandler}
 							defaultValue={'010'}
 						/>
 					</div>

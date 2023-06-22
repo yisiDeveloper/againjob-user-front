@@ -38,6 +38,19 @@ export const pageURL_Sign_CO_FindPwd = '/Sign/CoFindPwd'
 export const pageURL_Sign_ChangeTempPwd = '/Sign/ChangeTempPwd'
 
 
+/********************************************** Policy ***************************************************/
+export const pageURL_Policy_Service = '/Policy/ServicePolicy'
+export const pageURL_Policy_Privacy = '/Policy/PrivacyPolicy'
+
+/********************************************** CS ***************************************************/
+export const pageURL_CS_NoticeList = '/CS/NoticeList'
+export const pageURL_CS_NoticeDetail = '/CS/NoticeDetail'
+export const pageURL_CS_QnaList = '/CS/QnaList'
+export const pageURL_CS_QnaDetail = '/CS/QnaDetail'
+export const pageURL_CS_QnaRegister = '/CS/QnaRegister'
+export const pageURL_CS_Faq = '/CS/Faq'
+
+
 /********************************************** Error ***************************************************/
 // 일반 에러 페이지
 export const pageURL_ERROR_NotiForCS = '/error/NotiForCS'

@@ -36,22 +36,30 @@ export { default as WithdrawComplete} from './member/WithdrawComplete'
 
 
 /***************************************************** cs ****************************************************/
+export { default as NoticeList } from './cs/NoticeList'
+export { default as NoticeDetail } from './cs/NoticeDetail'
+export { default as QnaList } from './cs/QnaList'
+export { default as QnaDetail } from './cs/QnaDetail'
+export { default as Faq } from './cs/Faq'
 
 
 /***************************************************** estimation ****************************************************/
-
+export { default as CoEstimateList } from './estimation/CoEstimateList'
 
 /***************************************************** involve ****************************************************/
 
 
 /***************************************************** newsletter ****************************************************/
-
+export { default as DenyCollectEmailAddress } from './newsletter/DenyCollectEmailAddress'
+export { default as Newsletter } from './newsletter/Newsletter'
+export { default as NewsletterComplete } from './newsletter/NewsletterComplete'
 
 /***************************************************** payment ****************************************************/
 
 
 /***************************************************** policy ****************************************************/
-
+export { default as PrivacyPolicy } from './policy/PrivacyPolicy'
+export { default as ServicePolicy } from './policy/ServicePolicy'
 
 
 /***************************************************** recruit ****************************************************/

@@ -1,16 +1,14 @@
-import React, {useCallback, useRef, useState} from 'react'
+import React, {useCallback, useState} from 'react'
 import '../sign/sign.css'
-import {Alert, ButtonGeneral, CustomCheckBox, RegistLoginTitle} from '@components'
-import {useNavigate} from 'react-router-dom'
-import {goToURL, findValueInObject, makeTheValue, useForm} from '@handler'
-import {memberMessage} from '@env'
-import {pageURL_Member_WithdrawComplete} from '../../_env/pageURL'
+import {Alert, ButtonGeneral, CustomCheckBox, RegisterLoginTitle} from '@components'
+import {memberMessage, pageURL_Member_WithdrawComplete} from '@env'
+import {useNavigation} from '@hook'
 
 
 function WithdrawPolicy() {
 
 	/****************************************************** common basic definition ***************************************************/
-	const navigate = useNavigate()
+	const { goToURL } = useNavigation()
 
 	/****************************************************** 페이지 초기 값 세팅 ***************************************************/
 	const [agreeConfirm, setAgreeConfirm] = useState(false)
@@ -30,7 +28,7 @@ function WithdrawPolicy() {
 	const submitHandler = useCallback((e: React.SyntheticEvent) => {
 		e.preventDefault()
 		// 약관 동의 체크
-		!agreeConfirm ? setAlertDP(true) : goToURL(e,pageURL_Member_WithdrawComplete, navigate)
+		!agreeConfirm ? setAlertDP(true) : goToURL(e,pageURL_Member_WithdrawComplete,'', true)
 	},[agreeConfirm])
 
 
@@ -38,7 +36,7 @@ function WithdrawPolicy() {
 		<div className={'signContainer'}>
 			<section className={'policyArea'}>
 				<div className={'signTitleArea'}>
-					<RegistLoginTitle title={'회원탈퇴'} />
+					<RegisterLoginTitle title={'회원탈퇴'} />
 				</div>
 				<div className={'policyTitle'}>
 					탈퇴약관 동의
@@ -71,7 +69,7 @@ function WithdrawPolicy() {
 				<Alert title={memberMessage('NEED_AGREE_WITHDRAWPOLICY').message} alertdisplay={alertDP} alertStyle={'text-align:center'} />
 				<div style={{marginBottom: '5rem'}}></div>
 				<div className={'buttonArea'}>
-					<div style={{marginRight: '3rem'}} onClick={(e) => goToURL(e, '/', navigate)}>
+					<div style={{marginRight: '3rem'}} onClick={(e) => goToURL(e, '/')}>
 						<ButtonGeneral title={'취소'} buttontype={'middle'} colortype={'cancel'} />
 					</div>
 					<div onClick={submitHandler}>

@@ -5,6 +5,7 @@
 	display: flex;
 	flex-direction: column;
 	position: relative;
+	/*border: 1px solid red;*/
 }
 
 .optionsArea {
@@ -20,6 +21,18 @@
 	cursor: pointer;
 }
 
+.optionsAreaForSearch {
+	position: absolute;
+	background-color: #fff;
+	display: none;
+	width: 100%;
+	border-radius: var(--radiusBasic);
+	border: var(--inputLineWeight) solid var(--inputLineBasic);
+	top: 5rem;
+	max-height: 20rem;
+	overflow: auto;
+	cursor: pointer;
+}
 
 .options {
 	border-bottom: var(--inputLineWeight) solid var(--tableTrTdBetweenLine);

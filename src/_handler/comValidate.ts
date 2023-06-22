@@ -53,6 +53,13 @@ export default function comValidate(name: string, value: any, min: number, type:
 				result = {isChecked: false, alertMessage: commMessage('NEVER_NUMBER', name).message}
 			}
 		}
+
+		// 단순 텍스트, 특수문자 불가
+		if(type==='textNoSpecialChar') {
+			if(noSpecialChar(value)) {
+				result = {isChecked: false, alertMessage: commMessage('NEVER_SPECIAL_CHAR', name).message}
+			}
+		}
 	}
 
 	return result
@@ -230,15 +237,15 @@ function checkEng(str: string): boolean{
 //     }
 // }
 
-// // 모든 특수문자 체크
-// function noSpecialChar(str: string): boolean {
-// 	let special_pattern = /[`~!@#$%^&*|,.\{\}\[\]\(\)\\\'\";:\/?]/gi;
-// 	if(special_pattern.test(str)){
-// 		return true;
-// 	} else {
-// 		return false;
-// 	}
-// }
+// 모든 특수문자 체크
+function noSpecialChar(str: string): boolean {
+	let special_pattern = /[`~!@#$%^&*|,.\{\}\[\]\(\)\\\'\";:\/?]/gi;
+	if(special_pattern.test(str)){
+		return true;
+	} else {
+		return false;
+	}
+}
 
 // // 일부 허용 특수문자 체크
 // // 수정필요

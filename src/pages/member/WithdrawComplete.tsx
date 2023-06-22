@@ -1,18 +1,14 @@
 import React, {useEffect} from 'react'
-import {useLocation, useNavigate} from 'react-router-dom'
-import {goToURL} from '@handler'
 import {
-	pageURL_ERROR_NotiForCS,
 	pageURL_Sign_ChoiceClassify
 } from '@env'
 import {ButtonGeneral} from '@components'
+import {useNavigation} from '@hook'
 
 function WithdrawComplete() {
 
 	/****************************************************** common basic definition ***************************************************/
-	const navigate = useNavigate()
-	const location = useLocation()
-	const propState = {...location.state}
+	const { goToURL, propState } = useNavigation()
 
 
 	/****************************************************** contents initialization or definition ***************************************************/
@@ -40,7 +36,7 @@ function WithdrawComplete() {
 				</div>
 				<div className={'signEndBtnArea'}>
 					<div
-						onClick={(e) => goToURL(e, '/', navigate)}
+						onClick={(e) => goToURL(e, '/')}
 					>
 						<ButtonGeneral
 							title={'홈으로 가기'}
@@ -48,7 +44,7 @@ function WithdrawComplete() {
 						/>
 					</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<div
-						onClick={(e) => goToURL(e, pageURL_Sign_ChoiceClassify, navigate)}
+						onClick={(e) => goToURL(e, pageURL_Sign_ChoiceClassify)}
 					>
 						<ButtonGeneral
 							title={'회원가입'}

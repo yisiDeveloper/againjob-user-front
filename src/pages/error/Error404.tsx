@@ -1,14 +1,13 @@
 import React, {useState} from 'react'
 import './error.css'
 import {errorMessage, pageURL_Sign_Login} from '@env'
-import {useNavigate} from 'react-router-dom'
 import {ButtonGeneral} from '@components'
-import {goToURL} from '@handler'
+import {useNavigation} from '@hook'
 
 function Error404() {
 
     /****************************************************** common basic definition ***************************************************/
-    const navigate = useNavigate()
+    const { goToURL } = useNavigation()
 
     /****************************************************** contents initialization or definition ***************************************************/
     const [errContent, ] = useState(errorMessage('ERROR404'))
@@ -24,7 +23,7 @@ function Error404() {
                 </article>
                 <div className={'errorBtnArea'}>
                     <div className={'errorBtn'}
-                         onClick={(e) => goToURL(e, '/', navigate)}
+                         onClick={(e) => goToURL(e, '/')}
                     >
                         <ButtonGeneral
                             title={'홈으로 가기'}
@@ -33,7 +32,7 @@ function Error404() {
                         />
                     </div>
                     <div className={'errorBtn'}
-                         onClick={(e) => goToURL(e, pageURL_Sign_Login, navigate)}
+                         onClick={(e) => goToURL(e, pageURL_Sign_Login)}
                     >
                         <ButtonGeneral
                             title={'로그인'}

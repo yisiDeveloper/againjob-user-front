@@ -1,0 +1,23 @@
+@charset "utf-8";
+
+/************************** Tab Menu *******************************/
+.tabBasic {
+	font-size: 2rem;
+	font-weight: var(--fontWeightBold);
+	height: 4.5rem;
+	text-align: center;
+	/*display: inline-block;*/
+	width: 100%;
+	/*border: 1px solid red;*/
+}
+
+.tabOnFocus {
+	color: var(--fontTabMenuOnFocus);
+	border-bottom: 0.05rem solid var(--paginnationLineFocus);
+}
+
+.tabNoFocus {
+	color: var(--fontTabMenuNoFocus);
+	border-bottom: 0.05rem solid var(--paginationLineBasic);
+	cursor: pointer;
+}

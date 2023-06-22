@@ -1,18 +1,15 @@
 import React, {useEffect} from 'react'
-import {useLocation, useNavigate} from 'react-router-dom'
-import {goToURL} from '@handler'
 import {pageURL_ERROR_NotiForCS, pageURL_Sign_Login} from '@env'
 import {ButtonGeneral} from '@components'
+import {useNavigation} from '@hook'
 
 function SignUpEnd() {
 
 	/****************************************************** common basic definition ***************************************************/
-	const navigate = useNavigate()
-	const location = useLocation()
-	const propState = {...location.state}
-
+	const {navigate, goToURL, propState} = useNavigation()
 
 	/****************************************************** contents initialization or definition ***************************************************/
+
 
 
 	/****************************************************** Handling ***************************************************/
@@ -33,7 +30,7 @@ function SignUpEnd() {
 				<div className={'signEndInfo'}>로그인 후 모든 서비스를 이용하실 수 있습니다.</div>
 				<div className={'signEndBtnArea'}>
 					<div
-						 onClick={(e) => goToURL(e, '/', navigate)}
+						 onClick={(e) => goToURL(e, '/')}
 					>
 						<ButtonGeneral
 							title={'홈으로 가기'}
@@ -42,7 +39,7 @@ function SignUpEnd() {
 						/>
 					</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<div
-						 onClick={(e) => goToURL(e, pageURL_Sign_Login, navigate)}
+						 onClick={(e) => goToURL(e, pageURL_Sign_Login)}
 					>
 						<ButtonGeneral
 							title={'로그인'}

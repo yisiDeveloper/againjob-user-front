@@ -1,6 +1,5 @@
 import React, {useState} from 'react'
-import {makeTheValue} from './common'
-import {comValidate} from './index'
+import {comValidate, makeTheValue} from '@handler'
 
 
 interface useFormPropType {
@@ -18,6 +17,7 @@ interface useFormPropType {
  ***************************************************************************************/
 function useForm({ initialValues, initialErrors }: useFormPropType) {
 
+	/****************************************************** Definition ***************************************************/
 	// 반환 타입에 대한 에러를 방지하고자 any로 선언
 	const [values, setValues] = useState<any>(initialValues)
 	// 모든 입력값 확인을 위해 기본적인 입력완료 confirm 값을 false로 만든다.
@@ -25,6 +25,7 @@ function useForm({ initialValues, initialErrors }: useFormPropType) {
 	// 에러가 발생할 경우 리턴할 메시지를 정의
 	const [messages, setMessage] = useState<any>(makeTheValue(initialValues,''))
 
+	/****************************************************** Handling ***************************************************/
 	// input, radio를 담당
 	const inputHandler = (e: React.ChangeEvent<HTMLInputElement>, min: number, type: string, elName ='') => {
 		e.preventDefault()
@@ -56,13 +57,19 @@ function useForm({ initialValues, initialErrors }: useFormPropType) {
 		setMessage({...messages, [errorName]: errorMessage })
 	}
 
+	function changeHandler(name: string, value: any) {
+		setValues({...values, [name]: value})
+		setErrors({...errors, [name]: false})
+	}
+	/****************************************************** return ***************************************************/
 	return {
 		values,
 		errors,
 		messages,
 		inputHandler,
 		checkBoxHandler,
-		setErrorMessage
+		setErrorMessage,
+		changeHandler
 	}
 }
 

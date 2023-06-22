@@ -25,6 +25,5 @@ export default function PrivateRoute({authentication}:PrivateRouteProps):React.R
 	} else {
 		// 인증을 안했을 경우 해당 페이지로 인증을 한 상태일 경우 main페이지로
 		return (isAuthenticated === null || isAuthenticated === 'true') ? <Navigate to='/Member'/> : <Outlet/>;
-		return (isAuthenticated === null || isAuthenticated === 'true') ? <Navigate to='/Member'/> : <Outlet/>;
 	}
 }

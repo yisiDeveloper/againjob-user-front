@@ -181,24 +181,3 @@
 
 
 /************************** 아이디찾기/비밀번호 찾기 *******************************/
-.findIdPwdTabBasic {
-	font-size: 2rem;
-	font-weight: var(--fontWeightBold);
-	height: 4.5rem;
-	text-align: center;
-	display: inline-block;
-	width: 20rem;
-	/*border: 1px solid red;*/
-	margin-bottom: 6rem;
-}
-
-.findIdPwdFocus {
-	color: var(--paginnationLineFocus);
-	border-bottom: 0.05rem solid #333742;
-}
-
-.findIdPwdNotFocus {
-	color: var(--fontListSubInfoTitle);
-	border-bottom: 0.05rem solid var(--paginationLineBasic);
-	cursor: pointer;
-}

@@ -2,14 +2,12 @@ import React, {useCallback} from 'react'
 import styled from 'styled-components'
 import './main.css'
 import {ArrowMainMore, HyundaiLogo, KyoboLogo, MgLogo, PngLogo} from '@assets'
-import {useNavigate} from 'react-router-dom'
 import {ButtonRound_ForMainTag, IconRound_ForMain} from '@components'
+
 
 function Main() {
 
 	/****************************************************** 공통 정의 ***************************************************/
-	const navigate = useNavigate()
-	// 최상단 광고 팝업 창의 노출여부
 
 	// 링크 관리
 	const linkHandler = useCallback(() => {

@@ -1,23 +1,21 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react'
 import './sign.css'
-import {useLocation, useNavigate} from 'react-router-dom'
 import {
 	Alert,
 	ButtonGeneral,
 	CustomCheckBox,
-	RegistLoginTitle,
+	RegisterLoginTitle,
 	Dropdown,
 	InfoAlert, InputWithAlert
 } from '@components'
-import {checkRequiredKeyValue, findValueInObject, findKeyInObjectByValue, useForm, goToURL} from '@handler'
+import {checkRequiredKeyValue, findValueInObject, findKeyInObjectByValue} from '@handler'
 import {commMessage, memberMessage, pageURL_Sign_Complete} from '@env'
+import {useForm, useNavigation} from '@hook'
 
 function CoInfo() {
 
 	/****************************************************** common basic definition ***************************************************/
-	const navigate = useNavigate()
-	const location = useLocation()
-	const propState = {...location.state}
+	const {navigate, goToURL, propState} = useNavigation()
 
 
 	/****************************************************** contents initialization or definition ***************************************************/
@@ -78,7 +76,8 @@ function CoInfo() {
 		messages,
 		inputHandler,
 		checkBoxHandler,
-		setErrorMessage
+		setErrorMessage,
+		changeHandler
 	} = useForm({
 		initialValues,
 		initialErrors
@@ -171,7 +170,7 @@ function CoInfo() {
 		// 최종 확인
 		if(!findValueInObject(errors, true)) {
 			alert('모든 확인이 완료되어 회원가입을 처리합니다.')
-			goToURL(e, pageURL_Sign_Complete, navigate, {replace:true, name: values.coName})
+			goToURL(e, pageURL_Sign_Complete, {name: values.coName}, true)
 		} else {
 			// 에러가 난 필드를 찾아 해당 필드에 에러 메시지를 뿌린다.
 			let findedKey = findKeyInObjectByValue(errors, true)
@@ -217,7 +216,7 @@ function CoInfo() {
 			<div className={'signContainer'}>
 				<section className={'infoArea'}>
 					<div className={'signTitleArea'}>
-						<RegistLoginTitle title={'회원가입'} />
+						<RegisterLoginTitle title={'회원가입'} />
 					</div>
 					<InputWithAlert
 						title={'이메일'}
@@ -238,7 +237,7 @@ function CoInfo() {
 								title={'휴대전화번호'}
 								Options={[{id: '010',title: '010'},{id: '011', title: '011'}, {id: '017', title: '017'}]}
 								name={'mobileNumber1'}
-								onChange={(e: React.ChangeEvent<HTMLInputElement>) => inputHandler(e, 3, 'number')}
+								changeFunc={changeHandler}
 								defaultValue={'010'}
 							/>
 						</div>

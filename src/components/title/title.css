@@ -7,9 +7,3 @@
     text-align: center;
     font-weight: var(--fontWeightBold);
 }
-
-.pageTitle {
-    color: var(--fontBasicColor);
-    /*margin-left: var(--marginLeftPageTitle)*/
-    margin-left: 2rem;
-}

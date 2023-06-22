@@ -28,9 +28,13 @@ export { default as IconRound_ForMain } from './icon/IconRound_ForMain'
 
 
 /************************** Title *******************************/
-export { default as RegistLoginTitle } from './title/RegistLoginTitle'
+export { default as RegisterLoginTitle } from './title/RegisterLoginTitle'
+export { default as PageTitle } from './title/PageTitle'
+
+/************************** Input *******************************/
 export { default as InputWithoutAlert } from './input/InputWithoutAlert'
 export { default as InputWithAlert } from './input/InputWithAlert'
+export { default as InputForSearch } from './input/InputForSearch'
 
 /************************** Checkbox *******************************/
 export { default as CustomCheckBox } from './checkbox/CustomCheckBox'
@@ -38,14 +42,24 @@ export { default as CustomCheckBox } from './checkbox/CustomCheckBox'
 /************************** Radio *******************************/
 export { default as CustomRadio } from './radio/CustomRadio'
 
+/************************** Tab Menu *******************************/
+export { default as TabMenu } from './tabMenu/TabMenu'
+
+/************************** Search *******************************/
+export { default as ListSearch } from './search/ListSearch'
+
 /************************** Alert *******************************/
 export { default as Alert} from './alert/Alert'
+export { default as AlertForSearch} from './alert/AlertForSearch'
 export { default as Popup } from './alert/Popup'
 export { default as InfoAlert} from './alert/InfoAlert'
 
 /************************** dropdown *******************************/
 export { default as Dropdown} from './dropdown/Dropdown'
+export { default as DropdownForSearch} from './dropdown/DropdownForSearch'
 
+/************************** pagination *******************************/
+export { default as PaginationForPage } from './pagination/PaginationForPage'
 
 /************************** Editor *******************************/
 export { QuillEditorAdmin, QuillEditorUser } from './quillEditor/QuillEditor'

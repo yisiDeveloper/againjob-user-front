@@ -1,8 +1,14 @@
 import { createGlobalStyle } from "styled-components";
+import {popup_CLoseButton} from '@assets'
 
-export const GlobalStyle = createGlobalStyle`
+
+type globalType = {
+	userMargin: number
+}
+
+
+export const GlobalStyle = createGlobalStyle<globalType>`
 :root {
-	
 	// rem 단위를 사용하기 위함 
 	font-size: 62.5%;
 	/***************************************************************************************************************
@@ -68,6 +74,8 @@ export const GlobalStyle = createGlobalStyle`
 	--fontSizeActionButton: 1.6rem;
 	
 	--fontSizeInfo: 1.4rem;
+	
+	--fontSizePageSearch: 2rem;
 
 	
 	/******************* Weight **********************/
@@ -98,6 +106,7 @@ export const GlobalStyle = createGlobalStyle`
 	--bgTextAreaReadOnly: #EEF2F4;
 
 	--bgBarTypeLine: #BAC9D1;
+	--bgListBarTypeLine: #ECECEC;
 	
 	--bgPopup: #282C36;
 	
@@ -114,7 +123,7 @@ export const GlobalStyle = createGlobalStyle`
 	--paginnationLineFocus: #414550;
 
 	/******************* width **********************/
-	--widthButtonMinBasic: 8.5rem;
+	--widthButtonMinBasic: 9.2rem;
 	--widthRegistLoginPage: 70rem;
 	--widthButtonFull: 40rem;
 	--widthButtonLarge: 30rem;
@@ -130,19 +139,21 @@ export const GlobalStyle = createGlobalStyle`
 	--heightButtonPopup: 3.5rem;
 	--heightSignContentMin: 90rem;
 	--heightInputBasic: 4.8rem;
-	--heightEmptyDiv: 4rem;
+	--heightEmptyDiv: 3rem;
 	--heightPopupMin: 20rem;
+	--heightListRow: 13rem;
 
 	/******************* Padding  **********************/
 	--paddingConentBasic: 3rem;
-	--paddingInputBasic: 1.5rem;
+	--paddingInputBasic: 1.5rem; 
 	--paddingButtonRound: 0 2rem 0 2rem;
 	--paddingAlertBasic: 0 1rem 0 1rem;
 	--paddingInfoBasic: 0 1rem 0 0.5rem;
+	--paddingListRow: 2rem 0 2rem 0;
 
 	/******************* margin **********************/
 	--marginRightSubMenu: 8rem;
-	
+	--marginBetweenContentBlock: 3rem;
 
 } 
 
@@ -170,9 +181,8 @@ html body {
 	// height: calc(var(--vh, 1vh) * 100);
 	scroll-behavior: smooth;
 	background-color: var(--bgPageBasicColor);
+	
 }
-
-
 
 html,
 body,
@@ -267,110 +277,150 @@ button {
 }
 
 
-a, 
-a:hover,
-a:active,
-a:visited {
-	text-decoration: none;
-	color: #fff;
-}
-
-/* Select box css */
-select {	
-	outline: none;
-	border: 0;
-	width: 100%;
-	height: 36px;
-	border-bottom: 0.05rem solid var(--inputLineBasic);	
-	padding: 10px 10px 6px 10px;
-	font-size: var(--fontSizeInputText);
-	-webkit-appearance: none;  /* 네이티브 외형 감추기 */
-    -moz-appearance: none;
-    appearance: none;
-    //background: url('assets/icons/dropdown_expandmore.png') right 10px center no-repeat;
-	background-color: #fff;
-}
-
-select::-ms-expand {
-	display: none;
-}
-select:focus {
-	border-bottom: 0.05rem solid var(--inputLineFocus);	
-	outline: none;
-	//background: url('assets/icons/dropdown_expandless.png') right 10px center no-repeat;
-	background-color: #fff;
-	transition: .2s;
-	/* padding-bottom: 1px; */
-}
-
-/* textarea */
-textarea {
-	border: var(--lineWeightBasic) solid var(--lineColorBasic);
-	font-family: "Noto Sans KR", sans-serif;
-	font-size: var(--fontBasicSize);
-	resize: none;
-	border-radius: var(--radiusButtonBasic);
-	width: 100%;
-	padding: 10px
-}
-
-textarea:focus {
-	border: var(--lineWeightFocus) solid var(--lineColorFocus);
-	outline: none;
-	color: var(--fontBasicColor);
-}
-
-textarea::placeholder {
-	font-family: "Noto Sans KR", sans-serif;
-	font-size: var(--fontSizePlaceholder);
-}
-/* h tag */
-h1,h2,h3,h4,h5,h6 {
-	margin-top: 0;
-	font-weight: var(--fontWeightBasic);
-}
-
-table {
-	border-collapse: collapse;
-	border-spacing: 0;
-}
+//a, 
+//a:hover,
+//a:active,
+//a:visited {
+//	text-decoration: none;
+//	color: #fff;
+//}
+//
+///* textarea */
+//textarea {
+//	border: var(--lineWeightBasic) solid var(--lineColorBasic);
+//	font-family: "Noto Sans KR", sans-serif;
+//	font-size: var(--fontBasicSize);
+//	resize: none;
+//	border-radius: var(--radiusButtonBasic);
+//	width: 100%;
+//	padding: 10px
+//}
+//
+//textarea:focus {
+//	border: var(--lineWeightFocus) solid var(--lineColorFocus);
+//	outline: none;
+//	color: var(--fontBasicColor);
+//}
+//
+//textarea::placeholder {
+//	font-family: "Noto Sans KR", sans-serif;
+//	font-size: var(--fontSizePlaceholder);
+//}
+//
+//table {
+//	border-collapse: collapse;
+//	border-spacing: 0;
+//}
 
 /************************************** content basic css ***********************************/
+
 main {
 	width: var(--comContainerSize);
-	/*border: 1px solid red;*/
+	//border: 1px solid red;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	//background-color: var(--bgContentBasicBgColor);
-	border-radius: var(--basicRadius);
+	border-radius: var(--radiusBasic);
 	//padding: var(--paddingConentBasic);
 }
 
+li {
+	list-style: none;
+}
 
-// Table Grid div
-.tableGrid	{
+// 컨텐츠 페이지 공통 CONTAINER
+.container {
 	width: 100%;
-	display: flex;
+	background-color: #fff;
+	padding: var(--paddingConentBasic);
+}
+
+// 팝업의 BACKGROUND 공통
+.comBG {
+	background-color: var(--bgPopup);
+	opacity: var(--opacityPopupBg);
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+}
+
+/************************************** Popup css ***********************************/
+// 팝업의 공통 container
+.contentPopupWrap {
+	border-radius: var(--radiusBasic);
+	background-color: #fff;
+	z-index: 100;
+	display: initial;
+	//top: ${(props) => props.userMargin}px;
+	position: fixed;
+	top: 30%;
+	//left: 50%;
+	// transform을 사용하면 bottom line이 두꺼워지는 현상 발생
+	//transform: translate(-50%, -50%);
+	//flex-direction: column;
+	// pageTitle이 기본적으로 좌측에 2rem의 margin을 갖고 있으므로... 
+	padding: 2rem 3rem 3rem 1rem;
+}
+
+// 팝업 공통 Content 영역
+.contentPopupContent {
+	padding-left: 2rem;
+}
+
+.contentPopupTitle {
 	flex-grow: 1;
 }
 
-//quill editor
-.ql-editor strong{
-  font-weight: var(--fontWeightBold);
-}
-
-// cursor
-.cursorPointer {
-	cursor: pointer;
-}
-
-// 한 Row에 Div들이 여러개 있는 경우 기본적인 display 설정
-.rowFlex {
+// 팝업 타이틀과 X 버튼 영역
+.contentPopupHead {
 	display: flex;
-	justify-content: flex-start;	
 }
 
+// 팝업의 close 버튼
+.contentPopupClose {
+	background-image: url(${popup_CLoseButton});
+	background-repeat: no-repeat;
+	background-position: center right;
+	cursor: pointer;
+	width: 4rem;
+	height: 4rem;
+}
+
+/************************************** tab menu css ***********************************/
+.tabMenuArea {
+	//border: 1px solid red;
+	//display: inherit;
+	//width: 90%;
+}
+
+.tabMenu {
+	//border: 1px solid red;
+	width: 50%;
+	display: inline-block;
+}
+
+/************************************** tab Title css ***********************************/
+.tabTitleArea {
+	display: inherit;
+	/*border: 1px solid blue;*/
+}
+
+
+.titleBar {
+	width: 0.05rem;
+	height: 2rem;
+	background-color: var(--bgBarTypeLine);
+	margin: 0 1rem 0 3rem;
+	/*border: 1px solid purple;*/
+	margin-top: 1.3rem;
+}
+
+
+/************************************** component basic css ***********************************/
 .inputTitle {
 	font-size: var(--fontSizeInputTitle);
 	font-weight: var(--fontWeightMiddle);
@@ -381,4 +431,28 @@ main {
 .emptyDivHeight {
 	height: var(--heightEmptyDiv)
 }
+//// Table Grid div
+//.tableGrid	{
+//	width: 100%;
+//	display: flex;
+//	flex-grow: 1;
+//}
+//
+////quill editor
+//.ql-editor strong{
+//  font-weight: var(--fontWeightBold);
+//}
+//
+//// cursor
+//.cursorPointer {
+//	cursor: pointer;
+//}
+//
+//// 한 Row에 Div들이 여러개 있는 경우 기본적인 display 설정
+//.rowFlex {
+//	display: flex;
+//	justify-content: flex-start;	
+//}
+
+
 `

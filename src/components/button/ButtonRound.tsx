@@ -3,17 +3,17 @@ import styled, { css } from 'styled-components'
 
 interface ButtonRoundType {
 	title: string,
-	buttontype: string
+	buttontype?: string|null
 }
 
 function ButtonRound({
 	title,
-	buttontype
+	buttontype = ''
 }: ButtonRoundType) {
 
 	return (
 		<>
-			<Button buttontype={buttontype}>{title}</Button>
+			<Button buttontype={buttontype!}>{title}</Button>
 		</>
 	)
 }

@@ -1,18 +1,18 @@
 import React, {useCallback, useEffect, useState} from 'react'
-import {useNavigate} from 'react-router-dom'
-import {findKeyInObjectByValue, findValueInObject, goToURL, useForm} from '@handler'
+import {findKeyInObjectByValue, findValueInObject} from '@handler'
 import {
 	commMessage,
 	memberMessage,
 	pageURL_Sign_ChoiceClassify,
 	pageURL_Sign_PE_FindID
 } from '@env'
-import {Alert, ButtonGeneral, Dropdown, InfoAlert, InputWithAlert, RegistLoginTitle} from '@components'
+import {Alert, ButtonGeneral, Dropdown, InfoAlert, InputWithAlert, RegisterLoginTitle, TabMenu} from '@components'
+import {useForm, useNavigation} from '@hook'
 
 function CoFindID() {
 
 	/****************************************************** common basic definition ***************************************************/
-	const navigate = useNavigate()
+	const { goToURL } = useNavigation()
 
 	/****************************************************** contents initialization or definition ***************************************************/
 		// 찾기 결과가 없는 경우를 위한 Error Message DP
@@ -37,7 +37,8 @@ function CoFindID() {
 		errors,
 		messages,
 		inputHandler,
-		setErrorMessage
+		setErrorMessage,
+		changeHandler
 	} = useForm({
 		initialValues,
 		initialErrors
@@ -72,10 +73,13 @@ function CoFindID() {
 		<div className={'signContainer'}>
 			<section className={'infoArea'}>
 				<article className={'signTitleArea'}>
-					<RegistLoginTitle title={'아이디 찾기'} />
+					<RegisterLoginTitle title={'아이디 찾기'} />
 				</article>
-				<div className={'findIdPwdTabBasic findIdPwdNotFocus'} onClick={(e) => goToURL(e, pageURL_Sign_PE_FindID, navigate)}>개인회원</div>
-				<div className={'findIdPwdTabBasic findIdPwdFocus'}>기업회원</div>
+				<div>
+					<div className={'tabMenu'} onClick={(e) => goToURL(e, pageURL_Sign_PE_FindID)}><TabMenu title={'개인회원'} focuson={false} /></div>
+					<div className={'tabMenu'}><TabMenu title={'기업회원'} focuson={true} /></div>
+				</div>
+				<div className={'emptyDivHeight'} />
 				<InputWithAlert
 					title={'사업자등록번호'}
 					titleDP={true}
@@ -94,7 +98,7 @@ function CoFindID() {
 							title={'휴대전화번호'}
 							Options={[{id: '010',title: '010'},{id: '011', title: '011'}, {id: '017', title: '017'}]}
 							name={'mobileNumber1'}
-							onChange={(e: React.ChangeEvent<HTMLInputElement>) => inputHandler(e, 3, 'number')}
+							changeFunc={changeHandler}
 							defaultValue={'010'}
 						/>
 					</div>
@@ -126,7 +130,7 @@ function CoFindID() {
 					<ButtonGeneral buttontype={'full'} title={'이메일로 전송'} />
 				</div>
 				<div style={{marginBottom: '2rem'}}
-					 onClick={(e) => goToURL(e, pageURL_Sign_ChoiceClassify, navigate)}
+					 onClick={(e) => goToURL(e, pageURL_Sign_ChoiceClassify)}
 				>
 					<ButtonGeneral buttontype={'full'} title={'회원가입'} />
 				</div>
