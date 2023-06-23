@@ -41,8 +41,8 @@ function ListSearch({
 	/****************************************************** Handling ***************************************************/
 	const goSearch = useCallback((e: React.SyntheticEvent) => {
 		e.preventDefault()
-		// console.log(values)
-		// console.log(errors)
+		console.log(values)
+		console.log(errors)
 		if(values.searchKeyword === '' || errors.searchKeyword) {
 			setErrorMessage(e,'searchKeyword',commMessage('INVALID_INPUT_PARAM').message)
 		} else {
@@ -58,6 +58,7 @@ function ListSearch({
 				name={'searchOption'}
 				changeFunc={changeHandler}
 				defaultValue={values.searchOption}
+				values={values}
 			/>
 			<div>
 				<InputForSearch

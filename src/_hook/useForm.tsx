@@ -29,6 +29,7 @@ function useForm({ initialValues, initialErrors }: useFormPropType) {
 	// input, radio를 담당
 	const inputHandler = (e: React.ChangeEvent<HTMLInputElement>, min: number, type: string, elName ='') => {
 		e.preventDefault()
+
 		let {name, value} = e.target
 		value = value.trim()
 		// 해당 옵션에 따라 검사한다.
@@ -46,18 +47,26 @@ function useForm({ initialValues, initialErrors }: useFormPropType) {
 	// Checkbox는 boolean 형태로 넣어주고 별도 처리가 필요할 수 있어서 분리
 	const checkBoxHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
 		e.preventDefault()
-		let {name, checked} = e.target
+
+		let {name, checked} =
+			e.target
 		setValues({...values, [name]: checked})
 	}
 
 	// 페이지 내 별도 처리를 위해 에러 메시지가 필요한 경우
-	const setErrorMessage = (e: React.SyntheticEvent, errorName: string, errorMessage:string) => {
+	const setErrorMessage = (e: React.SyntheticEvent, errorName: string, errorMessage:string): void => {
 		e.preventDefault()
 		setErrors({...errors, [errorName]: true})
 		setMessage({...messages, [errorName]: errorMessage })
 	}
 
-	function changeHandler(name: string, value: any) {
+	const changeHandler = (e: React.SyntheticEvent, name: string, value: any, prevValues: object): void => {
+		e.preventDefault()
+
+		console.log('changeHandler', name + ': ' + value)
+		console.log('changeHandler Values', values)
+		console.log('받아온 values', prevValues)
+		console.log('changeHandler Errors', errors)
 		setValues({...values, [name]: value})
 		setErrors({...errors, [name]: false})
 	}

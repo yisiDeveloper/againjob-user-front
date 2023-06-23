@@ -5,11 +5,9 @@ import './cs.css'
 import CsTitles from './CsTitles'
 import {FileAttached, NoticeFixed} from '@assets'
 import {
-	commMessage,
 	noticeListOnePageSize,
 	noticeListPageBlockSize, noticeType,
-	pageURL_CS_NoticeDetail,
-	pageURL_CS_NoticeList
+	pageURL_CS_NoticeDetail
 } from '@env'
 import {notiData} from '../../_env/SampleData'
 import {styled} from 'styled-components'
@@ -45,6 +43,7 @@ function NoticeList() {
 	}
 	// 실제 체크해야하는 에러 필드를 정의한다.
 	const initialErrors = {
+		// searchOption: false,
 		searchKeyword: ''
 	}
 
@@ -64,8 +63,9 @@ function NoticeList() {
 	// 공지사항을 가져오자
 	const getNotiContent = useCallback((requestPage: number) => {
 		// 최초 페이지 로딩 시 currentpage가 없는 경우를 대비
-		console.log('요청받은 ' + requestPage + '페이지의 데이터를 가져옵니다.')
-		console.log('requestPage',requestPage)
+		// console.log('요청받은 ' + requestPage + '페이지의 데이터를 가져옵니다.')
+		// console.log('requestPage',requestPage)
+
 		if(requestPage===undefined) {
 			requestPage = currentPage
 		}
@@ -80,6 +80,7 @@ function NoticeList() {
 		setNotiContent(notiData)
 		setTotalNotiCount(161 )
 		setListState(tmpQueryData)
+		// console.log('new liststate', tmpQueryData)
 	},[currentPage, values])
 
 	useLayoutEffect(() => {
@@ -111,17 +112,15 @@ function NoticeList() {
 								<li key={data.id} onClick={(e) => goToURL(e, pageURL_CS_NoticeDetail, {listState, notiID: data.id})} className={'listRow'}>
 									<div className={'listColumn'}>
 										<article className={'listSubjectArea'}>
-											<ButtonRound
-												title={'개인회원'}
-												buttontype={''}
+											<ButtonRound title={'개인회원'} buttontype={''}
 											/>
 											<span className={'listSubjectText'}>{data.title}</span>
 										</article>
 										<article className={'listSubjectSub'}>{data.content}</article>
 									</div>
 									<div className={'listColumnBar'}></div>
-									{ (data.fixed) ? <><ListFixed /><div className={'listColumnBar'}></div></> : <div /> }
-									{ (data.files) ? <><ListFile /><div className={'listColumnBar'}></div></> : <div /> }
+									{(data.fixed) ? <><ListFixed /><div className={'listColumnBar'}></div></> : <div />}
+									{(data.files) ? <><ListFile /><div className={'listColumnBar'}></div></> : <div />}
 									<div className={'listColumn'}>
 										<p className={'listColumnTitle'}>등록일</p>
 										<p>{data.registerDate}</p>

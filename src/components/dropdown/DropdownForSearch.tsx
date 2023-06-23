@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react'
+import React, {useCallback, useEffect, useLayoutEffect, useRef, useState} from 'react'
 import './dropdown.css'
 import styled from 'styled-components'
 import {DropDownIcon, DropDownLess} from '@assets'
@@ -8,29 +8,37 @@ interface dropdownType {
 	Options: Array<any>,
 	name: string,
 	changeFunc: Function,
-	defaultValue: string
+	defaultValue: string,
+	values: object
 }
 function Dropdown({
 	Options,
 	name,
   	changeFunc,
-	defaultValue
+	defaultValue,
+	values
 }:dropdownType) {
 
+	console.log('dropdown component의 values', values)
 	// 선택된 값
 	const [titleValue, setTitleValue] = useState<string>()
 	const optionRef = useRef<any>()
 	const titleRef = useRef<any>()
 
 	// 선택한 데이터를 화면에 세팅하고, input에 넣는다.
-	const changeData = useCallback((e: React.MouseEvent<HTMLDivElement>, id: string, value: string): void => {
-		setTitleValue(value)	// 값을 바꾸고
+	const changeData = useCallback((e: React.MouseEvent<HTMLDivElement>, id: string, title: string): void => {
+		e.preventDefault()
+		e.stopPropagation()
+
+		setTitleValue(title)	// 값을 바꾸고
 		optionHandler(e)		// 옵션을 닫자
-		changeFunc(name, id)	// 부모에서 실제 값을 바꾸자
+		changeFunc(e, name, id, values)	// 부모에서 실제 값을 바꾸자
 	},[titleValue])
 
 	const optionHandler = useCallback((e: React.MouseEvent<HTMLDivElement>): void => {
 		e.preventDefault()
+		e.stopPropagation()
+
 		let tmpRef = optionRef.current
 		let titleTmpRef = titleRef.current
 		if(tmpRef) {
@@ -46,14 +54,14 @@ function Dropdown({
 	},[titleValue])
 
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		// 기존에 선택했던 옵션을 표시하도록 세팅한다.
 		Options?.map((data) => {
 			if(data.id===defaultValue) {
 				setTitleValue(data.title)
 			}
 		})
-	},[defaultValue])
+	},[])
 
 	return (
 		<div className={'dropdownArea'}>

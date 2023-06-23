@@ -114,7 +114,7 @@ function PeInfo() {
 	const submitHandler = useCallback((e: React.SyntheticEvent) => {
 		e.preventDefault()
 
-		// console.log('errors', errors)
+		console.log('errors', errors)
 		console.log('values', values)
 		// console.log('mobileCertNoConfirmComplete',mobileCertNoConfirmComplete)
 		// 휴대전화번호 인증을 하지 않은 경우를 대비
