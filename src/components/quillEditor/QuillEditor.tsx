@@ -1,14 +1,13 @@
 import React, { ReactElement, useRef } from 'react'
-import ReactQuill, { Quill } from 'react-quill'
+import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
-// import ImageResize from 'quill-image-resize-module-react';
 
 
 
 interface EditorPropType {
 	value: string,
 	onChange: (text: string) => void,
-	style?: object,
+	style?: object
 }
 
 // Quill.register('modules/imageResize', ImageResize)

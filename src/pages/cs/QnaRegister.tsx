@@ -1,8 +1,9 @@
-import React, {useCallback, useEffect, useRef} from 'react'
+import React, {useCallback, useEffect} from 'react'
 import {useForm, useNavigation} from '@hook'
 import CsTitles from './CsTitles'
-import {Alert, ButtonGeneral, ButtonRound, InfoAlert, InputTitleType} from '@components'
+import {FileUpload, InputTitleType, QuillEditorAdmin, QuillEditorUser} from '@components'
 import {qnaFileMaxLength, qnaFileTypes, qnaMaxFileSize} from '@env'
+import ReactQuill from "react-quill"
 
 function QnaRegister() {
 
@@ -30,7 +31,8 @@ function QnaRegister() {
 		messages,
 		inputHandler,
 		setErrorMessage,
-		registerFile
+		registerFile,
+		deleteFile
 	} = useForm({
 		initialValues,
 		initialErrors
@@ -43,16 +45,9 @@ function QnaRegister() {
 
 	}, [])
 
-
-	const fileRef = useRef<any>();
-	const fileHandler = ((e: React.SyntheticEvent) => {
-		e.preventDefault()
-
-		if(fileRef) {
-			fileRef.current.click();
-		}
-
-	})
+	const editorHandler = useCallback((text: string) => {
+		console.log(text);
+	},[])
 
 	useEffect(() => {
 		console.log('values',values)
@@ -72,45 +67,28 @@ function QnaRegister() {
 			/>
 			<div className={'emptyDivHeight'} />
 			<section className={'container containerTop'}>
-				<div style={{display: 'flex'}}>
-					<span onClick={fileHandler}><ButtonGeneral
-						title={'파일첨부'}
-						buttontype={'file'}
-						colortype={'file'}
-					/></span>
-					<div className={'emptyDivWidth'} />
-					<InfoAlert messageCode={'FILE_INFO'} />
-					<input type={'file'} name={'uploadFile'} onChange={(e) => registerFile(e, qnaMaxFileSize, qnaFileTypes, qnaFileMaxLength)} ref={fileRef} style={{display:'none'}} />
-				</div>
-				<Alert
-					title={messages.uploadFile}
-					alertdisplay={errors.uploadFile}
+				<FileUpload
+					elName={'uploadFile'}
+					infoMsgCode={'QNA_FILE_INFO'}
+					registFileFunc={(e) => registerFile(e, qnaMaxFileSize, qnaFileTypes, qnaFileMaxLength)}
+					deleteFileFunc={deleteFile}
+					alertTitle={messages.uploadFile}
+					alertDP={errors.uploadFile}
+					fileValue={values.uploadFile}
 				/>
-				<div className={'emptyDivHeight'} />
-				<div>
-					{
-						values.uploadFile.map((data:any ,idx: any) => {
-							return (
-								<span key={idx}>
-									<span onClick={() => alert(idx)}>
-										<ButtonRound
-											title={data.name}
-											buttontype={'file'}
-										/>
-									</span>
-									<div className={'emptyDivWidth'} />
-								</span>
-							)
-						})
-					}
-				</div>
 			</section>
 			<div className={'emptyDivHeight'} />
 			<section className={'container containerTop'}>
-
+				<QuillEditorUser
+					value={values.content}
+					onChange={editorHandler}
+					// onChange={(e)=>inputHandler(e, 3, 'text', 'content')}
+					style={{height: '300px'}}
+				/>
 			</section>
 		</main>
 	)
 }
+
 
 export default React.memo(QnaRegister)

@@ -54,6 +54,9 @@ export { default as AlertForSearch} from './alert/AlertForSearch'
 export { default as Popup } from './alert/Popup'
 export { default as InfoAlert} from './alert/InfoAlert'
 
+/************************** File *******************************/
+export { default as FileUpload } from './file/FileUpload'
+
 /************************** dropdown *******************************/
 export { default as Dropdown} from './dropdown/Dropdown'
 export { default as DropdownForSearch} from './dropdown/DropdownForSearch'

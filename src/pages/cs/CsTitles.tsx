@@ -16,7 +16,7 @@ function CsTitles({
 	pageState
 }: CsTitlesPropType) {
 
-	const {goToURL, propState} = useNavigation()
+	const {goToURL} = useNavigation()
 
 	/****************************************************** common basic definition ***************************************************/
 	// 현재 메뉴 표시를 위함

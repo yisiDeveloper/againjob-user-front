@@ -39,9 +39,7 @@ function Login() {
 	},[values, message, messageDP])
 
 
-	const tagRef = useRef(null)
-
-	return (
+return (
 		<div className={'signContainer'}>
 			<section>
 				<form name={'loginForm'}>

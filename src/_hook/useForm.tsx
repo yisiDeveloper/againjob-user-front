@@ -30,7 +30,7 @@ function useForm({ initialValues, initialErrors }: useFormPropType) {
 	// input, radio를 담당
 	const inputHandler = useCallback((e: React.ChangeEvent<HTMLInputElement>, min: number, type: string, elName ='') => {
 		e.preventDefault()
-
+			console.log('input value', e)
 		let {name, value} = e.target
 		value = value.trim()
 		// 해당 옵션에 따라 검사한다.
@@ -59,7 +59,7 @@ function useForm({ initialValues, initialErrors }: useFormPropType) {
 		e.preventDefault()
 		setErrors({...errors, [errorName]: true})
 		setMessage({...messages, [errorName]: errorMessage })
-	},[errors])
+	},[errors, messages])
 
 	// Drop down의 값을 제어한다.
 	const changeHandler = useCallback((e: React.SyntheticEvent, name: string, value: any): void => {
@@ -69,9 +69,10 @@ function useForm({ initialValues, initialErrors }: useFormPropType) {
 		setErrors({...errors, [name]: false})
 	},[values,errors])
 
+
 	// 파일을 등록한다.
-	// 이 object는 input file이 multiple이 아니라고 가정
 	const registerFile = useCallback((e: React.ChangeEvent<HTMLInputElement>, maxSize: number, fileTypes:{}, fileMaxLength: number) => {
+		e.preventDefault()
 
 		let {name, files} = e.target
 
@@ -114,6 +115,24 @@ function useForm({ initialValues, initialErrors }: useFormPropType) {
 			setErrors({...errors, [name]: false})
 		}
 	},[values, errors])
+
+
+	// 파일 삭제
+	// 실제 삭제가 아닌 현 페이지에서 등록한 파일을 저장하기 전 삭제
+	// idx: 몇번째 파일인지? , name: 파일이 들어있는 값의 이름
+	const deleteFile = useCallback((e: React.SyntheticEvent, idx: number, name: string) => {
+		e.preventDefault()
+
+		let tmpFiles: File[] = []
+		for(let i=0; i<values[name].length; i++) {
+			if(idx !== i) {
+				tmpFiles = [...tmpFiles, values[name][i]]
+			}
+		}
+		setValues({...values, [name]:tmpFiles})
+
+	},[values])
+
 	/****************************************************** return ***************************************************/
 	return {
 		values,
@@ -123,7 +142,8 @@ function useForm({ initialValues, initialErrors }: useFormPropType) {
 		checkBoxHandler,
 		setErrorMessage,
 		changeHandler,
-		registerFile
+		registerFile,
+		deleteFile
 	}
 }
 
