@@ -42,6 +42,7 @@ export {
 	pageURL_CS_NoticeList,
 	pageURL_CS_NoticeDetail,
 	pageURL_CS_Faq,
+	pageURL_CS_FaqDetail,
 	pageURL_CS_QnaList,
 	pageURL_CS_QnaDetail,
 	pageURL_CS_QnaRegister
@@ -50,10 +51,10 @@ export {
 export {
 	tokenExpireDay, cookieExpireDay, acTokenName, rfTokenName, authName,
 	maxFileSize, fileTypes,
-	noticeListOnePageSize, noticeListPageBlockSize
+	noticeListOnePageSize, noticeListPageBlockSize, faqListOnePageSize, faqListPageBlockSize, qnaListPageBlockSize, qnaListOnePageSize, qnaMaxFileSize, qnaFileTypes, qnaFileMaxLength
 } from './common'
 
 /*********************************** type *******************************/
 export type {
-	noticeType
+	noticeType, faqType, qnaType
 } from './type'

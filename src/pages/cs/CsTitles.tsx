@@ -1,18 +1,22 @@
 import React, { useLayoutEffect, useState} from 'react'
-import {pageURL_CS_Faq, pageURL_CS_NoticeList, pageURL_CS_QnaList} from '@env'
+import {pageURL_CS_Faq, pageURL_CS_NoticeList, pageURL_CS_QnaList, pageURL_CS_QnaRegister} from '@env'
 import {useNavigation} from '@hook'
-import {PageTitle} from '@components'
+import {ButtonGeneral, PageTitle} from '@components'
 
 
 interface CsTitlesPropType {
-	currentMenu: string
+	currentMenu: string,
+	pageDetail?: string|null,
+	pageState?: object|null
 }
 
 function CsTitles({
-	currentMenu
+	currentMenu,
+	pageDetail,
+	pageState
 }: CsTitlesPropType) {
 
-	const {navigate, goToURL, propState} = useNavigation()
+	const {goToURL, propState} = useNavigation()
 
 	/****************************************************** common basic definition ***************************************************/
 	// 현재 메뉴 표시를 위함
@@ -38,6 +42,71 @@ function CsTitles({
 			<span style={{cursor: 'pointer'}} onClick={(e) => goToURL(e, pageURL_CS_Faq)}><PageTitle title={'자주하는 질문'} type={titleType[1]} /></span>
 			<div className={'titleBar'}></div>
 			<span style={{cursor: 'pointer'}} onClick={(e) => goToURL(e, pageURL_CS_QnaList)}><PageTitle title={'문의하기'} type={titleType[2]} /></span>
+			<div className={'pageButtonArea'}>
+				{pageDetail==='notice' &&
+					<span onClick={(e) => goToURL(e, pageURL_CS_NoticeList, pageState)}>
+						<ButtonGeneral
+							title={'목록'}
+							buttontype={'page'}
+							colortype={'pageList'}
+						/>
+					</span>
+				}
+				{pageDetail==='faq' &&
+				<span onClick={(e) => goToURL(e, pageURL_CS_Faq, pageState)}>
+						<ButtonGeneral
+							title={'목록'}
+							buttontype={'page'}
+							colortype={'pageList'}
+						/>
+					</span>
+				}
+				{pageDetail==='qnaList' &&
+					<span onClick={(e) => goToURL(e, pageURL_CS_QnaRegister, pageState)}>
+						<ButtonGeneral
+							title={'문의하기'}
+							buttontype={'page'}
+							colortype={''}
+						/>
+					</span>
+				}
+				{pageDetail==='qnaRegister' &&
+					<>
+						<span onClick={(e) => goToURL(e, pageURL_CS_QnaList, pageState)}>
+							<ButtonGeneral
+								title={'목록'}
+								buttontype={'page'}
+								colortype={'pageList'}
+							/>
+						</span>
+						<div className={'emptyDivWidth'} />
+						<ButtonGeneral
+							title={'문의하기 등록'}
+							buttontype={'page'}
+							colortype={''}
+						/>
+					</>
+				}
+				{pageDetail==='qnaDetail' &&
+					<>
+						<span onClick={(e) => goToURL(e, pageURL_CS_QnaList, pageState)}>
+							<ButtonGeneral
+								title={'목록'}
+								buttontype={'page'}
+								colortype={'pageList'}
+							/>
+						</span>
+						<div className={'emptyDivWidth'} />
+						<span onClick={(e) => goToURL(e, pageURL_CS_QnaRegister, pageState)}>
+							<ButtonGeneral
+								title={'다시 문의하기'}
+								buttontype={'page'}
+								colortype={''}
+							/>
+						</span>
+					</>
+				}
+			</div>
 		</div>
 	)
 }

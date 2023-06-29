@@ -117,9 +117,9 @@ export const fileMessage = (code: string): Message => {
 		case 'MEMBER_EXIST':
 			return {title: '주의', message: '이미 등록되어 있습니다.'}
 		case 'FILE_MAXSIZE':
-			return {title: '주의', message: '파일 사이즈는 3MB까지만 등록 가능합니다.'}
-		case 'FILE_MSXCNT':
-			return {title: '주의', message: '파일은 3개까지 등록 가능합니다.'}
+			return {title: '주의', message: '첨부하신 파일의 용량이 허용치를 초과했습니다.'}
+		case 'FILE_MAXCNT':
+			return {title: '주의', message: '첨부가능한 파일 개수를 초과했습니다.'}
 		case 'FILE_TYPE':
 			return {title: '주의', message: '등록할 수 없는 파일종류 입니다.'}
 		default:
@@ -167,6 +167,8 @@ export const infoMessage = (code: string): Message => {
 			return {title: '알림', message: '새로운 비밀번호는 대/소문자를 구별하며 영어, 숫자, 특수문자를 포함한 8자 이상 20자 이하로 입력해주세요.'}
 		case 'NEWSLETTER_INFO':
 			return {title: '알림', message: '뉴스레터 신청 취소는 발송되는 뉴스레터 링크 또는 팝업 상단의 뉴스레터 취소 메뉴에서 가능합니다.'}
+		case 'FILE_INFO':
+			return {title: '알림', message: '파일은 총 3개, 6mb 까지 등록 가능합니다. 등록가능 파일 종류: zip, doc, docx, ppt, pptx, xls, xlsx, pdf, jpg, jpge, gif, png'}
 		default:
 			return {title: '주의', message: '알수없는 에러가 발생했습니다.\n아래의 코드와 함께 관리자에게 문의해주세요.\nERR_CODE:' + code}
 	}

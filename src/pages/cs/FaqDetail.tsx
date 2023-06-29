@@ -3,11 +3,7 @@ import {useNavigation} from '@hook'
 import CsTitles from './CsTitles'
 import {ButtonRound} from '@components'
 
-
-interface NoticeDetailPropType {
-}
-
-function NoticeDetail({}: NoticeDetailPropType) {
+function FaqDetail() {
 
 	/****************************************************** common basic definition ***************************************************/
 	const {propState} = useNavigation()
@@ -24,11 +20,11 @@ function NoticeDetail({}: NoticeDetailPropType) {
 
 	return (
 		<main>
-			<CsTitles currentMenu={'notice'} pageDetail={'notice'} pageState={listState} />
+			<CsTitles currentMenu={'faq'} pageDetail={'faq'} pageState={listState} />
 			<section className={'pageTitleWrap'}>
 				<div className={'pageTitleMultiArea'}>
 					<div className={'contentTitle'}>
-						이용약관 및 개인정보처리방침 변경 고지
+						기업회원으로 가입하고 싶은데요. 휴대폰 번호로 할 수 없나요?
 					</div>
 					<div className={'contentTitleInfo'}>
 						2023-04-01
@@ -48,11 +44,10 @@ function NoticeDetail({}: NoticeDetailPropType) {
 			</section>
 			<div className={'emptyDivHeight'} />
 			<section className={'container containerTop'}>
-				AgainJob에서 서비스 추가 및 확대로 인해 이용약관과 개인정보처리방침에 변경이 있었습니다. 2023년 6월01일부터 시행되며, 약관에 동의하지 않으시면 사이트 이용이 불가합니다.<br />
-				궁금하신 점은 help@againjob.co.kr로 문의해주세요.
+				휴대폰 번호 가입은 개인회원 전용입니다. 올해 상반기 중 기업회원도 휴대폰 번호로의 가입을 위해 서비스 업데이트가 예정되어 있습니다. 다만 일정이 정확히 정해진 것은 아니며, 일정이 정해지는데로 홈페이지  공지사항을 통해 공지할 수 있도록 하겠습니다.
 			</section>
 		</main>
 	)
 }
 
-export default React.memo(NoticeDetail)
+export default React.memo(FaqDetail)

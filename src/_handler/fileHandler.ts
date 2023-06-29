@@ -3,15 +3,13 @@ import { postFileDownloadUrl } from '@env'
 
 // 파일 등록
 export const registFile = (file: object[], uploadFile: object[]) => {
-	// console.log('선택한 파일은?', file);
-	// console.log(file.length);
+	console.log('선택한 파일은?', file);
+	console.log(file.length);
 
 	// 선택한 파일이 없는 경우 종료
 	if(file.length === 0) {
 		return;
 	}
-
-	// alert('진행하나요?');
 
 	// 배열은 0부터 시작하니... 현재 길이에 1을 더해준다.
 	let tmpID = uploadFile.length + 1;

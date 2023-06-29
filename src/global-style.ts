@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from "styled-components"
 import {popup_CLoseButton} from '@assets'
 
 
@@ -60,6 +60,7 @@ export const GlobalStyle = createGlobalStyle<globalType>`
 	--fontSizeInputText: 1.6rem;
 	--fontSizePlaceholder: 1.6rem;
 	--fontSizeInputAlert: 1.4rem;
+	--fontSizeInputTitleType: 2.4rem;
 
 	--fontSizePopupTitle: 3rem;
 	--fontSizePopupListMain: 1.4rem;
@@ -73,9 +74,10 @@ export const GlobalStyle = createGlobalStyle<globalType>`
 	--fontSizeBasicButton: 1.4rem;
 	--fontSizeActionButton: 1.6rem;
 	
-	--fontSizeInfo: 1.4rem;
-	
+	--fontSizeInfo: 1.4rem;	
 	--fontSizePageSearch: 2rem;
+	
+	--fontSizeContentTitle: 2.4rem;
 
 	
 	/******************* Weight **********************/
@@ -93,11 +95,13 @@ export const GlobalStyle = createGlobalStyle<globalType>`
 	--bgAdareaColor: #414550;
 	
 	--bgBtnBasic: #333742;
+	--bgBtnFile: #798F9A;
 	--bgBtnDisabled: #BAC9D1;
 	--bgBtnNotImportant: #BAC9D1;
 	--bgBtnSky : #00A9E8;
 	--bgBtnYellowGreen: #9ACA40;
 	--bgBtnCancel: #EEF2F4;
+	--bgBtnList: #EEF2F4;
 	
 	--bgIconBasic: #798F9A;
 	--bgIconBtnStyle: #9ACA40;
@@ -121,6 +125,7 @@ export const GlobalStyle = createGlobalStyle<globalType>`
 	--inputLineFocus: #282C36;
 	--paginationLineBasic: #ECECEC;
 	--paginnationLineFocus: #414550;
+	--borderLineBtnList: #BAC9D1;
 
 	/******************* width **********************/
 	--widthButtonMinBasic: 9.2rem;
@@ -131,12 +136,15 @@ export const GlobalStyle = createGlobalStyle<globalType>`
 	--widthPopupMin: 30rem;
 	--widthPopupMax: 40rem;
 	--widthButtonPopup: 10rem;
+	--widthButtonPageTop: 12rem;
+	--widthEmptyBtnBetween: 1.5rem;
 
 	/******************* height **********************/
 	--heightButtonBasic: 3rem;
 	--heightButtonFull: 4rem;
 	--heightButtonMiddle: 3.5rem;
 	--heightButtonPopup: 3.5rem;
+	--heightButtonPageTop: 3.5rem;
 	--heightSignContentMin: 90rem;
 	--heightInputBasic: 4.8rem;
 	--heightEmptyDiv: 3rem;
@@ -144,12 +152,16 @@ export const GlobalStyle = createGlobalStyle<globalType>`
 	--heightListRow: 13rem;
 
 	/******************* Padding  **********************/
-	--paddingConentBasic: 3rem;
+	--paddingConentBasic: 0 3rem 3rem 3rem;
+	--paddingContentTop: 3rem;
 	--paddingInputBasic: 1.5rem; 
 	--paddingButtonRound: 0 2rem 0 2rem;
+	--paddingButtonBasic: 0 2rem 0.2rem 2rem;
+	--paddingButtonFile: 0 4rem 0.2rem 2rem;
 	--paddingAlertBasic: 0 1rem 0 1rem;
 	--paddingInfoBasic: 0 1rem 0 0.5rem;
 	--paddingListRow: 2rem 0 2rem 0;
+	--paddingConentTitle: 2.5rem;
 
 	/******************* margin **********************/
 	--marginRightSubMenu: 8rem;
@@ -329,11 +341,56 @@ li {
 	list-style: none;
 }
 
-// 컨텐츠 페이지 공통 CONTAINER
+/************************************** Contents Page ***********************************/
 .container {
 	width: 100%;
 	background-color: #fff;
 	padding: var(--paddingConentBasic);
+	border-radius: var(--radiusBasic);
+}
+
+.containerTop {
+	padding-top: var(--paddingContentTop);
+}
+
+// 컨텐츠 페이지 컨텐츠 타이틀 영역, 한 줄만 있는 곳 //////////////////////////////
+.contentTitleArea {
+	width: 100%;
+	background-color: #fff;
+	padding: var(--paddingConentTitle);
+	border-radius: var(--radiusBasic);
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.contentTitle {
+	font-size: var(--fontSizeContentTitle);
+	font-weight: var(--fontWeightMiddle);
+	flex-grow: 1;
+}
+ 
+.contentTitleInfo {
+	font-size: 2rem;
+	padding-top: 0.3rem;
+	font-weight: var(--fontWeightMiddle);
+}
+
+// 컨텐츠 페이지 여러 줄  //////////////////////////////
+.pageTitleWrap {
+	width: 100%;
+	background-color: #fff;
+	padding: var(--paddingConentTitle);
+}
+
+.pageTitleMultiArea {
+	display: flex;
+	border-bottom: 0.05rem solid var(--tableTrTdBetweenLine);
+	padding-bottom: 2.5rem;
+}
+
+.pageTitleContentArea {
+	padding-top: 2.5rem;
+	display: flex;
 }
 
 // 팝업의 BACKGROUND 공통
@@ -346,6 +403,14 @@ li {
 	width: 100%;
 	height: 100%;
 	z-index: 1;
+}
+
+// 컨텐츠 페이지 상단 버튼 영역
+.pageButtonArea {
+	//border: 1px solid red;
+	margin-top: 0.7rem;
+	flex-grow: 1;
+	text-align: right;
 }
 
 /************************************** Popup css ***********************************/
@@ -419,7 +484,6 @@ li {
 	margin-top: 1.3rem;
 }
 
-
 /************************************** component basic css ***********************************/
 .inputTitle {
 	font-size: var(--fontSizeInputTitle);
@@ -429,7 +493,12 @@ li {
 }
 
 .emptyDivHeight {
-	height: var(--heightEmptyDiv)
+	height: var(--heightEmptyDiv);
+}
+
+.emptyDivWidth {
+	width: var(--widthEmptyBtnBetween);
+	display: inline-block;
 }
 //// Table Grid div
 //.tableGrid	{
@@ -454,5 +523,34 @@ li {
 //	justify-content: flex-start;	
 //}
 
+/************************************** list의 공통 css ***********************************/
+// 일반적인 2줄 짜리 list의 Row
+.listRow {
+	display: flex;
+	align-items: center;
+	border-bottom: 0.05rem solid var(--tableTrTdBetweenLine);
+	/*border: 1px solid red;*/
+	height: var(--heightListRow);
+	width: 100%;
+	/*padding: var(--paddingListRow);*/
+	cursor: pointer;
+}
+
+// 리스트의 제목
+.listSubjectText {
+	font-size: var(--fontSizeListMain);
+	font-weight: var(--fontWeightMiddle);
+	height: 3.2rem;
+	
+}
+
+// 리스트의 컨텐츠 일부분
+.listContentDesc {
+	color: var(--fontListSubInfoTitle);
+	max-height: 5rem;
+	/*border: 1px solid yellowgreen;*/
+	overflow-y: hidden;
+	padding-right: 1.5rem;
+}
 
 `

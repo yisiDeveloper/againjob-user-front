@@ -1,5 +1,6 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
+import {fileDelete} from '@assets'
 
 interface ButtonRoundType {
 	title: string,
@@ -8,7 +9,7 @@ interface ButtonRoundType {
 
 function ButtonRound({
 	title,
-	buttontype = ''
+	buttontype
 }: ButtonRoundType) {
 
 	return (
@@ -33,14 +34,23 @@ const Button = styled.button<btnType>`
 	white-space: nowrap;
 	text-align: center;	
 	cursor: pointer;
-	${({buttontype}) =>
-		buttontype==='normal'
-			? css`
-			background-color: var(--bgBtnBasic);
-			`
-			: css`
-			background-color: var(--bgBtnYellowGreen);
-			`
+	${({buttontype}) => {
+		switch (buttontype) {
+			case 'normal':
+				return css`background-color: var(--bgBtnBasic);padding: var(--paddingButtonRound);`
+			case 'disabled':
+				return css`background-color: var(--bgBtnDisabled);padding: var(--paddingButtonRound);`
+			case 'file':
+				return css`
+					background-color: var(--bgBtnBasic);
+					padding: var(--paddingButtonFile);
+					background-image: url(${fileDelete});
+					background-repeat: no-repeat;
+					background-position: 95% center;`
+			default:
+				return css`background-color: var(--bgBtnYellowGreen);padding: var(--paddingButtonRound);`
+			}
+		}
 	}
 `
 export default React.memo(ButtonRound)

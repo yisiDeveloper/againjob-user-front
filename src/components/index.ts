@@ -32,7 +32,7 @@ export { default as RegisterLoginTitle } from './title/RegisterLoginTitle'
 export { default as PageTitle } from './title/PageTitle'
 
 /************************** Input *******************************/
-export { default as InputWithoutAlert } from './input/InputWithoutAlert'
+export { default as InputTitleType } from './input/InputTitleType'
 export { default as InputWithAlert } from './input/InputWithAlert'
 export { default as InputForSearch } from './input/InputForSearch'
 

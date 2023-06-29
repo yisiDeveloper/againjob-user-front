@@ -17,13 +17,18 @@ export default function PrivateRoute({authentication}:PrivateRouteProps):React.R
 	 * 로그인 안했을 경우 : null or false(로그아웃 버튼 눌렀을경우 false로 설정) 반환
 	 */
 	const isAuthenticated = getSessionItem(authName);
-	console.log('isAuthenticated', isAuthenticated);
+	// console.log('isAuthenticated', isAuthenticated);
+	// console.log('authentication', authentication);
 
-	if(!authentication) {
-		// 인증을 안했을 경우 로그인 페이지로, 했을 경우 해당 페이지로
-		return (isAuthenticated === null || isAuthenticated === 'false') ? <Navigate to='/Login' /> : <Outlet/>;
+	if(authentication) {
+		// 인증을 받아야 들어갈 수 있는 페이지인데 그렇지 않을 경우
+		console.log('go to login')
+		// return (isAuthenticated === null || isAuthenticated === false) ? <Navigate to='/Sign/Login' /> : <Outlet/>;
+		return <Outlet />
 	} else {
-		// 인증을 안했을 경우 해당 페이지로 인증을 한 상태일 경우 main페이지로
-		return (isAuthenticated === null || isAuthenticated === 'true') ? <Navigate to='/Member'/> : <Outlet/>;
+		// 인증을 받지 않아야 들어갈 수 있는 페이지인 경우
+		console.log('go to main')
+		// return (isAuthenticated === null || isAuthenticated === true) ? <Navigate to='/Main'/> : <Outlet/>;
+		return <Outlet />
 	}
 }

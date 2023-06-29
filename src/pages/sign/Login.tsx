@@ -2,7 +2,7 @@ import React, {useCallback, useRef, useState} from 'react'
 import {Alert, ButtonGeneral, CustomCheckBox, InputWithAlert, RegisterLoginTitle} from '@components'
 import './sign.css'
 import styled from 'styled-components'
-import {pageURL_Sign_ChoiceChannel} from '@env'
+import {pageURL_Sign_ChoiceChannel, pageURL_Sign_PE_FindID, pageURL_Sign_PE_FindPwd} from '@env'
 import {useNavigation} from '@hook'
 
 function Login() {
@@ -84,9 +84,9 @@ function Login() {
 						<CustomCheckBox name={'saveId'} title={'아이디저장'} defaultFlag={false} titleType={'loginForm'} onChangeHandler={changeValues} />
 					</div>
 					<div className={'loginSubMenuArea'}>
-						<div className={'loginSubMenu'}>아이디 찾기</div>
+						<div onClick={(e) => goToURL(e, pageURL_Sign_PE_FindID)} className={'loginSubMenu'}>아이디 찾기</div>
 						<SubMenuBar />
-						<div className={'loginSubMenu'}>비밀번호 찾기</div>
+						<div onClick={(e) => goToURL(e, pageURL_Sign_PE_FindPwd)} className={'loginSubMenu'}>비밀번호 찾기</div>
 						<SubMenuBar />
 						<div onClick={(e) => goToURL(e, pageURL_Sign_ChoiceChannel)} className={'loginSubMenu'}>회원가입</div>
 					</div>

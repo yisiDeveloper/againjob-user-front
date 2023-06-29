@@ -39,7 +39,7 @@ input::placeholder {
 .inputAreaForSearch {
 	width: 40rem;
 	margin-left: 3rem;
-	/*border: 1px solid red;*/
+
 }
 
 .inputForSearch {
@@ -51,6 +51,7 @@ input::placeholder {
 	color: var(--fontUserWriteColor);
 	font-size: var(--fontSizePageSearch);
 	padding-left: var(--paddingInputBasic);
+	padding-right: var(--paddintInputBasic);
 	/* iOS에서 모서리가 둥글게 나오는 현상 해결
 	-webkit-appearance: none;
 	-webkit-border-radius: var(--radiusBasic);
@@ -64,3 +65,34 @@ input::placeholder {
 .inputForSearch::placeholder {
 	font-size: var(--fontSizePageSearch);
 }
+
+.inputForTypeArea {
+	background-color: var(--bgContentBasicBgColor);
+	border-radius: var(--radiusBasic);
+	padding: 1rem 2rem 1rem 1rem;
+}
+.inputForTypeArea:last-child {
+	margin-left: 4rem;
+}
+.inputForTitleType {
+	outline: none;
+	border: 0;
+	font-family: "Noto Sans KR", sans-serif;
+	height: 6rem;
+	width: 100%;
+	color: var(--fontUserWriteColor);
+	font-size: var(--fontSizeInputTitleType);
+	padding-left: var(--paddingInputBasic);
+	padding-right: var(--paddintInputBasic);
+	/* iOS에서 모서리가 둥글게 나오는 현상 해결
+	-webkit-appearance: none;
+	-webkit-border-radius: var(--radiusBasic);
+	*/
+}
+.inputForTitleType::placeholder {
+	font-size: var(--fontSizeInputTitleType);
+}
+.inputForTitleType:focus {
+	border: 0;
+}
+

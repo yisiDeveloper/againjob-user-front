@@ -3,36 +3,38 @@ import './input.css'
 import {Alert} from '@components'
 
 interface inputType {
+	placeholder: string,
 	name: string,
+	max: number,
+	type: string,
 	onchange: (e: React.ChangeEvent<HTMLInputElement>) => void,
-	// onkeydown: (e: React.KeyboardEvent<HTMLInputElement>) => void,
-	value?: any,
+	value?: string | null,
 	message?: string | null
 }
-function InputForSearch({
+function InputTitleType({
+	placeholder,
 	name,
+	max,
+	type,
 	onchange,
-	// onkeydown,
-	value,
+	value = null,
 	message
 }:inputType) {
 
 	return (
-		<div className={'inputAreaForSearch'}>
+		<div className={'inputForTypeArea'}>
 			<input
-				type='text'
+				type={type}
 				name={name}
-				placeholder={'검색어를 입력해주세요.'}
-				maxLength={50}
+				placeholder={placeholder}
+				maxLength={max}
 				onChange={onchange}
-				className={'inputForSearch'}
-				defaultValue={value}
-				// onKeyDown={onkeydown}
+				defaultValue={value!}
+				className={'inputForTitleType'}
 			/>
 			{message && <Alert title={message} alertdisplay={true} />}
 		</div>
 	)
 }
 
-
-export default React.memo(InputForSearch)
+export default React.memo(InputTitleType)

@@ -1,28 +1,26 @@
-import React, {useCallback, useEffect} from 'react'
-import {checkRequiredKeyValue} from '@handler'
-import {pageURL_ERROR_NotiForCS} from '@env'
+import React, {useCallback, useEffect, useRef} from 'react'
 import {useForm, useNavigation} from '@hook'
 import CsTitles from './CsTitles'
+import {Alert, ButtonGeneral, ButtonRound, InfoAlert, InputTitleType} from '@components'
+import {qnaFileMaxLength, qnaFileTypes, qnaMaxFileSize} from '@env'
 
-
-interface QnaRegisterPropType {
-}
-
-function QnaRegister({}: QnaRegisterPropType) {
+function QnaRegister() {
 
 	/****************************************************** common basic definition ***************************************************/
-	const {navigate, goToURL, propState} = useNavigation()
+	const {goToURL, propState} = useNavigation()
 
 	/****************************************************** contents initialization or definition ***************************************************/
-		// 모든 입력값의 초기값을 만든다.
+	// 모든 입력값의 초기값을 만든다.
 	const initialValues = {
-			loginType: 'email',
-			coEmail: ''
+			qnaTitle: '',
+			uploadFile: [],
+			content: ''
 		}
 	// 실제 체크해야하는 에러 필드를 정의한다.
 	const initialErrors = {
-		coEmail: '',
-		coBusinessNo: ''
+		qnaTitle: '',
+		content: '',
+		uploadFile: ''
 	}
 
 	// 모든 값들과 에러를 정의한다.
@@ -31,8 +29,8 @@ function QnaRegister({}: QnaRegisterPropType) {
 		errors,
 		messages,
 		inputHandler,
-		checkBoxHandler,
-		setErrorMessage
+		setErrorMessage,
+		registerFile
 	} = useForm({
 		initialValues,
 		initialErrors
@@ -40,25 +38,76 @@ function QnaRegister({}: QnaRegisterPropType) {
 
 	/****************************************************** Handling ***************************************************/
 
-		// submit
-	const submitHandler = useCallback((e: React.SyntheticEvent) => {
-			e.preventDefault()
+	// submit
+	const submitHandler = useCallback(() => {
 
-		}, [])
-
-
-	// 한번 만 실행되도록 하기 위함
-	useEffect(() => {
-		checkRequiredKeyValue(propState, 'name', true, navigate, 'NOT_NORMAL_CONNECT')
-		if (!propState.name) {
-			navigate(pageURL_ERROR_NotiForCS, {replace: true, state: {errorCode: 'NOT_NORMAL_CONNECT'}})
-		}
 	}, [])
+
+
+	const fileRef = useRef<any>();
+	const fileHandler = ((e: React.SyntheticEvent) => {
+		e.preventDefault()
+
+		if(fileRef) {
+			fileRef.current.click();
+		}
+
+	})
+
+	useEffect(() => {
+		console.log('values',values)
+	},[values])
+
 
 	return (
 		<main>
-			<CsTitles currentMenu={'qna'} />
-			<section>
+			<CsTitles currentMenu={'qna'} pageDetail={'qnaRegister'} />
+			<InputTitleType
+				placeholder={'제목을 입력해주세요'}
+				name={'qnaTitle'}
+				max={100}
+				type={'text'}
+				onchange={(e) => inputHandler(e, 3, 'text', '제목은 ')}
+				message={messages.qnaTitle}
+			/>
+			<div className={'emptyDivHeight'} />
+			<section className={'container containerTop'}>
+				<div style={{display: 'flex'}}>
+					<span onClick={fileHandler}><ButtonGeneral
+						title={'파일첨부'}
+						buttontype={'file'}
+						colortype={'file'}
+					/></span>
+					<div className={'emptyDivWidth'} />
+					<InfoAlert messageCode={'FILE_INFO'} />
+					<input type={'file'} name={'uploadFile'} onChange={(e) => registerFile(e, qnaMaxFileSize, qnaFileTypes, qnaFileMaxLength)} ref={fileRef} style={{display:'none'}} />
+				</div>
+				<Alert
+					title={messages.uploadFile}
+					alertdisplay={errors.uploadFile}
+				/>
+				<div className={'emptyDivHeight'} />
+				<div>
+					{
+						values.uploadFile.map((data:any ,idx: any) => {
+							return (
+								<span key={idx}>
+									<span onClick={() => alert(idx)}>
+										<ButtonRound
+											title={data.name}
+											buttontype={'file'}
+										/>
+									</span>
+									<div className={'emptyDivWidth'} />
+								</span>
+							)
+						})
+					}
+				</div>
+			</section>
+			<div className={'emptyDivHeight'} />
+			<section className={'container containerTop'}>
+
 			</section>
 		</main>
 	)

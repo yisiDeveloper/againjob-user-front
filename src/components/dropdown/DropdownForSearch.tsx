@@ -19,7 +19,7 @@ function Dropdown({
 	values
 }:dropdownType) {
 
-	console.log('dropdown component의 values', values)
+	// console.log('dropdown component의 values', values)
 	// 선택된 값
 	const [titleValue, setTitleValue] = useState<string>()
 	const optionRef = useRef<any>()
@@ -33,11 +33,13 @@ function Dropdown({
 		setTitleValue(title)	// 값을 바꾸고
 		optionHandler(e)		// 옵션을 닫자
 		changeFunc(e, name, id, values)	// 부모에서 실제 값을 바꾸자
-	},[titleValue])
+	},[titleValue, values])
 
 	const optionHandler = useCallback((e: React.MouseEvent<HTMLDivElement>): void => {
 		e.preventDefault()
 		e.stopPropagation()
+
+		console.log('클릭 한 순간의 values', values)
 
 		let tmpRef = optionRef.current
 		let titleTmpRef = titleRef.current
@@ -51,7 +53,7 @@ function Dropdown({
 			}
 
 		}
-	},[titleValue])
+	},[titleValue,values])
 
 
 	useLayoutEffect(() => {

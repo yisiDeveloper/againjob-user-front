@@ -49,6 +49,7 @@ export const pageURL_CS_QnaList = '/CS/QnaList'
 export const pageURL_CS_QnaDetail = '/CS/QnaDetail'
 export const pageURL_CS_QnaRegister = '/CS/QnaRegister'
 export const pageURL_CS_Faq = '/CS/Faq'
+export const pageURL_CS_FaqDetail = '/CS/FaqDetail'
 
 
 /********************************************** Error ***************************************************/

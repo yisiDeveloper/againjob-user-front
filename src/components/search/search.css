@@ -9,6 +9,7 @@
 	height: 6rem;
 	background-color: var(--bgContentBasicBgColor);
 	margin-bottom: var(--marginBetweenContentBlock);
+	border-radius: var(--radiusBasic);
 }
 
 /************************** 공지사항 *******************************/

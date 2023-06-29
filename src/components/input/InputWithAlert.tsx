@@ -1,7 +1,6 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import './input.css'
-import {overrideTypeScript} from '@craco/craco/dist/lib/features/webpack/typescript'
 import {Alert} from '@components'
 
 interface inputType {

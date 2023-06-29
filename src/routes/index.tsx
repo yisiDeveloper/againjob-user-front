@@ -6,7 +6,7 @@ import {
 	NotiForCS, Error404,
 	ChangeTempPwd, ServicePolicy, PrivacyPolicy,
 	WithdrawPolicy, WithdrawComplete,
-	NoticeList, NoticeDetail, Faq, QnaList, QnaDetail
+	NoticeList, NoticeDetail, Faq, QnaList, QnaDetail, FaqDetail, QnaRegister
 } from '@pages'
 import { Layout } from '@components'
 import PrivateRoute from './PrivateRoute'
@@ -30,14 +30,10 @@ import {
 	pageURL_Member_WithdrawPolicy,
 	pageURL_Policy_Service,
 	pageURL_Policy_Privacy,
-	pageURL_CS_NoticeList,
-	pageURL_CS_NoticeDetail,
-	pageURL_CS_Faq,
-	pageURL_CS_QnaRegister,
-	pageURL_CS_QnaList,
-	pageURL_CS_QnaDetail
+	pageURL_CS_NoticeList, pageURL_CS_NoticeDetail,
+	pageURL_CS_Faq, pageURL_CS_FaqDetail,
+	pageURL_CS_QnaRegister,	pageURL_CS_QnaList,	pageURL_CS_QnaDetail
 } from '@env'
-import QnaRegister from '../pages/cs/QnaRegister'
 
 // Error 페이지 정의
 
@@ -68,6 +64,7 @@ export default function Router() {
 					<Route path={pageURL_CS_NoticeList} element={<NoticeList />}/>
 					<Route path={pageURL_CS_NoticeDetail} element={<NoticeDetail />}/>
 					<Route path={pageURL_CS_Faq} element={<Faq />}/>
+					<Route path={pageURL_CS_FaqDetail} element={<FaqDetail />}/>
 
 					{/* 인증을 반드시 하지 않아야만 접속 가능한 페이지 정의 */}
 					<Route element={<PrivateRoute authentication={false}/>}>

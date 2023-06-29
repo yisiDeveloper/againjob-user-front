@@ -18,6 +18,8 @@ function NoticeList() {
 	/****************************************************** common basic definition ***************************************************/
 	const {goToURL, propState} = useNavigation()
 
+	// console.log('notice list state', propState)
+
 	/****************************************************** contents initialization or definition ***************************************************/
 	// 받아온 propState를 일반 state에 넣고 관리한다.
 	// searchOption, searchKeyword
@@ -74,7 +76,7 @@ function NoticeList() {
 			searchKeyword: values.searchKeyword,
 			currentPage: requestPage
 		}
-		console.log('보낼 데이터는', tmpQueryData)
+		// console.log('보낼 데이터는', tmpQueryData)
 		// 전체 게시물 수 세팅
 		setCurrentPage(requestPage)
 		setNotiContent(notiData)
@@ -85,6 +87,9 @@ function NoticeList() {
 
 	useLayoutEffect(() => {
 		getNotiContent(currentPage)
+		if(listState.currentPage) {
+			setCurrentPage(listState.currentPage)
+		}
 	},[])
 
 
@@ -114,9 +119,10 @@ function NoticeList() {
 										<article className={'listSubjectArea'}>
 											<ButtonRound title={'개인회원'} buttontype={''}
 											/>
+											<div className={'emptyDivWidth'} />
 											<span className={'listSubjectText'}>{data.title}</span>
 										</article>
-										<article className={'listSubjectSub'}>{data.content}</article>
+										<article className={'listContentDesc'}>{data.content}</article>
 									</div>
 									<div className={'listColumnBar'}></div>
 									{(data.fixed) ? <><ListFixed /><div className={'listColumnBar'}></div></> : <div />}

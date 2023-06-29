@@ -39,8 +39,10 @@ export { default as WithdrawComplete} from './member/WithdrawComplete'
 export { default as NoticeList } from './cs/NoticeList'
 export { default as NoticeDetail } from './cs/NoticeDetail'
 export { default as QnaList } from './cs/QnaList'
+export { default as QnaRegister } from './cs/QnaRegister'
 export { default as QnaDetail } from './cs/QnaDetail'
 export { default as Faq } from './cs/Faq'
+export { default as FaqDetail } from './cs/FaqDetail'
 
 
 /***************************************************** estimation ****************************************************/

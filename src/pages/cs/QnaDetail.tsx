@@ -1,62 +1,77 @@
-import React, {useCallback, useEffect} from 'react'
-import {checkRequiredKeyValue} from '@handler'
-import {pageURL_ERROR_NotiForCS} from '@env'
-import {useForm, useNavigation} from '@hook'
+import React, {useEffect, useState} from 'react'
+import {useNavigation} from '@hook'
+import CsTitles from './CsTitles'
+import {ButtonRound} from '@components'
 
 
-interface QnaDetailPropType {
-}
 
-function QnaDetail({}: QnaDetailPropType) {
+function QnaDetail() {
 
 	/****************************************************** common basic definition ***************************************************/
-	const {navigate, goToURL, propState} = useNavigation()
+	const {propState} = useNavigation()
+	console.log(propState)
+	const [listState, ] = useState(propState.listState)
 
 	/****************************************************** contents initialization or definition ***************************************************/
-		// 모든 입력값의 초기값을 만든다.
-	const initialValues = {
-			loginType: 'email',
-			coEmail: ''
-		}
-	// 실제 체크해야하는 에러 필드를 정의한다.
-	const initialErrors = {
-		coEmail: '',
-		coBusinessNo: ''
-	}
-
-	// 모든 값들과 에러를 정의한다.
-	const {
-		values,
-		errors,
-		messages,
-		inputHandler,
-		checkBoxHandler,
-		setErrorMessage
-	} = useForm({
-		initialValues,
-		initialErrors
-	})
 
 	/****************************************************** Handling ***************************************************/
-
-		// submit
-	const submitHandler = useCallback((e: React.SyntheticEvent) => {
-		e.preventDefault()
-
-	}, [])
-
-
 	// 한번 만 실행되도록 하기 위함
 	useEffect(() => {
-		checkRequiredKeyValue(propState, 'name', true, navigate, 'NOT_NORMAL_CONNECT')
-		if (!propState.name) {
-			navigate(pageURL_ERROR_NotiForCS, {replace: true, state: {errorCode: 'NOT_NORMAL_CONNECT'}})
-		}
+
 	}, [])
 
 	return (
 		<main>
-			<section>
+			<CsTitles currentMenu={'qna'} pageDetail={'qnaDetail'} pageState={listState} />
+			<div className={'contentTitleArea'}>
+				<div className={'contentTitle'}>
+					기업회원은 휴대폰번호를 이용해서 로그인 할 수 없나요?
+				</div>
+				<div className={'contentTitleInfo'}>
+					2023-04-01
+				</div>
+			</div>
+			<div className={'emptyDivHeight'} />
+			<div className={'contentTitleArea'}>
+				<ButtonRound
+					title='에러화면1.jpg'
+					buttontype={'normal'}
+				/>
+				<div className={'emptyDivWidth'}/>
+				<ButtonRound
+					title='에러화면2.png'
+					buttontype={'normal'}
+				/>
+			</div>
+			<div className={'emptyDivHeight'} />
+			<section className={'container containerTop'}>
+				AgainJob에서 서비스 추가 및 확대로 인해 이용약관과 개인정보처리방침에 변경이 있었습니다. 2023년 6월01일부터 시행되며, 약관에 동의하지 않으시면 사이트 이용이 불가합니다.<br />
+				궁금하신 점은 help@againjob.co.kr로 문의해주세요.
+			</section>
+			<div className={'emptyDivHeight'} />
+			<div className={'contentTitleArea'}>
+				<div className={'contentTitle'}>안녕하세요 홍길동 고객님! 답변 드립니다.
+				</div>
+				<div className={'contentTitleInfo'}>
+					2023-04-02
+				</div>
+			</div>
+			<div className={'emptyDivHeight'} />
+			<div className={'contentTitleArea'}>
+				<ButtonRound
+					title='예시화면1.jpg'
+					buttontype={'normal'}
+				/>
+				<div className={'emptyDivWidth'}/>
+				<ButtonRound
+					title='예시화면2.png'
+					buttontype={'normal'}
+				/>
+			</div>
+			<div className={'emptyDivHeight'} />
+			<section className={'container containerTop'}>
+				먼저 사이트 이용에 불편을 끼쳐드려 대단히 죄송합니다..<br />
+				궁금하신 점은 help@againjob.co.kr로 문의해주세요.
 			</section>
 		</main>
 	)

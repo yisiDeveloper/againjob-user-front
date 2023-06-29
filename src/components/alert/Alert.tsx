@@ -32,7 +32,7 @@ const AlertBox = styled.div<boxType>`
 	color: var(--fontInputAlertColor);
 	font-size: var(--fontSizeInputAlert);
 	font-weight: var(--fontWeightBold);
-	padding-left: 0.5rem;
+	padding-left: 0.8rem;
 	margin-top: 0.5rem;
 	display: ${props => props.alertdisplay === 'true' ? 'block' : 'none'};
 	${({alertstyle}) => {

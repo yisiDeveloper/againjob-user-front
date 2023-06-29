@@ -10,6 +10,9 @@ import DropDownLess from './icons/dropdown_less.png'
 import SearchIcon from './icons/search.png'
 import FileAttached from './icons/file_attached.png'
 import NoticeFixed from './icons/notice_fixed.png'
+import ArrowExpandMore from './icons/arrow_expand_more.png'
+import ArrowExpandLess from './icons/arrow_expand_less.png'
+import ArrowNext from './icons/arrow_next.png'
 /********************************* Component *********************************/
 import checkbox_uncheck from './component/checkbox_unchecked.png'
 import checkbox_checked from './component/checkbox_checked.png'
@@ -20,6 +23,7 @@ import paginationNextAvailable from './component/pagination_next_available.png'
 import paginationNextDisable from './component/pagination_next_disable.png'
 import paginationPrevAvailable from './component/pagination_prev_available.png'
 import paginationPrevDisable from './component/pagination_prev_disable.png'
+import fileDelete from './component/file_delete.png'
 
 
 
@@ -42,7 +46,10 @@ export {
 	DropDownLess,
 	SearchIcon,
 	FileAttached,
-	NoticeFixed
+	NoticeFixed,
+	ArrowExpandMore,
+	ArrowExpandLess,
+	ArrowNext
 }
 
 export {
@@ -54,7 +61,8 @@ export {
 	paginationNextAvailable,
 	paginationNextDisable,
 	paginationPrevAvailable,
-	paginationPrevDisable
+	paginationPrevDisable,
+	fileDelete
 }
 
 export {

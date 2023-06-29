@@ -31,7 +31,7 @@ function ListSearch({
 	setErrorMessage
 }: ListSearchPropType) {
 
-	// console.log('values', values)
+	// console.log('List Serach의 values', values)
 	/****************************************************** common basic definition ***************************************************/
 
 
@@ -41,8 +41,8 @@ function ListSearch({
 	/****************************************************** Handling ***************************************************/
 	const goSearch = useCallback((e: React.SyntheticEvent) => {
 		e.preventDefault()
-		console.log(values)
-		console.log(errors)
+		// console.log(values)
+		// console.log(errors)
 		if(values.searchKeyword === '' || errors.searchKeyword) {
 			setErrorMessage(e,'searchKeyword',commMessage('INVALID_INPUT_PARAM').message)
 		} else {
