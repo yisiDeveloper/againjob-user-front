@@ -39,6 +39,7 @@ const AlertBox = styled.div<boxType>`
 		return css`${alertstyle}`
 		}
 	}
+	//border: 1px solid blue;
 `
 
 export default React.memo(Alert)

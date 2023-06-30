@@ -1,3 +1,12 @@
+/*********************************** Basic Definition *******************************/
+export {
+	memberIdName,memberNumberName,memberTypeName,memberTypePersonal, memberTypeCorp,
+	tokenExpireDay, cookieExpireDay, acTokenName, rfTokenName, authFlagName,
+	maxFileSize, fileTypes,
+	noticeListOnePageSize, noticeListPageBlockSize, faqListOnePageSize, faqListPageBlockSize, qnaListPageBlockSize, qnaListOnePageSize, qnaMaxFileSize, qnaFileTypes, qnaFileMaxLength
+} from './common'
+
+
 /*********************************** Message *******************************/
 export {
 	authMessage,
@@ -5,7 +14,8 @@ export {
 	fileMessage,
 	memberMessage,
 	errorMessage,
-	infoMessage
+	infoMessage,
+	placeholderMessage
 } from './msgDefine'
 
 /*********************************** API URL *******************************/
@@ -48,11 +58,6 @@ export {
 	pageURL_CS_QnaRegister
 } from './pageURL'
 
-export {
-	tokenExpireDay, cookieExpireDay, acTokenName, rfTokenName, authName,
-	maxFileSize, fileTypes,
-	noticeListOnePageSize, noticeListPageBlockSize, faqListOnePageSize, faqListPageBlockSize, qnaListPageBlockSize, qnaListOnePageSize, qnaMaxFileSize, qnaFileTypes, qnaFileMaxLength
-} from './common'
 
 /*********************************** type *******************************/
 export type {

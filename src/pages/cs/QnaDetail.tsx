@@ -45,8 +45,7 @@ function QnaDetail() {
 			</div>
 			<div className={'emptyDivHeight'} />
 			<section className={'container containerTop'}>
-				AgainJob에서 서비스 추가 및 확대로 인해 이용약관과 개인정보처리방침에 변경이 있었습니다. 2023년 6월01일부터 시행되며, 약관에 동의하지 않으시면 사이트 이용이 불가합니다.<br />
-				궁금하신 점은 help@againjob.co.kr로 문의해주세요.
+				<div dangerouslySetInnerHTML={{__html: 'AgainJob에서 서비스 추가 및 확대로 인해 이용약관과 개인정보처리방침에 변경이 있었습니다. 2023년 6월01일부터 시행되며, 약관에 동의하지 않으시면 사이트 이용이 불가합니다.<br />궁금하신 점은 help@againjob.co.kr로 문의해주세요.'}} />
 			</section>
 			<div className={'emptyDivHeight'} />
 			<div className={'contentTitleArea'}>
@@ -70,8 +69,7 @@ function QnaDetail() {
 			</div>
 			<div className={'emptyDivHeight'} />
 			<section className={'container containerTop'}>
-				먼저 사이트 이용에 불편을 끼쳐드려 대단히 죄송합니다..<br />
-				궁금하신 점은 help@againjob.co.kr로 문의해주세요.
+				<div dangerouslySetInnerHTML={{__html: '먼저 사이트 이용에 불편을 끼쳐드려 대단히 죄송합니다..<br />궁금하신 점은 help@againjob.co.kr로 문의해주세요.'}} />
 			</section>
 		</main>
 	)

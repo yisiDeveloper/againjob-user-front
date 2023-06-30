@@ -1,4 +1,6 @@
 import React from 'react'
+import {log} from '@craco/craco/dist/lib/logger'
+import {pageURL_ERROR_NotiForCS} from '@env'
 
 /**************************************************************************************
  *
@@ -55,6 +57,7 @@ export function findValueInObject (target: object, value: any) {
  *
  * 	오브젝트에서 특정 값을 가지고 있는 key를 찾기
  * 	찾는 값이 있으면 그 값을 가진것의 keys를, 없으면 false를 반환
+ * 	exceptEL은 만약 해당 Object에서 검사하지 않아야 할 것이 있다면 건너뛰게 하기 위함
  *
  **************************************************************************************/
 export function findKeyInObjectByValue (target: object, value: any) {
@@ -74,18 +77,40 @@ export function findKeyInObjectByValue (target: object, value: any) {
 
 /**************************************************************************************
  *
- * 	오브젝트에서 특정 키가 특정 값을 가지고 있는지 확인
- * 	찾는 값이 있으면 키와 값을 오브젝트 형태로, 없으면 false를 반환
+ * 	필수 항목에 대한 빈값 체크
+ * 	elName은 array형태로 체크하지 않아도 되는 값의 key를 받는다.
+ *
+ * 	체크 시 elName에 없다면(필수 값이라면) error가 true인지를 찾고
+ * 	elName에 있다면 빈값이 아닌 경우에만 error가 True인것을 찾는다.
  *
  **************************************************************************************/
-// export function findKeyValueInObject (target: object, value: any) {
-// 	// 먼저 값만 저장하고
-// 	let tmpKeys = Object.keys(target)
-// 	let tmpValues = Object.values(target)
-// 	// 해당 값이 있는지 찾자
-// 	let result = tmpValues.find((data) => data === value)
-// 	return !(result === undefined || result === 'undefined');
-// }
+export function findKeyWithRequired (values: object, errors: object|any, elName: string[]) {
+	// 먼저 값만 저장하고
+	let tmpKeys = Object.keys(values)
+	let tmpValues = Object.values(values)
+	// 해당 값이 있는지 찾자
+
+	let result:string|boolean = true
+
+	for(let i=0; i<tmpKeys.length; i++) {
+		// 먼저 옵션값인지를 확인한다.
+		if(findValueInObject(elName, tmpKeys[i])){
+			// 옵션값이고 error가 true라면
+			if(tmpValues[i].length > 0 && errors[tmpKeys[i]]) {
+				result = tmpKeys[i]
+				break;
+			}
+		} else {
+			// 필수값이란 의미이므로 error에서 true인지를 확인한다.
+			if(errors[tmpKeys[i]]) {
+				result = tmpKeys[i]
+				break;
+			}
+		}
+	}
+
+	return result
+}
 
 
 /**************************************************************************************
@@ -127,7 +152,7 @@ export function popupClose (e: any, setPopDP: React.Dispatch<React.SetStateActio
  * 	오브젝트에 특정 키가 특정 값을 기지고 있는지 확인하여 없다면 에러 페이지로 보낸다.
  *
  **************************************************************************************/
-export function checkRequiredKeyValue (state: object, key:string, value:any, navigate: any, errorCode:string): boolean {
+export function checkRequiredKeyValue (state: object, key:string, value:any, navigate: any, errorCode:string) {
 
 	// 이름과 값을 가져온다.
 	let tmpKeys = Object.keys(state)
@@ -145,9 +170,9 @@ export function checkRequiredKeyValue (state: object, key:string, value:any, nav
 		}
 	}
 	// console.log('result', result)
+	// console.log('state', tmpState)
 	// 아예 값이 없거나 해당 값이 다르면 error페이지로
-	return result
-		// && navigate(pageURL_ERROR_NotiForCS, {replace: true, state: tmpState})
+	return !result ? navigate(pageURL_ERROR_NotiForCS, {replace: true, state: tmpState}) : result
 }
 
 

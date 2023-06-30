@@ -507,21 +507,28 @@ li {
 //	flex-grow: 1;
 //}
 //
-////quill editor
-//.ql-editor strong{
-//  font-weight: var(--fontWeightBold);
-//}
-//
-//// cursor
-//.cursorPointer {
-//	cursor: pointer;
-//}
-//
-//// 한 Row에 Div들이 여러개 있는 경우 기본적인 display 설정
-//.rowFlex {
-//	display: flex;
-//	justify-content: flex-start;	
-//}
+/************************************** Quill Editor ***********************************/
+.editorContainer {
+	width: 100%;
+	background-color: #fff;
+	border-radius: var(--radiusBasic);
+	padding: 1rem 2rem 3rem 2rem;
+}
+
+.ql-editor strong{
+	font-weight: var(--fontWeightBold);
+}
+
+.ql-container.ql-snow {
+	border: none !important;
+	//border: 1px solid #ccc;
+	font-size: 2rem;
+}
+.ql-toolbar.ql-snow {
+	border: none !important;
+	border-bottom: 1px solid #ececec !important;
+	padding-bottom: 1.5rem;
+}
 
 /************************************** list의 공통 css ***********************************/
 // 일반적인 2줄 짜리 list의 Row

@@ -172,7 +172,7 @@ function PeInfo() {
 	// 한번 만 실행되도록 하기 위함
 	useEffect(() => {
 		// 값을 확인하여 없는 경우 에러를 발생시킨다.
-		console.log(checkRequiredKeyValue(propState, 'all', true, navigate,'NOT_NORMAL_CONNECT'))
+		checkRequiredKeyValue(propState, 'all', true, navigate,'NOT_NORMAL_CONNECT')
 	},[])
 
 	return(

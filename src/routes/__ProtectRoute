@@ -28,7 +28,7 @@ const category:Array<Category> =
           ]
   }, 
 ];
-export default function ProtectRoute():React.ReactElement|null {
+export default function _ProtectRoute():React.ReactElement|null {
 
   // 현재 Url정보를 갖고 오기 위해서 useLocation Hooks사용
   const location = useLocation();

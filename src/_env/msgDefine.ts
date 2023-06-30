@@ -171,7 +171,30 @@ export const infoMessage = (code: string): Message => {
 			return {title: '알림', message: '뉴스레터 신청 취소는 발송되는 뉴스레터 링크 또는 팝업 상단의 뉴스레터 취소 메뉴에서 가능합니다.'}
 		case 'QNA_FILE_INFO':
 			return {title: '알림', message: '파일은 총 3개, 각 2MB씩 총 6MB까지 등록 가능합니다. 등록가능 파일 종류: ' + qnaFileTypes}
+		case 'MYINFO_PASSWORD':
+			return {title: '알림', message: '비밀번호는 입력시에만 변경됩니다.'}
+		case 'MYINFO_ADDINFO':
+			return {title: '알림', message: '추가정보는 입사지원과 프로젝트 지원 시 회사에 공개되며, 검색 시 유리합니다.'}
 		default:
 			return {title: '주의', message: '알수없는 에러가 발생했습니다.\n아래의 코드와 함께 관리자에게 문의해주세요.\nERR_CODE:' + code}
+	}
+}
+
+
+/**********************************************************************************************************************
+ *
+ * 		placeholder
+ *
+ **********************************************************************************************************************/
+export const placeholderMessage = (code: string): string => {
+	switch(code) {
+		case 'LOGIN_ID':
+			return '휴대전화번호 또는 이메일 주소를 입력해주세요.'
+		case 'LOGIN_PASSWORD':
+			return '비밀번호를 입력해주세요.'
+		case 'QNA_REGISTER':
+			return '문의하실 내용을 입력해주세요'
+		default:
+			return '내용을 입력해주세요.'
 	}
 }

@@ -70,7 +70,7 @@ export default function comValidate(name: string, value: any, min: number, type:
 /*
 이메일 체크
 */
-export function emailCheck(value: string, minLength: number) {
+function emailCheck(value: string, minLength: number) {
 	let isChecked = false;
 	let alertMessage;
 
@@ -95,19 +95,19 @@ export function emailCheck(value: string, minLength: number) {
 /*
 일반적인 input box
 */
-export function inputCheck(value: any, minLength: number, inputName: string) {
-	let isChecked = false;
-	let alertMessage = '';
-	// value = dataTrim(value);
-
-	if(!minLengthCheck(value, minLength)) {
-		alertMessage = inputName + '는(은) 최소 ' + minLength + '자 이어야 합니다.';
-	} else {
-		isChecked = true;
-	}
-
-	return { isChecked, alertMessage }
-}
+// export function inputCheck(value: any, minLength: number, inputName: string) {
+// 	let isChecked = false;
+// 	let alertMessage = '';
+// 	// value = dataTrim(value);
+//
+// 	if(!minLengthCheck(value, minLength)) {
+// 		alertMessage = inputName + '는(은) 최소 ' + minLength + '자 이어야 합니다.';
+// 	} else {
+// 		isChecked = true;
+// 	}
+//
+// 	return { isChecked, alertMessage }
+// }
 
 /*
 &lt;script&gt;
@@ -133,7 +133,7 @@ export function inputCheck(value: any, minLength: number, inputName: string) {
 /*
 	날짜를 YYYY-MM-DD 형식으로 돌려주기
 */
-export function changeDate(value: string): string {
+function changeDate(value: string): string {
 
 	// console.log('original date', value);
 	let tmpDate = new Date(value);
@@ -153,7 +153,7 @@ export function changeDate(value: string): string {
 /*
 비밀번호 체크
 */
-export function pwdCheck(value: string, name: string, minLength: number) {
+function pwdCheck(value: string, name: string, minLength: number) {
 	let isChecked = checkPasswordPattern(value, minLength, 20);
 	let alertMessage = '';
 	value = dataTrim(value);
@@ -182,7 +182,7 @@ function dataTrim(value: any): any {
 }
 
 // 숫자에 콤마찍기
-export function addComma(value: number): string {
+function addComma(value: number): string {
 	return value.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 }
 
@@ -240,11 +240,7 @@ function checkEng(str: string): boolean{
 // 모든 특수문자 체크
 function noSpecialChar(str: string): boolean {
 	let special_pattern = /[`~!@#$%^&*|,.\{\}\[\]\(\)\\\'\";:\/?]/gi;
-	if(special_pattern.test(str)){
-		return true;
-	} else {
-		return false;
-	}
+	return special_pattern.test(str);
 }
 
 // // 일부 허용 특수문자 체크

@@ -1,6 +1,6 @@
 /********************************************** member ***************************************************/
 // 개인회원 개인정보
-export const pageURL_Member_PE_DetailInfo = '/Member/PeInfo'
+export const pageURL_Member_PE_DetailInfo = '/Member/PeDetailInfo'
 // 기업회원 개인정보
 export const pageURL_Member_CO_DetailInfo = '/Member/CoInfo'
 // 탈퇴 약관

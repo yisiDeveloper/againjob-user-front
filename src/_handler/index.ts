@@ -1,5 +1,3 @@
-// import { changeDate, pwdCheck, inputCheck, emailCheck } from './checkData';
-
 export { registFile, deleteFile, downloadFiles } from './fileHandler'
 export { setCookie, getCookie, removeCookie } from './cookieHandler'
 export {
@@ -21,10 +19,10 @@ export {
 	blockEnterKey,
 	makeTheValue,
 	findValueInObject,
-	createFormData,
 	popupClose,
 	checkRequiredKeyValue,
 	findKeyInObjectByValue,
 	calcPaginationData,
-	makePageBlock
+	makePageBlock,
+	findKeyWithRequired
 } from './common'

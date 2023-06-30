@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState} from 'react'
+import React, {DetailedHTMLProps, HTMLAttributes, useLayoutEffect, useState} from 'react'
 import {pageURL_CS_Faq, pageURL_CS_NoticeList, pageURL_CS_QnaList, pageURL_CS_QnaRegister} from '@env'
 import {useNavigation} from '@hook'
 import {ButtonGeneral, PageTitle} from '@components'
@@ -7,17 +7,18 @@ import {ButtonGeneral, PageTitle} from '@components'
 interface CsTitlesPropType {
 	currentMenu: string,
 	pageDetail?: string|null,
-	pageState?: object|null
+	pageState?: object|null,
+	submitHandler?: any
 }
 
 function CsTitles({
 	currentMenu,
 	pageDetail,
-	pageState
+	pageState,
+	submitHandler = {}
 }: CsTitlesPropType) {
 
 	const {goToURL} = useNavigation()
-
 	/****************************************************** common basic definition ***************************************************/
 	// 현재 메뉴 표시를 위함
 	const [titleType, setTitleType] = useState<string[]>([])
@@ -25,6 +26,8 @@ function CsTitles({
 	/****************************************************** Handling ***************************************************/
 	// useEffect로 깜빡임 현상이 있어 useLayoutEffect로 수정
 	useLayoutEffect(() => {
+
+
 		if(currentMenu==='notice'){
 			setTitleType(['Focus','notFocus','notFocus'])
 		} else if(currentMenu==='faq') {
@@ -80,11 +83,11 @@ function CsTitles({
 							/>
 						</span>
 						<div className={'emptyDivWidth'} />
-						<ButtonGeneral
+						<span onClick={submitHandler}><ButtonGeneral
 							title={'문의하기 등록'}
 							buttontype={'page'}
 							colortype={''}
-						/>
+						/></span>
 					</>
 				}
 				{pageDetail==='qnaDetail' &&

@@ -1,4 +1,4 @@
-import React, { ReactElement, useRef } from 'react'
+import React, {MutableRefObject, ReactElement, useRef} from 'react'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 
@@ -6,8 +6,10 @@ import 'react-quill/dist/quill.snow.css'
 
 interface EditorPropType {
 	value: string,
-	onChange: (text: string) => void,
-	style?: object
+	onChange: () => void,
+	style?: object,
+	placeholder?: string|''
+	quillRef: MutableRefObject<any>
 }
 
 // Quill.register('modules/imageResize', ImageResize)
@@ -33,8 +35,7 @@ const adminModules: any = {
 	// },
 }
 
-export const QuillEditorAdmin = ({ value, onChange, style = {} }: EditorPropType): ReactElement => {
-	const quillRef = useRef<any>(null);
+export const QuillEditorAdmin = ({ value, onChange, style = {}, placeholder, quillRef}: EditorPropType): ReactElement => {
 
 	// adminModules.toolbar.handlers.image = (): void => {
 	// 	const input: any = document.createElement('input');
@@ -61,10 +62,37 @@ export const QuillEditorAdmin = ({ value, onChange, style = {} }: EditorPropType
 
 	// quillRef.clipboard.dangerouslyPasteHTML(0, value);
 	// return <ReactQuill value={value} ref={quillRef} modules={modules} onChange={onChange} />;
-	return <ReactQuill value={value} ref={quillRef} modules={adminModules} onChange={onChange} style={style} placeholder='내용을 입력해주세요.' />;
-};
+	return <ReactQuill value={value} ref={quillRef} modules={adminModules} onChange={ onChange} style={style} placeholder={placeholder} />
+}
 
 
-export const QuillEditorUser = ({ value, onChange, style = {} }: EditorPropType): ReactElement => {
-	return <ReactQuill value={value} onChange={onChange} placeholder='내용을 입력해주세요.' style={style} />;
-};
+const userModules: any = {
+	toolbar: {
+		container: [
+			[{ header: [1, 2, 3, 4, 5, 6, false] }, { size: [] }, { font: [] }],
+			[{ align: [false, 'center', 'right'] }],
+			[{ color: [] }, { background: [] }],
+			['bold', 'italic', 'underline', 'strike', 'blockquote'],
+			[{ list: 'ordered' }, { list: 'bullet' }],
+			['link', 'image', 'video'],
+			['clean']
+		],
+		handlers: {
+			image: null,
+		},
+	},
+	// imageResize: {
+	// 	modules: ['Resize', 'DisplaySize'],
+	// },
+}
+
+export const QuillEditorUser = ({ 
+	value, 
+	onChange, 
+	style = {}, 
+	placeholder,
+	quillRef
+}: EditorPropType): ReactElement => {
+
+	return <ReactQuill defaultValue={value} ref={quillRef} modules={userModules} onChange={onChange} placeholder={placeholder} style={style} />;
+}

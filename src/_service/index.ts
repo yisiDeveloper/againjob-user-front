@@ -7,6 +7,5 @@ export {
 } from './LoginService'
 
 export {
-	memberStore,
 	contentStore
 } from './againStore'

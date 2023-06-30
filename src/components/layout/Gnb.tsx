@@ -5,33 +5,37 @@ import {
 	ButtonSubMenuOpen,
 	ButtonSubMenuClose
 } from '@assets'
-import {contentStore, memberStore} from '@service'
+import {contentStore} from '@service'
 import {ButtonRound} from '@components'
 import {
 	pageURL_Sign_Login,
 	pageURL_Sign_ChoiceClassify,
 	pageURL_Sign_PE_FindID,
-	pageURL_Sign_PE_FindPwd, pageURL_CS_NoticeList
+	pageURL_Sign_PE_FindPwd,
+	pageURL_CS_NoticeList,
+	authFlagName,
+	memberTypeName,
+	memberNumberName,
+	memberTypeCorp,
+	memberTypePersonal, pageURL_Member_PE_DetailInfo
 } from '@env'
 import './layout.css'
 import {useNavigation} from '@hook'
+import {getSessionItem, removeAllSessionItem} from '@handler'
 
 function Gnb() {
 
 	/************************************************ Global store state *********************************************/
 	const {
-		memberNumber, setMemberNumber,			// 회원번호
-		memberId, setMemberId,					// 회원아이디
-		memberType, setMemberType				// 회원 타입 (0: 기업, 1: 개인)
-	} = memberStore(state => state)
-
-	const {
 		// Submenu 노출여부
 		subMenu, setSubMenu						// true(default): open, false: close
-	} = contentStore(state => state)
+	} = contentStore()
+	// 	contentStore(state => state)
+	const memberType = getSessionItem(memberTypeName)
+	const authFlag = getSessionItem(authFlagName)
 
 
-	const {goToURL ,propState} = useNavigation()
+	const {goToURL ,navigate} = useNavigation()
 	/****************************************************** 공통 정의 ***************************************************/
 	// 최상단 광고 팝업 창의 노출여부
 	const [adDP, setAdDP] = useState<boolean>(false)
@@ -44,6 +48,13 @@ function Gnb() {
 		setSubMenu(!subMenu)
 	},[subMenu])
 
+	const goLogOut = useCallback((e: React.SyntheticEvent) => {
+		// e.preventDefault()
+		alert('로그아웃 하겠습니다.')
+		removeAllSessionItem()
+		navigate('/', {replace: true})
+	},[])
+
 
 	/****************************************************** 버튼, 링크 ***************************************************/
 	/*		close button action		*/
@@ -54,11 +65,7 @@ function Gnb() {
 
 	// test를 위한 임시 세팅
 	useEffect(() => {
-		// setMemberNumber('')
-		// setMemberId('yisiStory')
-		// setMemberType('')
-		setAdDP(false)
-		// setSubMenu(false)
+
 	},[])
 
 	return (
@@ -96,7 +103,7 @@ function Gnb() {
 			<SubArea subdisplay={subMenu?.toString()}>
 				<div className={'subWrap'}>
 					{/*****************	로그인 전 *****************/}
-					{(memberNumber == '') &&
+					{(!authFlag) &&
 						<>
 							<div className={'subInfoText'} >휴대전화번호로 회원 가입이 가능합니다. 회원가입 후 다양한 서비스를 받아보세요.</div>
 							<div className={'searchMyInfo'} onClick={(e) => goToURL(e,pageURL_Sign_PE_FindID)}>아이디찾기</div>
@@ -111,19 +118,19 @@ function Gnb() {
 						</>
 					}
 					{/*****************	로그인 후: 개인 *****************/}
-					{(memberType === '1') &&
+					{(memberType === memberTypePersonal) &&
 						<>
-							<div className={'subMenuPeople'} style={{marginLeft: '23.5rem'}}>내 정보</div>
+							<div className={'subMenuPeople'} style={{marginLeft: '23.5rem'}} onClick={(e) => goToURL(e, pageURL_Member_PE_DetailInfo)}>내 정보</div>
 							<div className={'subMenuPeople'}>이력서관리</div>
 							<div className={'subMenuPeople'}>받은요청</div>
 							<div className={'subMenuPeople'}>평가관리</div>
 							<div className={'subMenuPeople'}>결제내역</div>
 							<div className={'subMenuPeople'}>이용권</div>
-							<div className={'subButtonArea'} onClick={() => alert('로그아웃')}>
+							<div className={'subButtonArea'} onClick={goLogOut}>
 								<ButtonRound title='로그아웃' buttontype='normal' />
 							</div>
 						</>}
-					{(memberType === '0') &&
+					{(memberType === memberTypeCorp) &&
 						<>
 							{/*****************	로그인 후: 기업 *****************/}
 							<div className={'subMenuPeople'} style={{marginLeft: '23.5rem'}}>기업정보</div>
@@ -132,7 +139,7 @@ function Gnb() {
 							<div className={'subMenuPeople'}>평가관리</div>
 							<div className={'subMenuPeople'}>결제내역</div>
 							<div className={'subMenuPeople'}>이용권</div>
-							<div className={'subButtonArea'} onClick={() => alert('로그아웃')}>
+							<div className={'subButtonArea'} onClick={goLogOut}>
 								<ButtonRound title='로그아웃' buttontype='normal' />
 							</div>
 						</>}

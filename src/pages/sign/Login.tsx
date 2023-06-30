@@ -1,14 +1,21 @@
-import React, {useCallback, useRef, useState} from 'react'
+import React, {useCallback, useState} from 'react'
 import {Alert, ButtonGeneral, CustomCheckBox, InputWithAlert, RegisterLoginTitle} from '@components'
 import './sign.css'
 import styled from 'styled-components'
-import {pageURL_Sign_ChoiceChannel, pageURL_Sign_PE_FindID, pageURL_Sign_PE_FindPwd} from '@env'
+import {
+	authFlagName, memberIdName, memberNumberName, memberTypeCorp, memberTypeName, memberTypePersonal,
+	pageURL_Sign_ChoiceChannel,
+	pageURL_Sign_PE_FindID,
+	pageURL_Sign_PE_FindPwd,
+	placeholderMessage
+} from '@env'
 import {useNavigation} from '@hook'
+import {setSessionItem} from '@handler'
 
 function Login() {
 
 	/****************************************************** common basic definition ***************************************************/
-	const {goToURL} = useNavigation()
+	const {goToURL, navigate} = useNavigation()
 
 	/****************************************************** contents initialization or definition ***************************************************/
 	const [values, setValues] = useState({userID: '', userPwd: '', saveId: false})
@@ -30,10 +37,17 @@ function Login() {
 			setMessage('아이디와 비밀번호를 확인해주세요.')
 			setMessageDP(true)
 		} else {
-			console.log(values)
+			// console.log(values)
 			setMessage('')
 			setMessageDP(false)
 			alert('로그인 하겠습니다.')
+
+			let memType = (values.userID==='01012341234') ? memberTypePersonal:memberTypeCorp
+			setSessionItem(memberNumberName, '100')
+			setSessionItem(memberIdName, values.userID)
+			setSessionItem(memberTypeName, memType)
+			setSessionItem(authFlagName, true)
+			navigate('/', {replace: true})
 		}
 
 	},[values, message, messageDP])
@@ -46,13 +60,15 @@ return (
 					<div className={'signTitleArea'}>
 						<RegisterLoginTitle title={'로그인'} />
 					</div>
+					개인회원아이디: 01012341234<br />
+					기업회원아이디: yisi@yisistory.com<br/>
 					<div className={'emptyDivHeight'} />
 					<div>
 						<InputWithAlert
 							type={'text'}
 							title={'아이디'}
 							titleDP={true}
-							placeholder={'휴대전화번호 또는 이메일 주소를 입력해주세요.'}
+							placeholder={placeholderMessage('LOGIN_ID')}
 							max={50}
 							name={'userID'}
 							onchange={changeValues}
@@ -64,7 +80,7 @@ return (
 							type={'password'}
 							title={'비밀번호'}
 							titleDP={true}
-							placeholder={'비밀번호를 입력해주세요.'}
+							placeholder={placeholderMessage('LOGIN_PASSWORD')}
 							max={20}
 							name={'userPwd'}
 							onchange={changeValues}

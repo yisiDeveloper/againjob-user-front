@@ -30,6 +30,7 @@ export { default as ChangeTempPwd } from './sign/ChangeTempPwd'
 /***************************************************** member ****************************************************/
 export { default as WithdrawPolicy} from './member/WithdrawPolicy'
 export { default as WithdrawComplete} from './member/WithdrawComplete'
+export { default as PeDetailInfo} from './member/PeDetailInfo'
 
 
 /***************************************************** apply ****************************************************/

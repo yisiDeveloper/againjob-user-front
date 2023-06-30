@@ -93,6 +93,7 @@
     color: var(--fontBasicColor);
     margin-right: var(--marginRightSubMenu);
     white-space: nowrap;
+    cursor: pointer;
 }
 /****************************************** 배너/중요 공지사항 영역 **********************************************/
 /* 배너/중요 공지사항의 컨텐츠 영역 */

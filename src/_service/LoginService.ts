@@ -1,6 +1,4 @@
-
-import React from "react";
-import { authName, postManageLoginUrl } from '@env'
+import {authFlagName, postManageLoginUrl} from '@env'
 import { formSubmit } from './RestService'
 import { getSessionItem, removeAllSessionItem } from '@handler'
 
@@ -43,7 +41,7 @@ export async function GoSignIn(formData: object, isChecked: boolean = false) {
 
  *********************************************************************************************************/
 export function checkSignIn(): boolean {
-	let result = getSessionItem(authName);
+	let result = getSessionItem(authFlagName);
 	if(result) {
 		return true;
 	} else {

@@ -27,9 +27,9 @@ function Dropdown({
 
 	// 선택한 데이터를 화면에 세팅하고, input에 넣는다.
 	const changeData = useCallback((e: React.MouseEvent<HTMLDivElement>, id: string, value: string): void => {
-		setTitleValue(value)	// 값을 바꾸고
-		optionHandler(e)		// 옵션을 닫자
-		changeFunc(name, id)	// 부모에서 실제 값을 바꾸자
+		setTitleValue(value)			// 값을 바꾸고
+		optionHandler(e)				// 옵션을 닫자
+		changeFunc(e, name, id, value)	// 부모에서 실제 값을 바꾸자
 	},[titleValue])
 
 	const optionHandler = useCallback((e: React.MouseEvent<HTMLDivElement>): void => {

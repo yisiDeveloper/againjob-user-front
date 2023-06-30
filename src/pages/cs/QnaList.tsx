@@ -18,7 +18,6 @@ function QnaList() {
 	/****************************************************** common basic definition ***************************************************/
 	const {goToURL, propState} = useNavigation()
 
-
 	/****************************************************** contents initialization or definition ***************************************************/
 	// 받아온 propState를 일반 state에 넣고 관리한다.
 	// searchOption, searchKeyword
