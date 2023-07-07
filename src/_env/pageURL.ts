@@ -2,11 +2,17 @@
 // 개인회원 개인정보
 export const pageURL_Member_PE_DetailInfo = '/Member/PeDetailInfo'
 // 기업회원 개인정보
-export const pageURL_Member_CO_DetailInfo = '/Member/CoInfo'
+export const pageURL_Member_CO_DetailInfo = '/Member/CoDetailInfo'
 // 탈퇴 약관
 export const pageURL_Member_WithdrawPolicy = '/Member/WithdrawPolicy'
 // 탈퇴 완료
 export const pageURL_Member_WithdrawComplete = '/Member/WithdrawComplete'
+
+/********************************************** Resume ***************************************************/
+// 이력서 관리
+export const pageURL_Resume_List = '/Resume/ResumeList'
+export const pageURL_Resume_Register = '/Resume/ResumeRegister'
+export const pageURL_Resume_Detail = '/Resume/ResumeDetail'
 
 
 /********************************************** SignUP/In/Out ***************************************************/

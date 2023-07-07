@@ -47,6 +47,7 @@ export { default as TabMenu } from './tabMenu/TabMenu'
 
 /************************** Search *******************************/
 export { default as ListSearch } from './search/ListSearch'
+export { default as AddressSearch } from './search/AddressSearch'
 
 /************************** Alert *******************************/
 export { default as Alert} from './alert/Alert'

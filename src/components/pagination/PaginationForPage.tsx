@@ -128,14 +128,12 @@ function PaginationForPage({
 			{
 				pageNumbering.map((data) => {
 					return (
-						<PageNumber key={data.page} onClick={(e) => movePage(e, data.page)}
-									currentpage={data.pageFlag.toString()}>{data.page}</PageNumber>
+						<PageNumber key={data.page} onClick={(e) => movePage(e, data.page)} currentpage={data.pageFlag.toString()}>{data.page}</PageNumber>
 					)
 				})
 			}
 			<PageNext onClick={(e) => moveToBlock(e, 1)} bgimage={nextIcon.toString()}/>
-			<PageFirstLastText onClick={(e) => movePage(e, lastPageNo)}
-							   colortype={goLast.toString()}>마지막</PageFirstLastText>
+			<PageFirstLastText onClick={(e) => movePage(e, lastPageNo)}colortype={goLast.toString()}>마지막</PageFirstLastText>
 		</PaginationArea>
 	)
 }

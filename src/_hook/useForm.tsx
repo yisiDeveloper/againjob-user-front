@@ -52,6 +52,14 @@ function useForm({ initialValues, initialErrors }: useFormPropType) {
 		setMessage({...messages, [errorName]: errorMessage })
 	},[errors, messages])
 
+
+	// 페이지 내 별도 값 처리를 위해 에러 메시지가 필요한 경우
+	const setValueHandler = useCallback((valueName: string, value: any, errorValue:boolean): void => {
+
+		setValues({...values, [valueName]: value})
+		setErrors({...errors, [valueName]: errorValue})
+	},[errors, values])
+
 	/*************************************************************************************************
 	 * Editor를 위한 별도 handling
 	 * **********************************************************************************************/
@@ -168,6 +176,7 @@ function useForm({ initialValues, initialErrors }: useFormPropType) {
 		editorHandler,
 		checkBoxHandler,
 		setErrorMessage,
+		setValueHandler,
 		changeHandler,
 		registerFile,
 		deleteFile

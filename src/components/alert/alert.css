@@ -7,26 +7,6 @@
 
 
 /************************** popup *******************************/
-.popTitleArea {
-	position: relative;
-	width: 100%;
-	display: flex;
-}
-
-.popTitle {
-	font-size: var(--fontSizePopupTitle);
-	color: var(--fontBasicColor);
-	line-height: 1;
-	font-weight: 500;
-}
-
-.popClose {
-	display: inline-block;
-	position: absolute;
-	right: 0;
-	cursor: pointer;
-}
-
 .popContent {
 	font-size: var(--fontSizePopupContent);
 	color: var(--fontBasicColor);

@@ -1,11 +1,28 @@
 import React, {useCallback, useLayoutEffect, useRef, useState} from 'react'
 import {useForm, useNavigation} from '@hook'
-import {Alert, ButtonGeneral, CustomCheckBox, Dropdown, InfoAlert, InputWithAlert, PageTitle} from '@components'
-import {commMessage, memberMessage, pageURL_Member_WithdrawPolicy, placeholderMessage} from '@env'
-import {findKeyWithRequired} from '@handler'
+import {
+	Alert,
+	ButtonGeneral,
+	CustomCheckBox,
+	Dropdown,
+	InfoAlert,
+	InputWithAlert,
+	PageTitle,
+	AddressSearch,
+	FileUpload
+} from '@components'
+import {
+	ciFileMaxLength,
+	ciFileTypes, ciMaxFileSize,
+	commMessage,
+	memberMessage,
+	pageURL_Member_WithdrawPolicy,
+	placeholderMessage
+} from '@env'
+import {findKeyWithRequired, popupClose} from '@handler'
 import './member.css'
 
-function PeDetailInfo() {
+function CoDetailInfo() {
 
 	/****************************************************** common basic definition ***************************************************/
 	const {goToURL} = useNavigation()
@@ -13,37 +30,33 @@ function PeDetailInfo() {
 	/****************************************************** contents initialization or definition ***************************************************/
 	// 모든 입력값의 초기값을 만든다.
 	const initialValues = {
-		userEmail: 'yisi@yisistory.com',
-		userName: '이시',
-		mobileNumber1: '010',
-		mobileNumber2: '',
-		mobileCertNumber: '',			//인증번호
-		newPassword: '',
-		newPasswordConfirm: '',
-		stopCareerPeriod: '',			// 경력단절기간
-		stopCareerReason: '',			// 경력단절사유
-		ableTimeForWork: '',			// 근무가능 시간
-		ableStartTimeForCall: '',		// 연락가능 시작시간
-		ableStopTimeForCall: '',		// 연락가능 종료시간
-		wantJobState: [],				// 원하는 근무형태
-		agreeNewsletter: '',			// 뉴스레터 수신 동의 여부
-		agreeMarketing: ''				// 마케팅정보 수신 동의 여부
-	}
+			coEmail: 'yisi@yisistory.com',
+			coBusinessNo: '2035567463',
+			mobileNumber1: '010',
+			mobileNumber2: '',
+			certNumber: '',
+			coName: '이시 주식회사',
+			coCI: [],
+			password: '',
+			passwordConfirm: '',
+			basicAddress: '',
+			detailAddress: '',
+			agreeNewsletter: false,
+			agreeMarketing: false
+		}
 	// 실제 체크해야하는 에러 필드를 정의한다.
 	const initialErrors = {
-		userEmail: '',
-		userName: '',
-		mobileNumber1: '',
+		coEmail: '',
+		coBusinessNo: '',
+		mobileNumber1: '010',
 		mobileNumber2: '',
-		mobileCertNumber: '',			//인증번호
-		newPassword: '',
-		newPasswordConfirm: '',
-		stopCareerPeriod: '',			// 경력단절기간
-		stopCareerReason: '',			// 경력단절사유
-		ableTimeForWork: '',			// 근무가능 시간
-		ableStartTimeForCall: '',		// 연락가능 시작시간
-		ableStopTimeForCall: '',		// 연락가능 종료시간
-		wantJobState: '',				// 원하는 근무형태
+		certNumber: '',
+		coName: '',
+		coCI: '',
+		password: '',
+		passwordConfirm: '',
+		basicAddress: '',
+		detailAddress: ''
 	}
 
 	// 모든 값들과 에러를 정의한다.
@@ -54,7 +67,10 @@ function PeDetailInfo() {
 		inputHandler,
 		checkBoxHandler,
 		setErrorMessage,
-		changeHandler
+		setValueHandler,
+		changeHandler,
+		registerFile,
+		deleteFile
 	} = useForm({
 		initialValues,
 		initialErrors
@@ -63,6 +79,8 @@ function PeDetailInfo() {
 	// 비활성화 해야하는 버튼을 관리한다.
 	const [sendCertBtn, setSendCertBtn] = useState('disabled')
 	const [checkCertBtn, setCheckCertBtn] = useState('disabled')
+	// 주소 검색 창 관리
+	const [addressDP, setAddressDP] = useState(false)
 
 	// 휴대전화번호 인증번호 발송 버튼의 text를 관리한다.
 	const [sendMobileCertNoBtnText, setSendMobileCertNoBtnText] = useState('인증번호발송')
@@ -80,17 +98,17 @@ function PeDetailInfo() {
 	/****************************************************** Handling ***************************************************/
 	// 인증번호 발송 버튼
 	const sendCertNumber = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-		e.preventDefault()
+			e.preventDefault()
 
-		if(!errors.mobileNumber2){
-			alert('인증번호를 발송합니다.')
-			setSendMobileCertNoBtnText('인증번호 재발송')
-			setMobileCertNoConfirmComplete(true)
-		} else {
-			// 기존에 인증번호를 발송해서 확인까지 해놓고 다시 발송하는 경우를 대비
-			setMobileCertNoConfirmComplete(false)
-		}
-	},[errors])
+			if(!errors.mobileNumber2){
+				alert('인증번호를 발송합니다.')
+				setSendMobileCertNoBtnText('인증번호 재발송')
+				setMobileCertNoConfirmComplete(true)
+			} else {
+				// 기존에 인증번호를 발송해서 확인까지 해놓고 다시 발송하는 경우를 대비
+				setMobileCertNoConfirmComplete(false)
+			}
+		},[errors])
 
 
 	// 인증번호 확인 버튼
@@ -109,6 +127,14 @@ function PeDetailInfo() {
 			setMobileCertNoConfirmComplete(false)
 		}
 	},[errors])
+
+	// 우편번호 검색
+	const searchAddress = useCallback((e: React.SyntheticEvent) => {
+		e.preventDefault()
+
+		setAddressDP(true)
+		// inputHandler(e, 10, 'text','회사 주소는' )
+	},[values,errors])
 
 
 	// submit
@@ -146,8 +172,8 @@ function PeDetailInfo() {
 
 	// 한번 만 실행되도록 하기 위함
 	useLayoutEffect(() => {
-		console.log('values', values)
-		console.log('errors', errors)
+		// console.log('values', values)
+		// console.log('errors', errors)
 
 		// 휴대전화번호를 바꿀 경우를 대비하여 인증완료 false로 바꾼다.
 		if(errors?.mobileNumber2) {
@@ -169,32 +195,48 @@ function PeDetailInfo() {
 
 	return (
 		<main>
-			<PageTitle title={'내 정보'} />
+			<PageTitle title={'기업정보'} />
 			<section className={'container containerTop containerFlex'}>
-				<div className={'leftElement'}>
+				<div style={{width: '35%'}}>
 					<InputWithAlert
 						title={'이메일'}
 						titleDP={true}
 						placeholder={placeholderMessage('EMAIL_INPUT')}
-						name={'userEmail'}
+						name={'coEmail'}
 						max={100}
 						type={'text'}
 						onchange={(e) =>inputHandler(e, 10, 'email','이메일 주소는' )}
-						message={messages.userEmail}
-						value={values.userEmail}
+						message={messages.coEmail}
+						value={values.coEmail}
 					/>
 				</div>
-				<div className={'rightElement'}>
+				<div style={{width: '5%'}} />
+				<div style={{width: '28%'}}>
 					<InputWithAlert
-						title={'이름'}
+						title={'회사명'}
 						titleDP={true}
 						placeholder={placeholderMessage('NAME_INPUT')}
-						name={'userName'}
+						name={'coName'}
 						max={10}
 						type={'text'}
 						onchange={(e) =>inputHandler(e, 2, 'name','이름은' )}
-						message={messages.userName}
-						value={values.userName}
+						message={messages.coName}
+						value={values.coName}
+					/>
+				</div>
+				<div style={{width: '5%'}} />
+				<div style={{width: '27%'}}>
+					<InputWithAlert
+						title={'사업자등록번호'}
+						titleDP={true}
+						placeholder={placeholderMessage('BUSINESS_NUMBER_INPUT')}
+						name={'coBusinessNo'}
+						max={10}
+						type={'text'}
+						onchange={(e) =>inputHandler(e, 10, 'name','사업자등록번호' )}
+						message={messages.coBusinessNo}
+						value={values.coBusinessNo}
+						disabled={true}
 					/>
 				</div>
 				<div className={'emptyDivHeight'}></div>
@@ -268,6 +310,20 @@ function PeDetailInfo() {
 				</div>
 			</section>
 			<div className={'emptyDivHeight'} />
+			<section className={'container containerTop'}>
+				<InfoAlert	messageCode={'CODETAIL_CI'} />
+				<div className={'emptyDivHeight'}></div>
+				<FileUpload
+					elName={'coCI'}
+					infoMsgCode={'CODETAIL_CI_INFO'}
+					registFileFunc={(e) => registerFile(e, ciMaxFileSize, ciFileTypes, ciFileMaxLength)}
+					deleteFileFunc={deleteFile}
+					alertTitle={messages.coCI}
+					alertDP={errors.coCI}
+					fileValue={values.coCI}
+				/>
+			</section>
+			<div className={'emptyDivHeight'} />
 			<section className={'container containerTop containerFlex'}>
 				<InfoAlert	messageCode={'MYINFO_PASSWORD'} />
 				<div className={'emptyDivHeight'}></div>
@@ -300,98 +356,38 @@ function PeDetailInfo() {
 			</section>
 			<div className={'emptyDivHeight'} />
 			<section className={'container containerTop containerFlex'}>
-				<InfoAlert messageCode={'MYINFO_ADDINFO'} />
+				<InfoAlert messageCode={'COINFO_ADDINFO'} />
 				<div className={'emptyDivHeight'} />
-				<div style={{width: '19%'}}>
-					<Dropdown
-						title={'경력단절기간'}
-						Options={[{id: '1',title: '1년 미만'},{id: '2', title: '1년 이상 ~ 3년 미만'}, {id: '3', title: '3년 이상 ~ 5년 미만'},{id: '4', title: '5년 이상 ~ 10년 미만'},{id: '5', title: '10년 이상'}]}
-						name={'stopCareerPeriod'}
-						changeFunc={changeHandler}
-						defaultValue={'1년 미만'}
+				<div style={{width:'45%'}}>
+					<InputWithAlert
+						title={'주소'}
+						titleDP={true}
+						placeholder={placeholderMessage('BASIC_ADDRESS_INPUT')}
+						name={'basicAddress'}
+						max={100}
+						type={'text'}
+						message={messages.basicAddress}
+						value={values.basicAddress}
+						disabled={true}
 					/>
 				</div>
-				<div style={{width: '5%'}} />
-				<div style={{width: '12%'}}>
-					<Dropdown
-						title={'경력단절사유'}
-						Options={[{id: '1',title: '육아'},{id: '2', title: '은퇴'}, {id: '3', title: '개인사정'}]}
-						name={'stopCareerReason'}
-						changeFunc={changeHandler}
-						defaultValue={'육아'}
-					/>
-				</div>
-				<div style={{width: '5%'}} />
-				<div style={{width: '15%'}}>
-					<Dropdown
-						title={'가능한근무(작업)시간'}
-						Options={[{id: '0',title: '시간'},{id: '1', title: '오전'}, {id: '2', title: '오후'},{id: '3', title: '2시간'}, {id: '4', title: '3시간'}, {id: '5', title: '4시간'}, {id: '6', title: '5시간'}, {id: '7', title: '6시간'}, {id: '8', title: '7시간'}, {id: '9', title: '8시간'}]}
-						name={'ableTimeForWork'}
-						changeFunc={changeHandler}
-						defaultValue={'시간'}
-					/>
-				</div>
-				<div style={{width: '5%'}} />
-				<div style={{width: '11%'}}>
-					<Dropdown
-						title={'연락가능시간'}
-						Options={[{id: '0',title: '시간'},{id: '1', title: '06시'}, {id: '2', title: '07시'}, {id: '3', title: '08시'}, {id: '4', title: '09시'}, {id: '5', title: '10시'}, {id: '6', title: '11시'}, {id: '7', title: '12시'}, {id: '8', title: '13시'}, {id: '9', title: '14시'}, {id: '10', title: '15시'}, {id: '11', title: '16시'}, {id: '12', title: '17시'}, {id: '13', title: '18시'}, {id: '14', title: '19시'}, {id: '15', title: '20시'}, {id: '16', title: '21시'}, {id: '17', title: '22시'}]}
-						name={'ableStartTimeForCall'}
-						changeFunc={changeHandler}
-						defaultValue={'시간'}
-					/>
-				</div>
-				<div style={{width: '2%'}} />
-				<div style={{width: '3%', paddingTop:'2.5rem'}}>
-					부터
-				</div>
-				<div style={{width: '5%'}} />
-				<div style={{width: '11%'}}>
-					<Dropdown
+				<div className={'addressClasses'} onClick={searchAddress} />
+				<div className={'rightElement'}>
+					<InputWithAlert
 						title={''}
-						Options={[{id: '0',title: '시간'},{id: '2', title: '07시'}, {id: '3', title: '08시'}, {id: '4', title: '09시'}, {id: '5', title: '10시'}, {id: '6', title: '11시'}, {id: '7', title: '12시'}, {id: '8', title: '13시'}, {id: '9', title: '14시'}, {id: '10', title: '15시'}, {id: '11', title: '16시'}, {id: '12', title: '17시'}, {id: '13', title: '18시'}, {id: '14', title: '19시'}, {id: '15', title: '20시'}, {id: '16', title: '21시'}, {id: '17', title: '22시'}, {id: '18', title: '23시'}]}
-						name={'ableStopTimeForCall'}
-						changeFunc={changeHandler}
-						defaultValue={'시간'}
+						titleDP={true}
+						placeholder={placeholderMessage('DETAIL_ADDRESS_INPUT')}
+						name={'detailAddress'}
+						max={100}
+						type={'text'}
+						onchange={(e) =>inputHandler(e, 10, 'text','회사 주소는' )}
+						message={messages.detailAddress}
+						value={values.detailAddress}
 					/>
-				</div>
-				<div style={{width: '2%'}} />
-				<div style={{width: '3%', paddingTop:'2.5rem'}}>
-					까지
 				</div>
 				<div className={'emptyDivHeight'} />
-				<div style={{height:'2.5rem', width:'100%'}} className={'inputTitle'}>원하는 근무형태</div>
-				<div style={{width: '7%'}}>
-					<CustomCheckBox
-						title={'정규직'}
-						name={'wantJobState[0]'}
-						defaultFlag={false}
-						titleType={'register'}
-						onChangeHandler={checkBoxHandler}
-					/>
-				</div>
-				<div style={{width: '5%'}} />
-				<div style={{width: '7%'}}>
-					<CustomCheckBox
-						title={'계약직'}
-						name={'wantJobState[1]'}
-						defaultFlag={false}
-						titleType={'register'}
-						onChangeHandler={checkBoxHandler}
-					/>
-				</div>
-				<div style={{width: '5%'}} />
-				<div style={{width: '8%'}}>
-					<CustomCheckBox
-						title={'프리랜서'}
-						name={'wantJobState[2]'}
-						defaultFlag={false}
-						titleType={'register'}
-						onChangeHandler={checkBoxHandler}
-					/>
-				</div>
-				<div style={{width: '13%'}} />
-				<div style={{width: '25%'}}>
+				<div className={'emptyDivHeight'} />
+				<div className={'leftElement'}>
 					<CustomCheckBox
 						title={'뉴스레터 수신에 동의합니다.'}
 						name={'agreeNewsletter'}
@@ -399,9 +395,7 @@ function PeDetailInfo() {
 						titleType={'register'}
 						onChangeHandler={checkBoxHandler}
 					/>
-				</div>
-				<div style={{width: '5%'}} />
-				<div style={{width: '25%'}}>
+					<div style={{height:'1rem'}} />
 					<CustomCheckBox
 						title={'마케팅 정보 수신에 동의합니다.'}
 						name={'agreeMarketing'}
@@ -410,23 +404,24 @@ function PeDetailInfo() {
 						onChangeHandler={checkBoxHandler}
 					/>
 				</div>
-				<div className={'emptyDivHeight'} />
-				<div className={'emptyDivHeight'} />
-				<div className={'memberWithdraw'}>
-					<span style={{cursor: 'pointer'}} onClick={(e) => goToURL(e, pageURL_Member_WithdrawPolicy, '', true)}>회원탈퇴</span>
+				<div className={'rightElement'} style={{textAlign:'right'}}>
+					<span className={'memberWithdraw'} onClick={(e) => goToURL(e, pageURL_Member_WithdrawPolicy, '', true)}>회원탈퇴</span>
 				</div>
 				<div className={'emptyDivHeight'} />
-				<div style={{textAlign:'center',width: '100%'}} onClick={submitHandler}>
+				<div className={'emptyDivHeight'} />
+				<div style={{textAlign:'center',width: '100%'}}>
+					<span onClick={submitHandler}>
 					<ButtonGeneral
 						title={'수정하기'}
 						buttontype={'full'}
 						colortype={''}
-					/>
+					/></span>
 				</div>
 				<div className={'emptyDivHeight'} />
 			</section>
+			{addressDP && <AddressSearch okFunc={setValueHandler} valueName={'basicAddress'} bgFunc={(e: React.SyntheticEvent) => popupClose(e, setAddressDP)} />}
 		</main>
 	)
 }
 
-export default React.memo(PeDetailInfo)
+export default React.memo(CoDetailInfo)

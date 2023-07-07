@@ -1,0 +1,25 @@
+@charset "utf-8";
+
+/************************** 공통 정의 *******************************/
+.memberWithdraw {
+	color: var(--fontListSubInfoTitle);
+	font-size: 1.4rem;
+	font-weight: var(--fontWeightBold);
+	text-decoration: underline;
+	text-align: right;
+	width: 100%;
+}
+
+.addressClasses {
+	display: inline-block;
+	width: 3rem;
+	height: 4rem;
+	background: url('../../assets/icons/main_reading_glasses.png') center center no-repeat;
+	/*border: 1px solid red;*/
+	margin-top: 2rem;
+	margin-right: 2rem;
+	cursor: pointer;
+}
+
+
+

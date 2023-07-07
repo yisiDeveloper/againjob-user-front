@@ -1,0 +1,30 @@
+.exposeOn {
+	display: inline-block;
+	width: 16.2rem;
+	height: 3.6rem;
+	background: url('../../assets/icons/expose_on.png') center center no-repeat;
+	cursor: pointer;
+}
+
+.exposeOff {
+	display: inline-block;
+	width: 16.2rem;
+	height: 3.6rem;
+	background: url('../../assets/icons/expose_off.png') center center no-repeat;
+	cursor: pointer;
+}
+
+.memberTitleArea {
+	display: inherit;
+}
+
+.memberTitleButton {
+	flex-grow: 1;
+	padding-top: 0.7rem;
+	padding-right: 1rem;
+	text-align:right;
+}
+
+.requestContactListColumn {
+
+}

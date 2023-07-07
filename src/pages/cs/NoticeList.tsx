@@ -125,8 +125,8 @@ function NoticeList() {
 										<article className={'listContentDesc'}>{data.content}</article>
 									</div>
 									<div className={'listColumnBar'}></div>
-									{(data.fixed) ? <><ListFixed /><div className={'listColumnBar'}></div></> : <div />}
-									{(data.files) ? <><ListFile /><div className={'listColumnBar'}></div></> : <div />}
+									{(data.fixed) ? <><ListFixed /><div className={'listColumnBar'} /></> : <div />}
+									{(data.files) ? <><ListFile /><div className={'listColumnBar'} /></> : <div />}
 									<div className={'listColumn'}>
 										<p className={'listColumnTitle'}>등록일</p>
 										<p>{data.registerDate}</p>

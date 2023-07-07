@@ -19,7 +19,7 @@ export {
 	blockEnterKey,
 	makeTheValue,
 	findValueInObject,
-	popupClose,
+	popupClose, popupOpen,
 	checkRequiredKeyValue,
 	findKeyInObjectByValue,
 	calcPaginationData,

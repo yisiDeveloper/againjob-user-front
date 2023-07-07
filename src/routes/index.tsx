@@ -4,9 +4,10 @@ import {
 	Login, PeFindId, CoFindId, PeFindPwd, CoFindPwd,
 	Classify, ChoiceChannel, PePolicy, CoPolicy, PeInfo, CoInfo, SignUpEnd,
 	NotiForCS, Error404,
+	ResumeList,
 	ChangeTempPwd, ServicePolicy, PrivacyPolicy,
-	WithdrawPolicy, WithdrawComplete, PeDetailInfo,
-	NoticeList, NoticeDetail, Faq, QnaList, QnaDetail, FaqDetail, QnaRegister
+	WithdrawPolicy, WithdrawComplete, PeDetailInfo, CoDetailInfo,
+	NoticeList, NoticeDetail, Faq, QnaList, QnaDetail, FaqDetail, QnaRegister, ResumeRegister
 } from '@pages'
 import { Layout } from '@components'
 import PrivateRoute from './PrivateRoute'
@@ -28,7 +29,6 @@ import {
 	pageURL_ERROR_NotiForCS,
 	pageURL_Member_WithdrawComplete,
 	pageURL_Member_WithdrawPolicy,
-	pageURL_Member_PE_DetailInfo,
 	pageURL_Policy_Service,
 	pageURL_Policy_Privacy,
 	pageURL_CS_NoticeList,
@@ -38,9 +38,15 @@ import {
 	pageURL_CS_QnaRegister,
 	pageURL_CS_QnaList,
 	pageURL_CS_QnaDetail,
-	memberTypeCorp, memberTypePersonal
+	pageURL_Member_PE_DetailInfo,
+	pageURL_Member_CO_DetailInfo,
+	pageURL_Resume_List, pageURL_Resume_Register, pageURL_Resume_Detail,
+
+	memberTypeCorp,
+	memberTypePersonal
 } from '@env'
 import ProtectRoute from './ProtectRoute'
+import ResumeDetail from '../pages/resume/ResumeDetail'
 
 
 // Error 페이지 정의
@@ -98,11 +104,14 @@ export default function Router() {
 						{/* ProtectRoute는 반드시 로그인한 사용자의 한해서만 되도록 구현되어 PrivateRoute안에 종속되어야한다. */}
 						<Route element={<ProtectRoute memberType={memberTypePersonal}/>}>
 							<Route path={pageURL_Member_PE_DetailInfo} element={<PeDetailInfo />} />
+							<Route path={pageURL_Resume_List} element={<ResumeList />} />
+							<Route path={pageURL_Resume_Register} element={<ResumeRegister />} />
+							<Route path={pageURL_Resume_Detail} element={<ResumeDetail />} />
 						</Route>
 
 						<Route element={<ProtectRoute memberType={memberTypeCorp}/>}>
 							{/*<Route element={<AdminDefaultLayout />}>*/}
-
+							<Route path={pageURL_Member_CO_DetailInfo} element={<CoDetailInfo />} />
 							{/*</Route>*/}
 						</Route>
 

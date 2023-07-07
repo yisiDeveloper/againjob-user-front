@@ -1,4 +1,11 @@
-import {qnaFileTypes} from "./common"
+import {
+	ciFileMaxLength,
+	ciFileTypes, ciMaxFileSize,
+	portfolioFileTypes,
+	portfolioMaxFileSize,
+	portfolioMaxLength, qnaFileMaxLength,
+	qnaFileTypes, qnaMaxFileSize
+} from './common'
 
 interface Message {
 	title: string,
@@ -37,6 +44,8 @@ export const commMessage = (code: string, name: string = '', min: string|number 
 			return {title: '알림', message: '한글만 입력 가능합니다.'}
 		case 'NEVER_KOREAN':
 			return {title: '알림', message: '한글을 사용할 수 없습니다.'}
+		case 'NEVER_ADD':
+			return {title: '알림', message: '더이상 추가할 수 없습니다.'}
 		case 'NEVER_SPECIAL_CHAR':
 			return {title: '알림', message: '특수문자는 허용되지 않습니다.'}
 		case 'ONLY_NUMBER':
@@ -53,6 +62,8 @@ export const commMessage = (code: string, name: string = '', min: string|number 
 			return {title: '알림', message: '정확히 입력되지 않은 항목이 있습니다.\n다시 확인해주세요.'}
 		case 'CONFIRM_DELETE':
 			return {title: '확인', message: '삭제하시겠습니까?'}
+		case 'CONFIRM_COPY':
+			return {title: '확인', message: '복사하시겠습니까?'}
 		case 'CONFIRM_MODIFY':
 			return {title: '확인', message: '수정하시겠습니까?'}
 		case 'REGISTER_COMPLETE':
@@ -170,11 +181,27 @@ export const infoMessage = (code: string): Message => {
 		case 'NEWSLETTER_INFO':
 			return {title: '알림', message: '뉴스레터 신청 취소는 발송되는 뉴스레터 링크 또는 팝업 상단의 뉴스레터 취소 메뉴에서 가능합니다.'}
 		case 'QNA_FILE_INFO':
-			return {title: '알림', message: '파일은 총 3개, 각 2MB씩 총 6MB까지 등록 가능합니다. 등록가능 파일 종류: ' + qnaFileTypes}
+			return {title: '알림', message: '파일은 총 '+qnaFileMaxLength+'개, 각 '+qnaMaxFileSize+'MB씩 등록 가능합니다. 등록가능 파일 종류: ' + qnaFileTypes}
 		case 'MYINFO_PASSWORD':
 			return {title: '알림', message: '비밀번호는 입력시에만 변경됩니다.'}
 		case 'MYINFO_ADDINFO':
 			return {title: '알림', message: '추가정보는 입사지원과 프로젝트 지원 시 회사에 공개되며, 검색 시 유리합니다.'}
+		case 'COINFO_ADDINFO':
+			return {title: '알림', message: '추가정보는 회사 소개에 노출됩니다.'}
+		case 'CODETAIL_CI_INFO':
+			return {title: '알림', message: '파일은 '+ciFileMaxLength+'개, '+ciMaxFileSize+'MB까지 등록 가능합니다. 등록가능 파일 종류: ' + ciFileTypes}
+		case 'CODETAIL_CI':
+			return {title: '알림', message: '회사 CI를 등록해주세요.'}
+		case 'RESUME_CONTACT':
+			return {title: '알림', message: '기업 채용 담당자의 요청을 받고싶은 경우 선택하세요.'}
+		case 'RESUME_TAG':
+			return {title: '알림', message: '해시태그는 클라이언트가 인재 검색 시 활용하는 정보입니다. 자신의 장점을 잘 살릴 수 있는 단어를 3개 이상 입력해주세요.'}
+		case 'PORTFOLIO_ADDINFO':
+			return {title: '알림', message: '파일은 ' + portfolioMaxLength + '개, 각 '+ portfolioMaxFileSize +'MB까지 등록 가능합니다. 등록가능 파일 종류: ' + portfolioFileTypes}
+		case 'RESUME_SCHOOL_INFO':
+			return {title: '알림', message: '최종 학력만 입력해주세요.'}
+		case 'RESUME_CAREER':
+			return {title: '알림', message: '경력은 최대 3개까지만 입력 가능합니다.'}
 		default:
 			return {title: '주의', message: '알수없는 에러가 발생했습니다.\n아래의 코드와 함께 관리자에게 문의해주세요.\nERR_CODE:' + code}
 	}
@@ -192,8 +219,32 @@ export const placeholderMessage = (code: string): string => {
 			return '휴대전화번호 또는 이메일 주소를 입력해주세요.'
 		case 'LOGIN_PASSWORD':
 			return '비밀번호를 입력해주세요.'
+		case 'PASSWORD_CONFIRM':
+			return '비밀번호를 한번 더 입력해주세요.'
 		case 'QNA_REGISTER':
 			return '문의하실 내용을 입력해주세요'
+		case 'EMAIL_INPUT':
+			return '이메일 주소를 입력해주세요.'
+		case 'NAME_INPUT':
+			return '이름을 입력해주세요.'
+		case 'CERT_INPUT':
+			return '인증번호를 입력해주세요.'
+		case 'BUSINESS_NUMBER_INPUT':
+			return '사업자등록번호를 입력해주세요.'
+		case 'BASIC_ADDRESS_INPUT':
+			return '검색을 통해 주소를 입력해주세요.'
+		case 'DETAIL_ADDRESS_INPUT':
+			return '상세 주소를 입력해주세요.'
+		case 'RESUME_TITLE':
+			return '이력서 제목은 채용 및 일거리 담당자에게 노출되는 정보입니다. 자신의 장점, 차별점을 어필해보세요.'
+		case 'SCHOOLNAME_INPUT':
+			return '학교명을 입력해주세요.'
+		case 'RESUME_TAG':
+			return '태그를 입력해주세요.'
+		case 'MAJOR_INPUT':
+			return '전공명을 입력해주세요.'
+		case 'RESUME_PROFILE':
+			return '자기 소개를 1,000자 이내로 작성해주세요.'
 		default:
 			return '내용을 입력해주세요.'
 	}

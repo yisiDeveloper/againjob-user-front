@@ -22,5 +22,14 @@ export interface qnaType {
 	answer: boolean
 }
 
+export interface resumeType {
+	id: number,
+	title: string,
+	open: boolean,
+	registerDate: string,
+	modifyDate: string,
+	requestCallOpen: number
+}
+
 
 

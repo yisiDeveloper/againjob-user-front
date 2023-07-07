@@ -31,7 +31,11 @@ export { default as ChangeTempPwd } from './sign/ChangeTempPwd'
 export { default as WithdrawPolicy} from './member/WithdrawPolicy'
 export { default as WithdrawComplete} from './member/WithdrawComplete'
 export { default as PeDetailInfo} from './member/PeDetailInfo'
+export { default as CoDetailInfo} from './member/CoDetailInfo'
 
+/***************************************************** resume ****************************************************/
+export { default as ResumeList} from './resume/ResumeList'
+export { default as ResumeRegister} from './resume/ResumeRegister'
 
 /***************************************************** apply ****************************************************/
 

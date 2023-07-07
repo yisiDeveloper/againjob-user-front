@@ -1,5 +1,6 @@
 import React from 'react'
 import {ButtonGeneral, PageTitle} from '@components'
+import './newsletter.css'
 
 interface NewsletterPropType {
 	action: string,
@@ -22,7 +23,7 @@ function Newsletter({
 
 	return (
 		<>
-			<section className={'contentPopupWrap'} style={{width: '50rem'}}>
+			<section className={'newsletterPopupWrap'} style={{width: '50rem'}}>
 				<div className={'contentPopupHead'}>
 					<div className={'contentPopupTitle'}><PageTitle title={'뉴스레터 신청'} /></div>
 					<div onClick={() => closeSetter(false)} className={'contentPopupClose'}></div>

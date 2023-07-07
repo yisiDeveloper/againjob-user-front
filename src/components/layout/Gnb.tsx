@@ -15,9 +15,9 @@ import {
 	pageURL_CS_NoticeList,
 	authFlagName,
 	memberTypeName,
-	memberNumberName,
 	memberTypeCorp,
-	memberTypePersonal, pageURL_Member_PE_DetailInfo
+	memberTypePersonal, pageURL_Member_PE_DetailInfo, pageURL_Member_CO_DetailInfo,
+	pageURL_Resume_List
 } from '@env'
 import './layout.css'
 import {useNavigation} from '@hook'
@@ -113,7 +113,7 @@ function Gnb() {
 								<ButtonRound title='회원가입' buttontype='special' />
 							</div>
 							<div className={'subButtonArea'} onClick={(e) => goToURL(e, pageURL_Sign_Login)} style={{marginRight:'25px'}}>
-								<ButtonRound title='로그인' buttontype='normal' />
+								<ButtonRound title='로그인' buttontype='small' />
 							</div>
 						</>
 					}
@@ -121,19 +121,19 @@ function Gnb() {
 					{(memberType === memberTypePersonal) &&
 						<>
 							<div className={'subMenuPeople'} style={{marginLeft: '23.5rem'}} onClick={(e) => goToURL(e, pageURL_Member_PE_DetailInfo)}>내 정보</div>
-							<div className={'subMenuPeople'}>이력서관리</div>
+							<div className={'subMenuPeople'} onClick={(e) => goToURL(e, pageURL_Resume_List)}>이력서관리</div>
 							<div className={'subMenuPeople'}>받은요청</div>
 							<div className={'subMenuPeople'}>평가관리</div>
 							<div className={'subMenuPeople'}>결제내역</div>
 							<div className={'subMenuPeople'}>이용권</div>
 							<div className={'subButtonArea'} onClick={goLogOut}>
-								<ButtonRound title='로그아웃' buttontype='normal' />
+								<ButtonRound title='로그아웃' buttontype='small' />
 							</div>
 						</>}
 					{(memberType === memberTypeCorp) &&
 						<>
 							{/*****************	로그인 후: 기업 *****************/}
-							<div className={'subMenuPeople'} style={{marginLeft: '23.5rem'}}>기업정보</div>
+							<div className={'subMenuPeople'} style={{marginLeft: '23.5rem'}} onClick={(e) => goToURL(e, pageURL_Member_CO_DetailInfo)}>기업정보</div>
 							<div className={'subMenuPeople'}>지원요청</div>
 							<div className={'subMenuPeople'}>참여요청</div>
 							<div className={'subMenuPeople'}>평가관리</div>

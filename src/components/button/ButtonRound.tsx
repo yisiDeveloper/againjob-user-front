@@ -25,7 +25,6 @@ interface btnType {
 
 const Button = styled.button<btnType>`
 	border-radius: var(--radiusButtonRound);
-	height: var(--heightButtonBasic);
 	min-width: var(--widthButtonMinBasic);	
 	font-size: var(--fontSizeBasicButton);
 	font-weight: var(--fontWeightMiddle);
@@ -36,19 +35,24 @@ const Button = styled.button<btnType>`
 	cursor: pointer;
 	${({buttontype}) => {
 		switch (buttontype) {
+			case 'small':
+				return css`background-color: var(--bgBtnBasic);padding: var(--paddingButtonRound);height: var(--heightButtonSmall);`
+			case 'popupsmall':
+				return css`background-color: var(--bgBtnCancel);padding: var(--paddingButtonRound);height: var(--heightButtonPopupSmall);color: var(--fontBasicColor);font-size:var(--fontSizePopupSmallButton)`
 			case 'normal':
-				return css`background-color: var(--bgBtnBasic);padding: var(--paddingButtonRound);`
+				return css`background-color: var(--bgBtnBasic);padding: var(--paddingButtonRound);height: var(--heightButtonBasic);`
 			case 'disabled':
-				return css`background-color: var(--bgBtnDisabled);padding: var(--paddingButtonRound);`
+				return css`background-color: var(--bgBtnDisabled);padding: var(--paddingButtonRound);height: var(--heightButtonBasic);`
 			case 'file':
 				return css`
+					height: var(--heightButtonBasic);
 					background-color: var(--bgBtnBasic);
 					padding: var(--paddingButtonFile);
 					background-image: url(${fileDelete});
 					background-repeat: no-repeat;
 					background-position: 95% center;`
 			default:
-				return css`background-color: var(--bgBtnYellowGreen);padding: var(--paddingButtonRound);`
+				return css`background-color: var(--bgBtnYellowGreen);padding: var(--paddingButtonRound);height: var(--heightButtonBasic);`
 			}
 		}
 	}

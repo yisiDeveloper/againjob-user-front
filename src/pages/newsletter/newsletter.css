@@ -5,3 +5,18 @@
 
 
 /************************** 이메일 무단수집 거부 *******************************/
+.newsletterPopupWrap {
+	border-radius: var(--radiusBasic);
+	background-color: #fff;
+	z-index: 100;
+	display: initial;
+	/*top: ${(props) => props.userMargin}px;*/
+	position: fixed;
+	top: 30%;
+	/*left: 50%;*/
+	/*transform을 사용하면 bottom line이 두꺼워지는 현상 발생*/
+	/*transform: translate(-50%, -50%);*/
+	/*flex-direction: column;*/
+	/* pageTitle이 기본적으로 좌측에 2rem의 margin을 갖고 있으므로...*/
+	padding: 2rem 3rem 3rem 1rem;
+}

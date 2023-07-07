@@ -10,7 +10,7 @@ interface inputType {
     name: string,
     max: number,
     type: string,
-    onchange: (e: React.ChangeEvent<HTMLInputElement>) => void,
+    onchange?: (e: React.ChangeEvent<HTMLInputElement>) => void | null,
     value?: string | null,
     disabled?: boolean | undefined,
     message?: string | null

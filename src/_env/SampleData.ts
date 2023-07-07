@@ -120,3 +120,69 @@ export const qnaData = [
 		answer: true
 	},
 ]
+
+
+export const resumeData = [
+	{
+		id: 5,
+		title: '새롭게 시작하고자 하는 6년 경력 전문가 입니다.',
+		open: false,
+		registerDate: '2021-08-01',
+		modifyDate: '2021-09-01',
+		requestCallOpen: 2
+	},
+	{
+		id: 4,
+		title: '새롭게 태어난 다둥이 엄마입니다.',
+		open: true,
+		registerDate: '2021-07-01',
+		modifyDate: '2021-08-01',
+		requestCallOpen: 1
+	},
+	{
+		id: 3,
+		title: '30년 경력의 조직운영 전문가 입니다.',
+		open: false,
+		registerDate: '2021-06-01',
+		modifyDate: '2021-06-01',
+		requestCallOpen: 0
+	},
+]
+
+export const requestOpenContact = [
+	{
+		id: 10,
+		title: '새롭게 시작하고자 하는 6년 경력의 전문가 입니다.',
+		coName: '이시 주식회사',
+		requestDate: '2023-01-01',
+		recruitName: '사내 고급진 인력을 구하고 있습니다.'
+	},
+	{
+		id: 9,
+		title: '새롭게 시작하고자 하는 6년 경력의 전문가 입니다.',
+		coName: '주식회사 이시',
+		requestDate: '2022-12-01',
+		recruitName: 'Project Manager를 찾습니다.'
+	},
+	{
+		id: 8,
+		title: '새롭게 시작하고자 하는 6년 경력의 전문가 입니다.',
+		coName: '가우스전자',
+		requestDate: '2022-11-01',
+		recruitName: '지원인력이 필요합니다.'
+	},
+	{
+		id: 7,
+		title: '새롭게 시작하고자 하는 6년 경력의 전문가 입니다.',
+		coName: '이시 주식회사',
+		requestDate: '2023-01-01',
+		recruitName: '사내 고급진 인력을 구하고 있습니다.'
+	},
+	{
+		id: 6,
+		title: '새롭게 시작하고자 하는 6년 경력의 전문가 입니다.',
+		coName: '주식회사 이시',
+		requestDate: '2022-12-01',
+		recruitName: 'Project Manager를 찾습니다.'
+	}
+]

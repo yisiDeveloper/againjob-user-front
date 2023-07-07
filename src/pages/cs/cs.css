@@ -5,41 +5,7 @@
 	display: inherit;
 }
 /************************** Noti, Qna, List *******************************/
-.listColumn {
-	/*border: 1px solid dodgerblue;*/
-}
 
-.listSubjectArea {
-	display: flex;
-	margin-bottom: 0.5rem;
-	max-height: 3.5rem;
-	overflow-y: hidden;
-	align-content: center;
-	/*border: 1px solid dodgerblue;*/
-}
-.listColumn:first-child {
-	flex-grow: 1;
-	padding-left: 1rem;
-	/*max-width: 80rem;*/
-}
-
-.listColumn:last-child {
-	padding-right: 1rem;
-	min-width: 10rem;
-	margin-left: 2rem;
-}
-
-.listColumnTitle {
-	color: var(--fontListSubInfoTitle);
-	font-size: var(--fontSizeListInfoTitle);
-	font-weight: var(--fontWeightMiddle);
-}
-
-.listColumnBar {
-	background-color: var(--bgListBarTypeLine);
-	height: 6rem;
-	width: 0.05rem;
-}
 
 /************************** Faq  *******************************/
 .faqRow {

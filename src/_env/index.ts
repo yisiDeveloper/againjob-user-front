@@ -3,7 +3,10 @@ export {
 	memberIdName,memberNumberName,memberTypeName,memberTypePersonal, memberTypeCorp,
 	tokenExpireDay, cookieExpireDay, acTokenName, rfTokenName, authFlagName,
 	maxFileSize, fileTypes,
-	noticeListOnePageSize, noticeListPageBlockSize, faqListOnePageSize, faqListPageBlockSize, qnaListPageBlockSize, qnaListOnePageSize, qnaMaxFileSize, qnaFileTypes, qnaFileMaxLength
+	noticeListOnePageSize, noticeListPageBlockSize, faqListOnePageSize, faqListPageBlockSize, qnaListPageBlockSize, qnaListOnePageSize, qnaMaxFileSize, qnaFileTypes, qnaFileMaxLength,
+	ciMaxFileSize, ciFileTypes, ciFileMaxLength,
+	requestContactInfoOnePageSize, requestContactInfoPageBlockSize,
+	portfolioMaxFileSize,portfolioMaxLength,portfolioFileTypes
 } from './common'
 
 
@@ -31,6 +34,7 @@ export {
 export {
 	pageURL_Member_PE_DetailInfo,
 	pageURL_Member_CO_DetailInfo,
+	pageURL_Resume_List,pageURL_Resume_Register,pageURL_Resume_Detail,
 	pageURL_Sign_Login,
 	pageURL_Sign_ChoiceClassify,
 	pageURL_Sign_ChoiceChannel,
@@ -61,5 +65,5 @@ export {
 
 /*********************************** type *******************************/
 export type {
-	noticeType, faqType, qnaType
+	noticeType, faqType, qnaType, resumeType
 } from './type'

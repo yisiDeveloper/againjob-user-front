@@ -52,6 +52,9 @@ const Button = styled.button<btnType>`
 			case 'popup':
 				tempWidth = `width: var(--widthButtonPopup); height: var(--heightButtonPopup); font-size:var(--fontSizePopupButton);`
 				break;
+			case 'small':
+				tempWidth = `width: var(--widthButtonSmall); height: var(--heightButtonPopupSmall); font-size:var(--fontSizePopupSmallButton);`
+				break;
 			case 'page':
 				tempWidth = `min-width: var(--widthButtonPageTop); height: var(--heightButtonPageTop); font-size:var(--fontSizeActionButton);`
 				break;
@@ -69,9 +72,12 @@ const Button = styled.button<btnType>`
 			case 'disabled':
 				tempBgColor = 'background-color:var(--bgBtnDisabled); color: var(--fontWhiteColor);'
 				break;
+			case 'sky':
+				tempBgColor = 'background-color:var(--bgBtnSky); color: var(--fontWhiteColor);'
+				break;
 			case 'pageList':
 				tempBgColor = 'background-color:var(--bgBtnList); color: var(--fontBasicColor);border: 0.05rem solid var(--borderLineBtnList);'
-				break;
+				break;				
 			case 'file':
 				tempBgColor = 'background-color:var(--bgBtnFile); color: var(--fontWhiteColor);'
 				break;

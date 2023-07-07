@@ -30,9 +30,7 @@ export const memberTypePersonal = '1'
 export const memberTypeCorp = '0'
 
 /********************************************************************************************************
-
 	CS
-
  *********************************************************************************************************/
 export const noticeListOnePageSize: number = 10
 export const noticeListPageBlockSize: number = 5
@@ -43,3 +41,19 @@ export const qnaListPageBlockSize: number = 5
 export const qnaMaxFileSize = 2	// each file
 export const qnaFileTypes = ['JPG', 'JPEG', 'PNG', 'GIF', 'XLS', 'XLSX', 'DOC', 'DOCX', 'PPT', 'PPTX', 'ZIP', 'PDF','TXT']
 export const qnaFileMaxLength = 3
+
+/********************************************************************************************************
+	member
+ *********************************************************************************************************/
+export const ciMaxFileSize = 2	// each file
+export const ciFileTypes = ['JPG', 'JPEG', 'PNG']
+export const ciFileMaxLength = 1
+
+/********************************************************************************************************
+	Resume
+ *********************************************************************************************************/
+export const requestContactInfoOnePageSize: number = 5
+export const requestContactInfoPageBlockSize: number = 3
+export const portfolioMaxFileSize = 2
+export const portfolioMaxLength = 3
+export const portfolioFileTypes = ['JPG', 'JPEG', 'PNG', 'GIF', 'PDF']

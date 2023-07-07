@@ -34,7 +34,7 @@ function Popup({
 						<img src={popup_CLoseButton} alt='close '/>
 					</p>
 				</div>
-				<div className={'p opContent'}>
+				<div className={'popContent'}>
 					{popMsg.message}
 				</div>
 				<div style={{textAlign: 'center'}}>
@@ -67,6 +67,7 @@ const PopWrap = styled.section<wrapType>`
 	position: fixed;
 	display: flex;
 	top: ${props => props.topmargin}px;
+	left: 40%;
 	flex-direction: column;
 	padding: 2.8rem;
 `
