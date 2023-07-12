@@ -51,6 +51,15 @@ const Button = styled.button<btnType>`
 					background-image: url(${fileDelete});
 					background-repeat: no-repeat;
 					background-position: 95% center;`
+			case 'tag':
+				return css`
+					height: var(--heightButtonBasic);
+					background-color: var(--bgBtnYellowGreen);
+					padding: var(--paddingButtonFile);
+					background-image: url(${fileDelete});
+					background-repeat: no-repeat;
+					background-position: 95% center;
+					font-size: var(--fontSizeInputText);`
 			default:
 				return css`background-color: var(--bgBtnYellowGreen);padding: var(--paddingButtonRound);height: var(--heightButtonBasic);`
 			}

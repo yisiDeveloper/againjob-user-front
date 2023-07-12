@@ -14,6 +14,19 @@ export const pageURL_Resume_List = '/Resume/ResumeList'
 export const pageURL_Resume_Register = '/Resume/ResumeRegister'
 export const pageURL_Resume_Detail = '/Resume/ResumeDetail'
 
+/********************************************** Apply 지원관리 ***************************************************/
+export const pageURL_Apply_List = '/Apply/ApplyList'
+
+/********************************************** involve 참여관리 ***************************************************/
+export const pageURL_Involve_List = '/Involve/InvolveList'
+export const pageURL_Involve_Detail = '/Involve/InvolveDetail'
+
+/********************************************** request 받은 요청 ***************************************************/
+export const pageURL_Request_List = '/Request/RequestList'
+
+/********************************************** estimation 평가관리 ***************************************************/
+export const pageURL_Estimation_PeList = '/Estimation/PeEstimateList'
+export const pageURL_Estimation_CoList = '/Estimation/CoEstimateList'
 
 /********************************************** SignUP/In/Out ***************************************************/
 // 로그인

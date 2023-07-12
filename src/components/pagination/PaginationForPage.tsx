@@ -8,7 +8,8 @@ interface PaginationType {
 	pageSize: number,
 	pageBlockSize: number,
 	totalCounts: number,
-	getData: Function
+	getData: Function,
+	liststate?: any|null
 }
 
 function PaginationForPage({
@@ -16,7 +17,8 @@ function PaginationForPage({
 	pageSize,
 	pageBlockSize,
 	totalCounts,
-	getData
+	getData,
+	liststate
 }: PaginationType) {
 
 	/****************************************************** common basic definition ***************************************************/
@@ -50,12 +52,12 @@ function PaginationForPage({
 			if(!rqPage) {
 				alert(page + ' 페이지 계산 도중 에러가 발생했습니다.')
 			} else {
-				getData(page)
+				getData(page, liststate)
 			}
 		} else {
 			console.log('현재 페이지와 같은 페이지 요청')
 		}
-	},[totalCounts, currentPage])
+	},[totalCounts, currentPage, liststate])
 
 	// 이전, 다음 블럭으로 이동
 	// type 0 이면 이전 블럭, 1이면 다음 블럭
@@ -79,9 +81,9 @@ function PaginationForPage({
 		if(type===1) {
 			tmpCurrentPage = calcPaginationData(currentPage+pageBlockSize, pageSize, pageBlockSize, totalCounts).startPage
 		}
-		getData(tmpCurrentPage)
+		getData(tmpCurrentPage, liststate)
 
-	},[currentPage, totalCounts])
+	},[currentPage, totalCounts, liststate])
 
 	useLayoutEffect(() => {
 		// 현재 페이지를 확인한다.

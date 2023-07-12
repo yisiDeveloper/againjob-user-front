@@ -1,14 +1,9 @@
 import React from 'react'
-import {Navigate, useLocation, useNavigate} from 'react-router-dom'
-
-interface useNavPropType {
-}
+import {useLocation, useNavigate} from 'react-router-dom'
 
 /****************************************************************************************
  *
  *		Navigation과 관련한 모든 것을 처리한다.
- *
- *
  *
  ***************************************************************************************/
 function useNavigation() {

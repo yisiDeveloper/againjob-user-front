@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useLayoutEffect, useRef, useState} from 'react'
+import React, {useCallback, useLayoutEffect, useRef, useState} from 'react'
 import {
 	commMessage,
 	pageURL_Resume_List,
@@ -8,14 +8,14 @@ import {
 import {useForm, useNavigation} from '@hook'
 import {
 	AddressSearch, Alert,
-	ButtonGeneral,
+	ButtonGeneral, ButtonRound,
 	CustomCheckBox, Dropdown, FileUpload,
 	InfoAlert,
 	InputTitleType,
 	InputWithAlert,
 	PageTitle, Popup, QuillEditorUser
 } from '@components'
-import {popupClose} from '@handler'
+import {popupClose, comValidate} from '@handler'
 
 
 function ResumeRegister() {
@@ -100,10 +100,10 @@ function ResumeRegister() {
 
 		setAddressDP(true)
 		// inputHandler(e, 10, 'text','회사 주소는' )
-	},[values,errors])
+	},[])
 
 	// 경력 추가 handling
-	const addCareer = useCallback((e: React.SyntheticEvent, type: string) => {
+	const addCareer = useCallback((e: React.SyntheticEvent, type: string, no: number|null = 3) => {
 		e.preventDefault()
 
 		let ref1_dp = careerRef.current[0].style.display
@@ -113,31 +113,66 @@ function ResumeRegister() {
 		if(type==='add') {
 			// 만약 0이 none이라면
 			if(ref1_dp === 'none') {
-				careerRef.current[0].style.display = 'block'
-			} else if(ref1_dp === 'block' && ref2_dp === 'none') {
-				careerRef.current[1].style.display = 'block'
-			} else if(ref1_dp === 'block' && ref2_dp === 'block') {
+				careerRef.current[0].style.display = 'inherit'
+			} else if(ref1_dp === 'inherit' && ref2_dp === 'none') {
+				careerRef.current[1].style.display = 'inherit'
+			} else if(ref1_dp === 'inherit' && ref2_dp === 'inherit') {
 				// 더이상 추가할 수 없다는 메시지를 띄우자
 				setPopMsg(commMessage('NEVER_ADD'))
 				setPopDp(true)
 			}
 		} else {
-
+			// close 하자
+			if(no===0) {
+				careerRef.current[0].style.display = 'none'
+			} else if (no===1) {
+				careerRef.current[1].style.display = 'none'
+			}
 		}
+	},[])
 
-
-
-	},[values, errors])
-
-
-	// 태그 핸들링
+	// 태그 등록
 	const tagHandling = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
 		e.preventDefault()
 
 		let {name, value} = e.target
-		console.log(name)
-		console.log(value)
+		value = value.trim()
+
+		// 그냥 삭제했다면...
+		if(value.length === 0) {
+			setErrorMessage(e, name, '')
+		} else {
+			let tmpValues = values.tag
+			let result = comValidate('태그는 ',value, 2, 'text')
+
+			if(!result.isChecked) {
+				setErrorMessage(e, name,result.alertMessage)
+			} else if(result.isChecked) {
+				setErrorMessage(e, name, '')
+				document.addEventListener('keydown', function(event) {
+					if(event.key === 'Enter') {
+						if(tmpValues.length === 3) {
+							setErrorMessage(e, name, '최대 3개까지만 등록 가능합니다.')
+						} else {
+							tmpValues = [...tmpValues, value]
+							setValueHandler(name, tmpValues, false)
+							e.target.value = ''
+						}
+					}
+				})
+			}
+		}
 	},[values,errors])
+
+	// 태그 삭제
+	const deleteTag = useCallback((e: React.SyntheticEvent, title: string) => {
+		e.preventDefault()
+
+		let tmpValues = values.tag
+		tmpValues = tmpValues.filter((data: any) => data !== title)
+
+		setValueHandler('tag', tmpValues, false)
+	},[values, errors])
 
 	// submit
 	const submitHandler = useCallback((e: React.SyntheticEvent) => {
@@ -248,7 +283,7 @@ function ResumeRegister() {
 					/>
 				</div>
 				<div className={'emptyDivHeight'}></div>
-				<div style={{width: '18%'}}>
+				<div style={{width: '20%'}}>
 					<InputWithAlert
 						title={'태그'}
 						titleDP={true}
@@ -259,54 +294,24 @@ function ResumeRegister() {
 						onchange={tagHandling}
 					/>
 				</div>
-
-				<div style={{width: '2.5%'}} />
-				<div style={{width: '18%'}}>
-					<InputWithAlert
-						title={''}
-						titleDP={true}
-						placeholder={placeholderMessage('RESUME_TAG')}
-						name={'tag'}
-						max={10}
-						type={'text'}
-						onchange={tagHandling}
-					/>
-				</div>
-				<div style={{width: '2.5%'}} />
-				<div style={{width: '18%'}}>
-					<InputWithAlert
-						title={''}
-						titleDP={true}
-						placeholder={placeholderMessage('RESUME_TAG')}
-						name={'tag'}
-						max={10}
-						type={'text'}
-						onchange={tagHandling}
-					/>
-				</div>
-				<div style={{width: '2.5%'}} />
-				<div style={{width: '18%'}}>
-					<InputWithAlert
-						title={''}
-						titleDP={true}
-						placeholder={placeholderMessage('RESUME_TAG')}
-						name={'tag'}
-						max={10}
-						type={'text'}
-						onchange={tagHandling}
-					/>
-				</div>
-				<div style={{width: '2.5%'}} />
-				<div style={{width: '18%'}}>
-					<InputWithAlert
-						title={''}
-						titleDP={true}
-						placeholder={placeholderMessage('RESUME_TAG')}
-						name={'tag'}
-						max={10}
-						type={'text'}
-						onchange={tagHandling}
-					/>
+				<div style={{width: '5%'}} />
+				<div style={{width: '75%',paddingTop:'2rem'}}>
+					{
+						(values.tag.length === 0) ? <span className={'tagsInfo'}>태그 입력 후 Enter키를 눌러주세요.</span>
+						: values.tag.map((data:any ,idx: any) => {
+							return (
+								<span key={idx}>
+									<span onClick={(e) => deleteTag(e, data)}>
+										<ButtonRound
+											title={data}
+											buttontype={'tag'}
+										/>
+									</span>
+									<div className={'emptyDivWidth'} />
+								</span>
+							)
+						})
+					}
 				</div>
 				<div style={{width:'100%', height: '3rem', paddingTop:'0.5rem'}}><InfoAlert messageCode={'RESUME_TAG'} /></div>
 				<Alert
@@ -404,19 +409,296 @@ function ResumeRegister() {
 				<div style={{ width:'100%'}}><InfoAlert messageCode={'RESUME_CAREER'} /></div>
 				<div className={'emptyDivHeight'}></div>
 				{/***************************************** 경력 1 ********************************************/}
-				<div style={{border:'1px solid red', width: '100%'}}>
-
+				<div style={{display: 'inherit', width: '100%', flexWrap:'wrap', position: 'relative'}}>
+					<div style={{width: '30%'}}>
+						<InputWithAlert
+							title={'회사명'}
+							titleDP={true}
+							placeholder={placeholderMessage('COMPANY_NAME_INPUT')}
+							name={'coName'}
+							max={30}
+							type={'text'}
+							onchange={(e) =>inputHandler(e, 2, 'text','회사명은 ' )}
+						/>
+					</div>
+					<div className={'noExposeCoName'}>
+						<CustomCheckBox
+							title={'회사명 비공개'}
+							name={'neverExposeCoName'}
+							defaultFlag={false}
+							titleType={''}
+							onChangeHandler={changeHandler}
+						/>
+					</div>
+					<div style={{width: '5%'}} />
+					<div style={{width: '30%'}}>
+						<InputWithAlert
+							title={'부서명'}
+							titleDP={true}
+							placeholder={placeholderMessage('DIVISION_NAME_INPUT')}
+							name={'divisionName'}
+							max={30}
+							type={'text'}
+							onchange={(e) =>inputHandler(e, 2, 'text','부서명은 ' )}
+						/>
+					</div>
+					<div style={{width: '5%'}} />
+					<div style={{width: '20%'}}>
+						<Dropdown
+							title={'근무기간'}
+							Options={[{id: 1, title:'1년 미만'},{id: 2, title:'1년 이상 ~ 3년 미만'},{id: 3, title:'3년 이상 ~ 5년 미만'},{id: 4, title:'5년 이상 ~ 7년 미만'}]}
+							name={'workingPeriod'}
+							changeFunc={changeHandler}
+							defaultValue={'1년 미만'}
+						/>
+					</div>
+					<div className={'emptyDivHeight'}></div>
+					<div style={{width: '15%'}}>
+						<InputWithAlert
+							title={'직급/직책'}
+							titleDP={true}
+							placeholder={placeholderMessage('POSITION_NAME_INPUT')}
+							name={'positionName'}
+							max={30}
+							type={'text'}
+							onchange={(e) =>inputHandler(e, 2, 'text','직급/직책은 ' )}
+						/>
+					</div>
+					<div style={{width: '5%'}} />
+					<div style={{width: '45%'}}>
+						<InputWithAlert
+							title={'역할/직무'}
+							titleDP={true}
+							placeholder={placeholderMessage('RESPONSIBILITY_INPUT')}
+							name={'divisionName'}
+							max={30}
+							type={'text'}
+							onchange={(e) =>inputHandler(e, 2, 'text','역할/직무는 ' )}
+						/>
+					</div>
+					<div style={{width: '5%'}} />
+					<div style={{width: '10%'}}>
+						<Dropdown
+							title={'퇴사연도/월'}
+							Options={[{id: 1, title:'2023'},{id: 2, title:'2022'},{id: 3, title:'2021'},{id: 4, title:'2020'}]}
+							name={'workingPeriod'}
+							changeFunc={changeHandler}
+							defaultValue={'2023'}
+						/>
+					</div>
+					<div style={{width: '3%'}} />
+					<div style={{width: '7%'}}>
+						<Dropdown
+							title={''}
+							Options={[{id: 1, title:'1'},{id: 2, title:'2'},{id: 3, title:'3'},{id: 4, title:'4'},{id: 5, title:'5'},{id: 6, title:'6'},{id: 7, title:'7'},{id: 8, title:'8'},{id: 9, title:'9'},{id: 10, title:'10'},{id: 11, title:'11'},{id: 12, title:'12'}]}
+							name={'workingPeriod'}
+							changeFunc={changeHandler}
+							defaultValue={'1'}
+						/>
+					</div>
+					<div className={'emptyDivHeight'}></div>
+					<div style={{width: '90%'}}>
+						<textarea rows={5} maxLength={200} placeholder={placeholderMessage('CAREER_INTRODUCE')}/>
+					</div>
 				</div>
-				<div className={'emptyDivHeight'}></div>
 				{/***************************************** 경력 2********************************************/}
-				<div style={{border:'1px solid red', width: '100%', display:'none'}} ref={(e) => {careerRef.current[0] = e}}>
-					경력 2
+				<div style={{width: '100%', display:'none', flexWrap:'wrap', position: 'relative'}} ref={(e) => {careerRef.current[0] = e}}>
+					<div className={'emptyDivHeight'}></div>
+					<div className={'emptyDivHeight'}></div>
+					<div style={{width: '31%'}}>
+						<InputWithAlert
+							title={'회사명'}
+							titleDP={true}
+							placeholder={placeholderMessage('COMPANY_NAME_INPUT')}
+							name={'coName'}
+							max={30}
+							type={'text'}
+							onchange={(e) =>inputHandler(e, 2, 'text','회사명은 ' )}
+						/>
+					</div>
+					<div className={'noExposeCoName'} style={{top: '13%'}}>
+						<CustomCheckBox
+							title={'회사명 비공개'}
+							name={'neverExposeCoName'}
+							defaultFlag={false}
+							titleType={''}
+							onChangeHandler={changeHandler}
+						/>
+					</div>
+					<div style={{width: '5%'}} />
+					<div style={{width: '31%'}}>
+						<InputWithAlert
+							title={'부서명'}
+							titleDP={true}
+							placeholder={placeholderMessage('DIVISION_NAME_INPUT')}
+							name={'divisionName'}
+							max={30}
+							type={'text'}
+							onchange={(e) =>inputHandler(e, 2, 'text','부서명은 ' )}
+						/>
+					</div>
+					<div style={{width: '5%'}} />
+					<div style={{width: '20%'}}>
+						<Dropdown
+							title={'근무기간'}
+							Options={[{id: 1, title:'1년 미만'},{id: 2, title:'1년 이상 ~ 3년 미만'},{id: 3, title:'3년 이상 ~ 5년 미만'},{id: 4, title:'5년 이상 ~ 7년 미만'}]}
+							name={'workingPeriod'}
+							changeFunc={changeHandler}
+							defaultValue={'1년 미만'}
+						/>
+					</div>
+					<div className={'careerClose'} style={{width: '8%'}}
+						onClick={(e) => addCareer(e, 'close', 0)}
+					/>
+					<div className={'emptyDivHeight'}></div>
+					<div style={{width: '15%'}}>
+						<InputWithAlert
+							title={'직급/직책'}
+							titleDP={true}
+							placeholder={placeholderMessage('POSITION_NAME_INPUT')}
+							name={'positionName'}
+							max={30}
+							type={'text'}
+							onchange={(e) =>inputHandler(e, 2, 'text','직급/직책은 ' )}
+						/>
+					</div>
+					<div style={{width: '5%'}} />
+					<div style={{width: '45%'}}>
+						<InputWithAlert
+							title={'역할/직무'}
+							titleDP={true}
+							placeholder={placeholderMessage('RESPONSIBILITY_INPUT')}
+							name={'divisionName'}
+							max={30}
+							type={'text'}
+							onchange={(e) =>inputHandler(e, 2, 'text','역할/직무는 ' )}
+						/>
+					</div>
+					<div style={{width: '5%'}} />
+					<div style={{width: '10%'}}>
+						<Dropdown
+							title={'퇴사연도/월'}
+							Options={[{id: 1, title:'2023'},{id: 2, title:'2022'},{id: 3, title:'2021'},{id: 4, title:'2020'}]}
+							name={'workingPeriod'}
+							changeFunc={changeHandler}
+							defaultValue={'2023'}
+						/>
+					</div>
+					<div style={{width: '3%'}} />
+					<div style={{width: '7%'}}>
+						<Dropdown
+							title={''}
+							Options={[{id: 1, title:'1'},{id: 2, title:'2'},{id: 3, title:'3'},{id: 4, title:'4'},{id: 5, title:'5'},{id: 6, title:'6'},{id: 7, title:'7'},{id: 8, title:'8'},{id: 9, title:'9'},{id: 10, title:'10'},{id: 11, title:'11'},{id: 12, title:'12'}]}
+							name={'workingPeriod'}
+							changeFunc={changeHandler}
+							defaultValue={'1'}
+						/>
+					</div>
+					<div className={'emptyDivHeight'}></div>
+					<div style={{width: '90%'}}>
+						<textarea rows={5} maxLength={200} placeholder={placeholderMessage('CAREER_INTRODUCE')}/>
+					</div>
 				</div>
-				<div className={'emptyDivHeight'}></div>
 				{/***************************************** 경력 3********************************************/}
-				<div style={{border:'1px solid red', width: '100%', display: 'none'}} ref={(e) => {careerRef.current[1] = e}}>
-					경력3
+				<div style={{width: '100%', display:'none', flexWrap:'wrap', position: 'relative'}} ref={(e) => {careerRef.current[1] = e}}>
+					<div className={'emptyDivHeight'}></div>
+					<div className={'emptyDivHeight'}></div>
+					<div style={{width: '31%'}}>
+						<InputWithAlert
+							title={'회사명'}
+							titleDP={true}
+							placeholder={placeholderMessage('COMPANY_NAME_INPUT')}
+							name={'coName'}
+							max={30}
+							type={'text'}
+							onchange={(e) =>inputHandler(e, 2, 'text','회사명은 ' )}
+						/>
+					</div>
+					<div className={'noExposeCoName'} style={{top: '13%'}}>
+						<CustomCheckBox
+							title={'회사명 비공개'}
+							name={'neverExposeCoName'}
+							defaultFlag={false}
+							titleType={''}
+							onChangeHandler={changeHandler}
+						/>
+					</div>
+					<div style={{width: '5%'}} />
+					<div style={{width: '31%'}}>
+						<InputWithAlert
+							title={'부서명'}
+							titleDP={true}
+							placeholder={placeholderMessage('DIVISION_NAME_INPUT')}
+							name={'divisionName'}
+							max={30}
+							type={'text'}
+							onchange={(e) =>inputHandler(e, 2, 'text','부서명은 ' )}
+						/>
+					</div>
+					<div style={{width: '5%'}} />
+					<div style={{width: '20%'}}>
+						<Dropdown
+							title={'근무기간'}
+							Options={[{id: 1, title:'1년 미만'},{id: 2, title:'1년 이상 ~ 3년 미만'},{id: 3, title:'3년 이상 ~ 5년 미만'},{id: 4, title:'5년 이상 ~ 7년 미만'}]}
+							name={'workingPeriod'}
+							changeFunc={changeHandler}
+							defaultValue={'1년 미만'}
+						/>
+					</div>
+					<div className={'careerClose'} style={{width: '8%'}}
+						 onClick={(e) => addCareer(e, 'close', 1)}
+					/>
+					<div className={'emptyDivHeight'}></div>
+					<div style={{width: '15%'}}>
+						<InputWithAlert
+							title={'직급/직책'}
+							titleDP={true}
+							placeholder={placeholderMessage('POSITION_NAME_INPUT')}
+							name={'positionName'}
+							max={30}
+							type={'text'}
+							onchange={(e) =>inputHandler(e, 2, 'text','직급/직책은 ' )}
+						/>
+					</div>
+					<div style={{width: '5%'}} />
+					<div style={{width: '45%'}}>
+						<InputWithAlert
+							title={'역할/직무'}
+							titleDP={true}
+							placeholder={placeholderMessage('RESPONSIBILITY_INPUT')}
+							name={'divisionName'}
+							max={30}
+							type={'text'}
+							onchange={(e) =>inputHandler(e, 2, 'text','역할/직무는 ' )}
+						/>
+					</div>
+					<div style={{width: '5%'}} />
+					<div style={{width: '10%'}}>
+						<Dropdown
+							title={'퇴사연도/월'}
+							Options={[{id: 1, title:'2023'},{id: 2, title:'2022'},{id: 3, title:'2021'},{id: 4, title:'2020'}]}
+							name={'workingPeriod'}
+							changeFunc={changeHandler}
+							defaultValue={'2023'}
+						/>
+					</div>
+					<div style={{width: '3%'}} />
+					<div style={{width: '7%'}}>
+						<Dropdown
+							title={''}
+							Options={[{id: 1, title:'1'},{id: 2, title:'2'},{id: 3, title:'3'},{id: 4, title:'4'},{id: 5, title:'5'},{id: 6, title:'6'},{id: 7, title:'7'},{id: 8, title:'8'},{id: 9, title:'9'},{id: 10, title:'10'},{id: 11, title:'11'},{id: 12, title:'12'}]}
+							name={'workingPeriod'}
+							changeFunc={changeHandler}
+							defaultValue={'1'}
+						/>
+					</div>
+					<div className={'emptyDivHeight'}></div>
+					<div style={{width: '90%'}}>
+						<textarea rows={5} maxLength={200} placeholder={placeholderMessage('CAREER_INTRODUCE')}/>
+					</div>
 				</div>
+				{/*************************************** Button ***************************************/}
+				<div className={'emptyDivHeight'}></div>
 				<div className={'emptyDivHeight'}></div>
 				<div style={{width: '100%', textAlign:'center'}}>
 					<span style={{cursor:'pointer'}} onClick={(e) => addCareer(e, 'add')}><ButtonGeneral

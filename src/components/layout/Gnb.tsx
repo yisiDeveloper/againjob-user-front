@@ -10,14 +10,12 @@ import {ButtonRound} from '@components'
 import {
 	pageURL_Sign_Login,
 	pageURL_Sign_ChoiceClassify,
-	pageURL_Sign_PE_FindID,
-	pageURL_Sign_PE_FindPwd,
+	pageURL_Sign_PE_FindID, pageURL_Sign_PE_FindPwd,
 	pageURL_CS_NoticeList,
-	authFlagName,
-	memberTypeName,
-	memberTypeCorp,
-	memberTypePersonal, pageURL_Member_PE_DetailInfo, pageURL_Member_CO_DetailInfo,
-	pageURL_Resume_List
+	pageURL_Member_PE_DetailInfo, pageURL_Member_CO_DetailInfo,
+	pageURL_Resume_List, pageURL_Apply_List, pageURL_Involve_List,
+	authFlagName, memberTypeName, memberTypeCorp, memberTypePersonal,
+	pageURL_Request_List
 } from '@env'
 import './layout.css'
 import {useNavigation} from '@hook'
@@ -38,7 +36,7 @@ function Gnb() {
 	const {goToURL ,navigate} = useNavigation()
 	/****************************************************** 공통 정의 ***************************************************/
 	// 최상단 광고 팝업 창의 노출여부
-	const [adDP, setAdDP] = useState<boolean>(false)
+	const [adDP, setAdDP] = useState<boolean>(true)
 	// Sub menu 노출 여부, 나중에는 Local Storage 또는 Global Store에 저장해 놓고 써야 할 듯
 
 
@@ -92,7 +90,7 @@ function Gnb() {
 						{memberType==='0' ?
 							<><EachMenuWrap rightmargin='7rem'>공고관리</EachMenuWrap><EachMenuWrap rightmargin='4.5rem'>일거리관리</EachMenuWrap></>
 						 :
-						<><EachMenuWrap rightmargin='7rem'>지원관리</EachMenuWrap><EachMenuWrap rightmargin='4.5rem'>참여관리</EachMenuWrap></>
+						<><EachMenuWrap rightmargin='7rem' onClick={(e) => goToURL(e, pageURL_Apply_List)}>지원관리</EachMenuWrap><EachMenuWrap rightmargin='4.5rem' onClick={(e) => goToURL(e, pageURL_Involve_List)}>참여관리</EachMenuWrap></>
 					}
 					</div>
 					<div className={'subMenuIconWrap'}>
@@ -122,7 +120,7 @@ function Gnb() {
 						<>
 							<div className={'subMenuPeople'} style={{marginLeft: '23.5rem'}} onClick={(e) => goToURL(e, pageURL_Member_PE_DetailInfo)}>내 정보</div>
 							<div className={'subMenuPeople'} onClick={(e) => goToURL(e, pageURL_Resume_List)}>이력서관리</div>
-							<div className={'subMenuPeople'}>받은요청</div>
+							<div className={'subMenuPeople'} onClick={(e) => goToURL(e, pageURL_Request_List)}>받은요청</div>
 							<div className={'subMenuPeople'}>평가관리</div>
 							<div className={'subMenuPeople'}>결제내역</div>
 							<div className={'subMenuPeople'}>이용권</div>

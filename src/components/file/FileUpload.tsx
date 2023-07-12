@@ -1,11 +1,11 @@
-import React, {ChangeEventHandler, useRef} from 'react'
+import React, {MutableRefObject, useRef} from 'react'
 import {Alert, ButtonGeneral, ButtonRound, InfoAlert} from "../index"
 
 interface fileComponentType {
     elName: string,
     infoMsgCode: string,
     registFileFunc: (e: React.ChangeEvent<HTMLInputElement>) => void,
-    deleteFileFunc: (e: React.MouseEvent<HTMLSpanElement>, idx:number, name: string) => void,
+    deleteFileFunc: (e: React.MouseEvent<HTMLSpanElement>, idx:number, name: string, fileRef:MutableRefObject<any>) => void,
     alertTitle: string,
     alertDP: boolean,
     fileValue: any[]
@@ -50,17 +50,17 @@ function FileUpload({
             <div>
                 {
                     fileValue.map((data:any ,idx: any) => {
-                        console.log('uploadFile here:', fileValue)
+                        // console.log('uploadFile here:', fileValue)
                         return (
                             <span key={idx}>
-									<span onClick={(e) => deleteFileFunc(e, idx, elName)}>
-										<ButtonRound
-                                            title={data.name}
-                                            buttontype={'file'}
-                                        />
-									</span>
-									<div className={'emptyDivWidth'} />
-								</span>
+                                <span onClick={(e) => deleteFileFunc(e, idx, elName, fileRef)}>
+                                    <ButtonRound
+                                        title={data.name}
+                                        buttontype={'file'}
+                                    />
+                                </span>
+                                <div className={'emptyDivWidth'} />
+                            </span>
                         )
                     })
                 }

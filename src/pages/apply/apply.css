@@ -1,0 +1,33 @@
+@charset "utf-8";
+
+/************************** 공통 정의 *******************************/
+.noApplyDataWrap {
+	height: 48rem;
+}
+
+.noApplyTitle {
+	font-size: 4rem;
+	text-align: center;
+	height: 18rem;
+	padding-top: 5rem;
+	font-weight: var(--fontWeightBold);
+	/*border: 1px solid yellowgreen;*/
+}
+
+.noApplySubTitle {
+	font-size: 2rem;
+	color: var(--fontInfoColor);
+	font-weight: var(--fontWeightMiddle);
+	text-align: center;
+	/*border: 1px solid red;*/
+	height: 10rem;
+}
+
+.noApplyButtonArea {
+	/*border: 1px solid dodgerblue;*/
+	text-align: center;
+}
+
+.applyListColumnWidth {
+	width: 15.3rem;
+}

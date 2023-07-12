@@ -31,5 +31,24 @@ export interface resumeType {
 	requestCallOpen: number
 }
 
+export interface applyType {
+	id: number,
+	title: string,
+	subContent: string,
+	applyDate: string,
+	open: string
+}
 
+export interface involveType {
+	id: number,
+	title: string,
+	estimatePeriod: string,
+	address: string,
+	reviewDeadline: string,
+	estimateAmount: string,
+	proposalTitle: string,
+	proposalSubContent: string,
+	proposalDate: string,
+	proposalAmount: string
+}
 

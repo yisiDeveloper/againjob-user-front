@@ -31,7 +31,7 @@ function ListSearch({
 	setErrorMessage
 }: ListSearchPropType) {
 
-	// console.log('List Serach의 values', values)
+	// console.log('List Search의 values', values)
 	/****************************************************** common basic definition ***************************************************/
 
 

@@ -19,6 +19,7 @@
 	max-height: 20rem;
 	overflow: auto;
 	cursor: pointer;
+	z-index: 99;
 }
 
 .optionsAreaForSearch {
@@ -39,6 +40,7 @@
 	padding-left: 1rem;
 	padding-top: 0.6rem;
 	height: 4rem;
+	z-index: 99;
 }
 
 .options:hover {

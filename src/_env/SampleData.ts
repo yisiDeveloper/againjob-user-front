@@ -186,3 +186,221 @@ export const requestOpenContact = [
 		recruitName: 'Project Manager를 찾습니다.'
 	}
 ]
+
+
+export const applyList = [
+	{
+		id: 10,
+		title: '이시에서 능력있는 Front-end 개발자를 찾습니다.',
+		subContent: '30년간 건설업에 종사한 건축 전문가 입니다.',
+		applyDate: '2023-02-01',
+		open: '2023-05-01'
+	},
+	{
+		id: 9,
+		title: 'AgainJob에서 아이들을 위해 함께하실 분을 모십니다..',
+		subContent: '두아이의 엄마로 일할 준비가 되어 있습니다.',
+		applyDate: '2023-01-01',
+		open: ''
+	},
+	{
+		id: 8,
+		title: 'FullStack 개발자를 찾습니다. Node, Nest, React, Typescript',
+		subContent: '말이 Full Stack이지 힘들어요~',
+		applyDate: '2022-12-01',
+		open: '2023-04-04'
+	},
+	{
+		id: 7,
+		title: '이시에서 능력있는 Front-end 개발자를 찾습니다.',
+		subContent: '30년간 건설업에 종사한 건축 전문가 입니다.',
+		applyDate: '2023-02-01',
+		open: '2023-05-01'
+	},
+	{
+		id: 6,
+		title: 'AgainJob에서 아이들을 위해 함께하실 분을 모십니다..',
+		subContent: '두아이의 엄마로 일할 준비가 되어 있습니다.',
+		applyDate: '2023-01-01',
+		open: ''
+	},
+	{
+		id: 5,
+		title: 'FullStack 개발자를 찾습니다. Node, Nest, React, Typescript',
+		subContent: '말이 Full Stack이지 힘들어요~',
+		applyDate: '2022-12-01',
+		open: '2023-04-04'
+	},
+	{
+		id: 4,
+		title: '이시에서 능력있는 Front-end 개발자를 찾습니다.',
+		subContent: '30년간 건설업에 종사한 건축 전문가 입니다.',
+		applyDate: '2023-02-01',
+		open: '2023-05-01'
+	},
+	{
+		id: 3,
+		title: 'AgainJob에서 아이들을 위해 함께하실 분을 모십니다..',
+		subContent: '두아이의 엄마로 일할 준비가 되어 있습니다.',
+		applyDate: '2023-01-01',
+		open: ''
+	},
+	{
+		id: 2,
+		title: 'FullStack 개발자를 찾습니다. Node, Nest, React, Typescript',
+		subContent: '말이 Full Stack이지 힘들어요~',
+		applyDate: '2022-12-01',
+		open: '2023-04-04'
+	}
+]
+
+
+export const involveList = [
+	{
+		id: 10,
+		title: '회사의 온라인 쇼핑몰을 구축하고자 합니다.',
+		estimatePeriod: '30',
+		address: '서울특별시 > 구로구',
+		reviewDeadline: '2023-01-01',
+		estimateAmount: '100',
+		proposalTitle: '쇼핑몰 구축을 10차례 진행헀습니다. 제가 최적입니다.',
+		proposalSubContent: 'IT전문가의 도움을 받아보세요.',
+		proposalDate: '2023-01-05',
+		proposalAmount: '99'
+	},
+	{
+		id: 9,
+		title: '플랫폼 차세대를 위한 FullStack 팀을 모집합니다.',
+		estimatePeriod: '30',
+		address: '서울특별시 > 구로구',
+		reviewDeadline: '2023-01-01',
+		estimateAmount: '100',
+		proposalTitle: '쇼핑몰 구축을 10차례 진행헀습니다. 제가 최적입니다.',
+		proposalSubContent: 'IT전문가의 도움을 받아보세요.',
+		proposalDate: '2023-01-05',
+		proposalAmount: '99'
+	},
+	{
+		id: 8,
+		title: '회사의 온라인 쇼핑몰을 구축하고자 합니다.',
+		estimatePeriod: '30',
+		address: '서울특별시 > 구로구',
+		reviewDeadline: '2023-01-01',
+		estimateAmount: '100',
+		proposalTitle: '쇼핑몰 구축을 10차례 진행헀습니다. 제가 최적입니다.',
+		proposalSubContent: 'IT전문가의 도움을 받아보세요.',
+		proposalDate: '2023-01-05',
+		proposalAmount: '99'
+	},
+	{
+		id: 7,
+		title: '회사의 온라인 쇼핑몰을 구축하고자 합니다.',
+		estimatePeriod: '30',
+		address: '서울특별시 > 구로구',
+		reviewDeadline: '2023-01-01',
+		estimateAmount: '100',
+		proposalTitle: '쇼핑몰 구축을 10차례 진행헀습니다. 제가 최적입니다.',
+		proposalSubContent: 'IT전문가의 도움을 받아보세요.',
+		proposalDate: '2023-01-05',
+		proposalAmount: '99'
+	},
+	{
+		id: 6,
+		title: '회사의 온라인 쇼핑몰을 구축하고자 합니다.',
+		estimatePeriod: '30',
+		address: '서울특별시 > 구로구',
+		reviewDeadline: '2023-01-01',
+		estimateAmount: '100',
+		proposalTitle: '쇼핑몰 구축을 10차례 진행헀습니다. 제가 최적입니다.',
+		proposalSubContent: 'IT전문가의 도움을 받아보세요.',
+		proposalDate: '2023-01-05',
+		proposalAmount: '99'
+	},
+	{
+		id: 5,
+		title: '회사의 온라인 쇼핑몰을 구축하고자 합니다.',
+		estimatePeriod: '30',
+		address: '서울특별시 > 구로구',
+		reviewDeadline: '2023-01-01',
+		estimateAmount: '100',
+		proposalTitle: '쇼핑몰 구축을 10차례 진행헀습니다. 제가 최적입니다.',
+		proposalSubContent: 'IT전문가의 도움을 받아보세요.',
+		proposalDate: '2023-01-05',
+		proposalAmount: '99'
+	},
+	{
+		id: 4,
+		title: '회사의 온라인 쇼핑몰을 구축하고자 합니다.',
+		estimatePeriod: '30',
+		address: '서울특별시 > 구로구',
+		reviewDeadline: '2023-01-01',
+		estimateAmount: '100',
+		proposalTitle: '쇼핑몰 구축을 10차례 진행헀습니다. 제가 최적입니다.',
+		proposalSubContent: 'IT전문가의 도움을 받아보세요.',
+		proposalDate: '2023-01-05',
+		proposalAmount: '99'
+	},
+	{
+		id: 3,
+		title: '회사의 온라인 쇼핑몰을 구축하고자 합니다.',
+		estimatePeriod: '30',
+		address: '서울특별시 > 구로구',
+		reviewDeadline: '2023-01-01',
+		estimateAmount: '100',
+		proposalTitle: '쇼핑몰 구축을 10차례 진행헀습니다. 제가 최적입니다.',
+		proposalSubContent: 'IT전문가의 도움을 받아보세요.',
+		proposalDate: '2023-01-05',
+		proposalAmount: '99'
+	},
+]
+
+export const requestList = [
+	{
+		id: 10,
+		title: '저희 회사 회계팀장으로 입사를 요청드립니다.',
+		requestKind: 'recruit',
+		recruitORprojectName: '10년 이상 경력의 회계 팀장님을 모십니다.',
+		reviewDeadLine: '2023-01-01',
+		applyDeadLine: '2023-02-01'
+	},
+	{
+		id: 9,
+		title: '저희 회사 회계팀장으로 입사를 요청드립니다.',
+		requestKind: 'project',
+		recruitORprojectName: '10년 이상 경력의 회계 팀장님을 모십니다.',
+		reviewDeadLine: '2023-01-01',
+		applyDeadLine: '2023-02-01'
+	},
+	{
+		id: 8,
+		title: '저희 회사 회계팀장으로 입사를 요청드립니다.',
+		requestKind: 'project',
+		recruitORprojectName: '10년 이상 경력의 회계 팀장님을 모십니다.',
+		reviewDeadLine: '2023-01-01',
+		applyDeadLine: '2023-02-01'
+	},
+	{
+		id: 7,
+		title: '저희 회사 회계팀장으로 입사를 요청드립니다.',
+		requestKind: 'recruit',
+		recruitORprojectName: '10년 이상 경력의 회계 팀장님을 모십니다.',
+		reviewDeadLine: '2023-01-01',
+		applyDeadLine: '2023-02-01'
+	},
+	{
+		id: 6,
+		title: '저희 회사 회계팀장으로 입사를 요청드립니다.',
+		requestKind: 'project',
+		recruitORprojectName: '10년 이상 경력의 회계 팀장님을 모십니다.',
+		reviewDeadLine: '2023-01-01',
+		applyDeadLine: '2023-02-01'
+	},
+	{
+		id: 5,
+		title: '저희 회사 회계팀장으로 입사를 요청드립니다.',
+		requestKind: 'recruit',
+		recruitORprojectName: '10년 이상 경력의 회계 팀장님을 모십니다.',
+		reviewDeadLine: '2023-01-01',
+		applyDeadLine: '2023-02-01'
+	},
+]

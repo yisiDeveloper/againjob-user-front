@@ -7,7 +7,7 @@ function FaqDetail() {
 
 	/****************************************************** common basic definition ***************************************************/
 	const {propState} = useNavigation()
-	console.log(propState)
+	// console.log(propState)
 	const [listState, ] = useState(propState.listState)
 
 	/****************************************************** contents initialization or definition ***************************************************/

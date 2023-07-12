@@ -34,15 +34,22 @@ function useForm({ initialValues, initialErrors }: useFormPropType) {
 		let {name, value} = e.target
 		value = value.trim()
 		// 해당 옵션에 따라 검사한다.
-		let result = comValidate(elName, value, min, type)
-		if(!result.isChecked) {
+		// 만약 해당 값이 비어있는 값이라면
+		if(value.length === 0) {
 			setErrors({...errors, [name]: true})
-			setMessage({...messages, [name]: result.alertMessage})
-		} else {
-			setErrors({...errors, [name]: false})
 			setMessage({...messages,[name]: ''})
-			setValues({ ...values, [name]: value})
+		} else {
+			let result = comValidate(elName, value, min, type)
+			if(!result.isChecked) {
+				setErrors({...errors, [name]: true})
+				setMessage({...messages, [name]: result.alertMessage})
+			} else {
+				setErrors({...errors, [name]: false})
+				setMessage({...messages,[name]: ''})
+				setValues({ ...values, [name]: value})
+			}
 		}
+
 	},[values,errors,messages])
 
 	// 페이지 내 별도 처리를 위해 에러 메시지가 필요한 경우
@@ -55,10 +62,11 @@ function useForm({ initialValues, initialErrors }: useFormPropType) {
 
 	// 페이지 내 별도 값 처리를 위해 에러 메시지가 필요한 경우
 	const setValueHandler = useCallback((valueName: string, value: any, errorValue:boolean): void => {
-
 		setValues({...values, [valueName]: value})
 		setErrors({...errors, [valueName]: errorValue})
 	},[errors, values])
+
+
 
 	/*************************************************************************************************
 	 * Editor를 위한 별도 handling
@@ -147,14 +155,18 @@ function useForm({ initialValues, initialErrors }: useFormPropType) {
 			// 기존에 등록되어 있는 파일들을 불러온다.
 			setValues({...values,[name]: beforeFiles})
 			setErrors({...errors, [name]: false})
+
+			// console.log('등록할 files',beforeFiles)
 		}
+
+
 	},[values, errors])
 
 
 	// 파일 삭제
 	// 실제 삭제가 아닌 현 페이지에서 등록한 파일을 저장하기 전 삭제
 	// idx: 몇번째 파일인지? , name: 파일이 들어있는 값의 이름
-	const deleteFile = useCallback((e: React.SyntheticEvent, idx: number, name: string) => {
+	const deleteFile = useCallback((e: React.SyntheticEvent, idx: number, name: string, fileRef: React.MutableRefObject<any>|null) => {
 		e.preventDefault()
 
 		let tmpFiles: File[] = []
@@ -165,7 +177,12 @@ function useForm({ initialValues, initialErrors }: useFormPropType) {
 		}
 		setValues({...values, [name]:tmpFiles})
 
-	},[values])
+		// input을 초기화 한다.
+		if(fileRef) {
+			fileRef.current.value=''
+		}
+
+	},[values, errors])
 
 	/****************************************************** return ***************************************************/
 	return {

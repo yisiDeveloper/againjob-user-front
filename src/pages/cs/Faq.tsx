@@ -1,10 +1,10 @@
-import React, {useCallback, useLayoutEffect, useState} from 'react'
+import React, {useLayoutEffect, useState} from 'react'
 import {
 	faqListOnePageSize,
-	faqListPageBlockSize, faqType, pageURL_CS_FaqDetail
+	faqListPageBlockSize, pageURL_CS_FaqDetail
 } from '@env'
 import {ArrowNext} from '@assets'
-import {useForm, useNavigation} from '@hook'
+import {useForm, useList, useNavigation} from '@hook'
 import CsTitles from './CsTitles'
 import {ButtonRound, ListSearch, PaginationForPage} from '@components'
 import {faqData} from '../../_env/SampleData'
@@ -21,27 +21,38 @@ function Faq({}: FAQPropType) {
 
 
 	/****************************************************** contents initialization or definition ***************************************************/
-	// 받아온 propState를 일반 state에 넣고 관리한다.
-	// searchOption, searchKeyword
+	// list관리를 위한 값
 	type listState = {
 		searchOption: string,
 		searchKeyword: string,
 		currentPage: number
 	}
 	const [listState, setListState] = useState<listState>({
-		searchOption: propState.searchOption, searchKeyword: propState.searchKeyword, currentPage: propState.currentPage
+		searchOption: (propState.searchOption) ? propState.searchOption : 'subject',
+		searchKeyword: propState.searchkeyword,
+		currentPage: propState.currentpage
 	})
-	// 전체 게시물 수
-	const [totalFaqCount, setTotalFaqCount] = useState<number>(1)
-	// 현재 페이지
-	const [currentPage, setCurrentPage] = useState<number>(1)
-	// 목록
-	const [faqContent, setFaqContent] = useState<faqType[]>([])
-		// 모든 입력값의 초기값을 만든다.
+	//  팝업을 관리할 state
+	const [popDP, setPopDP] = useState<boolean>(false)
+	const [popMsgCode, setPopMsgCode] = useState<string>('')
+
+	// list를 정의한다.
+	const {
+		getListContent,
+		listContent,
+		totalListCount
+	} = useList({
+		popupdpsetter: setPopDP,
+		popupmsgsetter: setPopMsgCode,
+		apiURL: faqData,
+		setliststate: setListState
+	})
+
+	// 모든 입력값의 초기값을 만든다.
 	const initialValues = {
-			searchOption: 'subject',
-			searchKeyword: ''
-		}
+		searchOption: (propState.searchOption) ? propState.searchOption : 'subject',
+		searchKeyword: (propState.searchKeyword) ? propState.searchKeyword : ''
+	}
 	// 실제 체크해야하는 에러 필드를 정의한다.
 	const initialErrors = {
 		searchKeyword: ''
@@ -61,30 +72,16 @@ function Faq({}: FAQPropType) {
 	})
 
 	/****************************************************** Handling ***************************************************/
-	const getFaqContent = useCallback((requestPage: number) => {
-		if(requestPage===undefined) {
-			requestPage = currentPage
-		}
-		let tmpQueryData = {
-			searchOption:values.searchOption,
-			searchKeyword: values.searchKeyword,
-			currentPage: requestPage
-		}
-		// console.log('보낼 데이터는', tmpQueryData)
-		// 전체 게시물 수 세팅
-		setCurrentPage(requestPage)
-		setFaqContent(faqData)
-		setTotalFaqCount(161)
-		setListState(tmpQueryData)
-		// console.log('new liststate', tmpQueryData)
-	},[currentPage, values])
-
 	useLayoutEffect(() => {
-		getFaqContent(currentPage)
-		if(listState.currentPage) {
-			setCurrentPage(listState.currentPage)
+		// 넘어온 데이터가 있다면 세팅한다.
+		if(propState.searchKeyword) {
+			setListState(propState)
+			getListContent(propState.currentPage, propState)
+		} else {
+			getListContent(listState.currentPage, listState)
 		}
 	},[])
+
 
 	return (
 		<main>
@@ -96,13 +93,13 @@ function Faq({}: FAQPropType) {
 				inputHandler={(e) => inputHandler(e, 2, 'text', '검색어는 ')}
 				changeHandler={changeHandler}
 				errorMessage={messages.searchKeyword}
-				submitHandler={getFaqContent}
+				submitHandler={() => getListContent(1, {searchOption: values.searchOption, searchKeyword: values.searchKeyword, currentPage: 1})}
 				setErrorMessage={setErrorMessage}
 			/>
 			<section className={'container'}>
 				<ul>
 					{
-						faqContent.map((data) => {
+						listContent.map((data) => {
 							return (
 								<li key={data.id} className={'faqRow'} onClick={(e) => goToURL(e, pageURL_CS_FaqDetail, {listState, faqID: data.id})}>
 									<div>
@@ -132,11 +129,12 @@ function Faq({}: FAQPropType) {
 				<div className={'emptyDivHeight'} />
 				<div className={'emptyDivHeight'} />
 				<PaginationForPage
-					currentPage={currentPage}
+					currentPage={listState.currentPage}
 					pageSize={faqListOnePageSize}
 					pageBlockSize={faqListPageBlockSize}
-					totalCounts={totalFaqCount}
-					getData={getFaqContent}
+					totalCounts={totalListCount}
+					getData={getListContent}
+					liststate={listState}
 				/>
 				<div className={'emptyDivHeight'} />
 			</section>

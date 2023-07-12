@@ -15,6 +15,7 @@ import ArrowExpandLess from './icons/arrow_expand_less.png'
 import ArrowNext from './icons/arrow_next.png'
 import ExposeOn from './icons/expose_on.png'
 import ExposeOff from './icons/expose_off.png'
+import QuestionIcon from './icons/question.png'
 
 /********************************* Component *********************************/
 import checkbox_uncheck from './component/checkbox_unchecked.png'
@@ -49,7 +50,7 @@ export {
 	NoticeFixed,
 	ArrowExpandMore,ArrowExpandLess,
 	ArrowNext,
-	ExposeOn,ExposeOff
+	ExposeOn,ExposeOff, QuestionIcon
 }
 
 export {

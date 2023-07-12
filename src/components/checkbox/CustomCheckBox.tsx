@@ -69,10 +69,8 @@ const CheckboxArea = styled.div<checkTitleType>`
 		switch (texttype) {
 			case 'loginForm':
 				return css`font-size: 1.3rem; font-weight: var(--fontWeightMiddle); color: var(--fontBasicColor)`
-				break;
 			case 'register':
 				return css`font-size: 1.6rem; font-weight: var(--fontWeightMiddle);color: var(--fontBasicColor)`
-				break;
 			default:
 				return css`font-size: 1.3rem;`
 			}

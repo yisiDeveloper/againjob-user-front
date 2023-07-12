@@ -25,6 +25,21 @@
 	text-align:right;
 }
 
-.requestContactListColumn {
+.careerClose {
+	background: url('../../assets/component/popup_CloseButton.png') center right no-repeat;
+	/*border: 1px solid red;*/
+	cursor: pointer;
+}
 
+.noExposeCoName {
+	/*border: 1px solid red;*/
+	height: 2.5rem;
+	position: absolute;
+	left: 20%;
+}
+
+.tagsInfo {
+	font-size: var(--fontSizeInputText);
+	font-weight: var(--fontWeightBasic);
+	color: var(--fontPlaceHolderColor);
 }

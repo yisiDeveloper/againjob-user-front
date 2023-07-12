@@ -302,7 +302,7 @@ function PeDetailInfo() {
 			<section className={'container containerTop containerFlex'}>
 				<InfoAlert messageCode={'MYINFO_ADDINFO'} />
 				<div className={'emptyDivHeight'} />
-				<div style={{width: '19%'}}>
+				<div style={{width: '24%'}}>
 					<Dropdown
 						title={'경력단절기간'}
 						Options={[{id: '1',title: '1년 미만'},{id: '2', title: '1년 이상 ~ 3년 미만'}, {id: '3', title: '3년 이상 ~ 5년 미만'},{id: '4', title: '5년 이상 ~ 10년 미만'},{id: '5', title: '10년 이상'}]}
@@ -322,7 +322,7 @@ function PeDetailInfo() {
 					/>
 				</div>
 				<div style={{width: '5%'}} />
-				<div style={{width: '15%'}}>
+				<div style={{width: '12%'}}>
 					<Dropdown
 						title={'가능한근무(작업)시간'}
 						Options={[{id: '0',title: '시간'},{id: '1', title: '오전'}, {id: '2', title: '오후'},{id: '3', title: '2시간'}, {id: '4', title: '3시간'}, {id: '5', title: '4시간'}, {id: '6', title: '5시간'}, {id: '7', title: '6시간'}, {id: '8', title: '7시간'}, {id: '9', title: '8시간'}]}
@@ -332,7 +332,7 @@ function PeDetailInfo() {
 					/>
 				</div>
 				<div style={{width: '5%'}} />
-				<div style={{width: '11%'}}>
+				<div style={{width: '10%'}}>
 					<Dropdown
 						title={'연락가능시간'}
 						Options={[{id: '0',title: '시간'},{id: '1', title: '06시'}, {id: '2', title: '07시'}, {id: '3', title: '08시'}, {id: '4', title: '09시'}, {id: '5', title: '10시'}, {id: '6', title: '11시'}, {id: '7', title: '12시'}, {id: '8', title: '13시'}, {id: '9', title: '14시'}, {id: '10', title: '15시'}, {id: '11', title: '16시'}, {id: '12', title: '17시'}, {id: '13', title: '18시'}, {id: '14', title: '19시'}, {id: '15', title: '20시'}, {id: '16', title: '21시'}, {id: '17', title: '22시'}]}
@@ -346,7 +346,7 @@ function PeDetailInfo() {
 					부터
 				</div>
 				<div style={{width: '5%'}} />
-				<div style={{width: '11%'}}>
+				<div style={{width: '10%'}}>
 					<Dropdown
 						title={''}
 						Options={[{id: '0',title: '시간'},{id: '2', title: '07시'}, {id: '3', title: '08시'}, {id: '4', title: '09시'}, {id: '5', title: '10시'}, {id: '6', title: '11시'}, {id: '7', title: '12시'}, {id: '8', title: '13시'}, {id: '9', title: '14시'}, {id: '10', title: '15시'}, {id: '11', title: '16시'}, {id: '12', title: '17시'}, {id: '13', title: '18시'}, {id: '14', title: '19시'}, {id: '15', title: '20시'}, {id: '16', title: '21시'}, {id: '17', title: '22시'}, {id: '18', title: '23시'}]}

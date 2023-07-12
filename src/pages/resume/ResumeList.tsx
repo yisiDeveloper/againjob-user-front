@@ -10,11 +10,10 @@ import RequestContactInfo from './RequestContactInfo'
 function ResumeList() {
 
 	/****************************************************** common basic definition ***************************************************/
-	const {navigate, goToURL, propState} = useNavigation()
+	const {goToURL} = useNavigation()
 
 
 	/****************************************************** contents initialization or definition ***************************************************/
-	const [listState, setListState] = useState<{}>()
 	const [resumeContent, setResumeContent] = useState<resumeType[]>([])
 	const listRef = useRef<any>([])
 	// 공개여부를 계속 바꿀 수 있으려면 해당 상태값을 관리해야 한다.
@@ -60,7 +59,8 @@ function ResumeList() {
 	},[exposeFlag])
 
 
-	/************************* 팝업을 관리하자 ****************************/		//targetid:이력서 id, type: 복사인지 삭제인지, delete: 삭제, copy: 복사
+	/************************* 팝업을 관리하자 ****************************/
+	//targetid:이력서 id, type: 복사인지 삭제인지, delete: 삭제, copy: 복사
 	// 	메시지
 	const [popupMessage, setPopupMessage] = useState<object>({})
 	const [popupType, setPopupType] = useState<string>()

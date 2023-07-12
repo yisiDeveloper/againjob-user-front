@@ -243,8 +243,18 @@ export const placeholderMessage = (code: string): string => {
 			return '태그를 입력해주세요.'
 		case 'MAJOR_INPUT':
 			return '전공명을 입력해주세요.'
+		case 'COMPANY_NAME_INPUT':
+			return '회사명을 입력해주세요.'
+		case 'DIVISION_NAME_INPUT':
+			return '부서명을 입력해주세요.'
+		case 'POSITION_NAME_INPUT':
+			return '직급 또는 직책'
+		case 'RESPONSIBILITY_INPUT':
+			return '역할과 직무를 간략하게 입력해주세요.'
 		case 'RESUME_PROFILE':
 			return '자기 소개를 1,000자 이내로 작성해주세요.'
+		case 'CAREER_INTRODUCE':
+			return '경력에 대해 200자 이내로 간략히 기술해주세요.'
 		default:
 			return '내용을 입력해주세요.'
 	}

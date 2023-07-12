@@ -170,6 +170,7 @@ export const GlobalStyle = createGlobalStyle<globalType>`
 	/******************* margin **********************/
 	--marginRightSubMenu: 8rem;
 	--marginBetweenContentBlock: 3rem;
+	--marginListBetweenColumn: 3rem;
 
 } 
 
@@ -289,7 +290,7 @@ button {
 	font-style: normal;
 	box-sizing: border-box;
 	word-break: keep-all;
-	font-weight: var(--fontWeightBasic);
+	font-weight: var(--fontWeightMiddle);
 }
 
 
@@ -301,28 +302,28 @@ button {
 //	color: #fff;
 //}
 //
-///* textarea */
-//textarea {
-//	border: var(--lineWeightBasic) solid var(--lineColorBasic);
-//	font-family: "Noto Sans KR", sans-serif;
-//	font-size: var(--fontBasicSize);
-//	resize: none;
-//	border-radius: var(--radiusButtonBasic);
-//	width: 100%;
-//	padding: 10px
-//}
-//
-//textarea:focus {
-//	border: var(--lineWeightFocus) solid var(--lineColorFocus);
-//	outline: none;
-//	color: var(--fontBasicColor);
-//}
-//
-//textarea::placeholder {
-//	font-family: "Noto Sans KR", sans-serif;
-//	font-size: var(--fontSizePlaceholder);
-//}
-//
+/* textarea */
+textarea {
+	border: var(--inputLineWeight) solid var(--inputLineBasic);
+	font-family: "Noto Sans KR", sans-serif;
+	border-radius: var(--radiusBasic);
+	font-size: var(--fontSizeInputText);
+	resize: none;
+	width: 100%;
+	padding: 10px
+}
+
+textarea:focus {
+	border: var(--inputLineWeight) solid var(--inputLineFocus);
+	outline: none;
+	color: var(--fontBasicColor);
+}
+
+textarea::placeholder {
+	font-family: "Noto Sans KR", sans-serif;
+	color: var(--fontPlaceHolderColor);
+}
+
 //table {
 //	border-collapse: collapse;
 //	border-spacing: 0;
@@ -355,6 +356,7 @@ input {
 	background-color: #fff;
 	padding: var(--paddingConentBasic);
 	border-radius: var(--radiusBasic);
+	color: var(--fontBasicColor);
 }
 
 .containerTop {
@@ -398,12 +400,17 @@ input {
 	font-size: var(--fontSizeContentTitle);
 	font-weight: var(--fontWeightMiddle);
 	flex-grow: 1;
+	color: var(--fontBasicColor);
 }
  
 .contentTitleInfo {
 	font-size: 2rem;
 	padding-top: 0.3rem;
 	font-weight: var(--fontWeightMiddle);
+}
+
+.contentBottomLine {
+	border-bottom: 0.05rem solid var(--tableTrTdBetweenLine);
 }
 
 // 컨텐츠 페이지 여러 줄  //////////////////////////////
@@ -612,7 +619,8 @@ input {
 .listSubjectText {
 	font-size: var(--fontSizeListMain);
 	font-weight: var(--fontWeightMiddle);
-	height: 3.2rem;	
+	height:3.2rem;
+	color: var(--fontBasicColor);
 }
 
 // 리스트의 컨텐츠 일부분
@@ -625,9 +633,14 @@ input {
 }
 
 .listColumn {
-	//border: 1px solid dodgerblue;
+	//border: 1px solid yellowgreen;
+	color: var(--fontBasicColor);
 }
 
+// 컬럼에 Text컨텐츠가 있는 경우 좌우 폭을 설정한다.
+.listColumnMargin {
+	margin-left: var(--marginListBetweenColumn);
+}
 
 .listColumn:first-child {
 	flex-grow: 1;
@@ -635,7 +648,7 @@ input {
 	/*max-width: 80rem;*/
 }
 
-.listColumn:last-child {
+.listColumn:last-child { 
 	padding-right: 1rem;
 	min-width: 10rem;
 	margin-left: 2rem;
@@ -645,6 +658,10 @@ input {
 	color: var(--fontListSubInfoTitle);
 	font-size: var(--fontSizeListInfoTitle);
 	font-weight: var(--fontWeightMiddle);
+}
+
+.listColumnContent {
+	font-size: var(--fontSizeListInfoText);
 }
 
 .listColumnBar {

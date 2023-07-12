@@ -36,6 +36,7 @@ function Dropdown({
 		e.preventDefault()
 		let tmpRef = optionRef.current
 		let titleTmpRef = titleRef.current
+
 		if(tmpRef) {
 			if(tmpRef.style.display === 'block') {
 				tmpRef.style.display = 'none'
@@ -46,10 +47,17 @@ function Dropdown({
 				titleTmpRef.style.backgroundImage = `url(${DropDownLess})`
 				titleTmpRef.style.borderBottom ='var(--inputLineWeight) solid var(--inputLineFocus)'
 			}
-
 		}
+
+
 	},[titleValue])
 
+	const closeDropDown = () => {
+		let tmpRef = optionRef.current
+		let titleTmpRef = titleRef.current
+		tmpRef.style.display = 'none'
+		titleTmpRef.style.backgroundImage = `url(${DropDownIcon})`
+	}
 
 	useEffect(() => {
 		(title) ? setTitleDP(true) : setTitleDP(false)
@@ -60,7 +68,8 @@ function Dropdown({
 			<TitleArea titledp={titleDP.toString()}>
 				<div className={'inputTitle'}>{title}</div>
 			</TitleArea>
-			<DropDownTitle onClick={optionHandler} ref={titleRef}>{titleValue}</DropDownTitle>
+			<DropDownTitle onClick={optionHandler} ref={titleRef} tabIndex={0}
+						   onBlur={closeDropDown}>{titleValue}</DropDownTitle>
 			<div className={'optionsArea'} ref={optionRef}>
 				{
 					Options?.map((data) => {
@@ -89,12 +98,13 @@ const DropDownTitle = styled.div`
 	width: 100%;
 	color: var(--fontUserWriteColor);
 	font-size: var(--fontSizeInputText);
-	padding: var(--paddingInputBasic);
+	padding: 1rem 1.5rem 1rem 1.5rem;
 	background-image: url(${DropDownIcon});
 	background-repeat: no-repeat;
 	background-position: 95% 60%;
 	cursor: pointer;
 	position: relative;
+	//border: 1px solid red;
 `
 
 export default React.memo(Dropdown)
