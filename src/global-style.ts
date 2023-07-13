@@ -144,7 +144,7 @@ export const GlobalStyle = createGlobalStyle<globalType>`
 	/******************* height **********************/
 	--heightButtonSmall: 3rem;
 	--heightButtonBasic: 3.5rem;
-	--heightButtonFull: 4rem;
+	--heightButtonFull: 4rem; 
 	--heightButtonMiddle: 3.5rem;
 	--heightButtonPopupSmall: 2.5rem;
 	--heightButtonPopup: 3.5rem;
@@ -315,7 +315,7 @@ textarea {
 
 textarea:focus {
 	border: var(--inputLineWeight) solid var(--inputLineFocus);
-	outline: none;
+	outline: none;E
 	color: var(--fontBasicColor);
 }
 
@@ -574,6 +574,7 @@ input {
 	border-radius: var(--radiusBasic);
 	padding: 1rem 2rem 3rem 2rem;
 }
+
 .ql-editor strong{
 	font-weight: var(--fontWeightBold);
 }

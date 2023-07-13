@@ -1,9 +1,14 @@
-import React, {useLayoutEffect, useState} from 'react'
+import React, {useCallback, useLayoutEffect, useState} from 'react'
 import {useForm, useList, useNavigation} from '@hook'
-import {requestList} from '../../_env/SampleData'
 import {ButtonGeneral, ButtonRound, ListSearch, PageTitle, PaginationForPage, Popup} from '@components'
-import {applyListOnePageSize, applyListPageBlockSize, commMessage, pageURL_Involve_Detail} from '@env'
-import {popupClose} from '@handler'
+import {
+	commMessage,
+	requestListOnePageSize,
+	requestListPageBlockSize
+} from '@env'
+import {changeDate, popupClose} from '@handler'
+import RequestReply from './RequestReply'
+import {requestList} from '../../_env/SampleData'
 
 
 function RequestList() {
@@ -25,7 +30,14 @@ function RequestList() {
 	})
 	//  팝업을 관리할 state
 	const [popDP, setPopDP] = useState<boolean>(false)
-	const [popMsgCode, setPopMsgCode] = useState<string>('')
+	const [popMsg, setPopMsg] = useState<object>()
+	const [popType, setPopType] = useState<string>('')
+	const [contentID, setContentID] = useState<number>()
+	// 날짜를 비교하기 위한 세팅
+	const [todayDate,] = useState<string>(changeDate((new Date).toString()))
+	//  답변하기 팝업
+	const [replyDP, setReplyDP] = useState<boolean>(false)
+
 
 	// list를 정의한다.
 	const {
@@ -34,9 +46,10 @@ function RequestList() {
 		totalListCount
 	} = useList({
 		popupdpsetter: setPopDP,
-		popupmsgsetter: setPopMsgCode,
+		popupmsgsetter: setPopMsg,
 		apiURL: requestList,
-		setliststate: setListState
+		setliststate: setListState,
+		poptypesetter: setPopType
 	})
 
 	// 모든 입력값의 초기값을 만든다.
@@ -63,6 +76,32 @@ function RequestList() {
 	})
 
 	/****************************************************** Handling ***************************************************/
+	// 지원, 참여, 거절을 위한 팝업 handling
+	const popupHandling = useCallback((e:React.SyntheticEvent, id: number, type: string) => {
+		e.preventDefault()
+
+		setContentID(id)
+
+		if(type==='delete') {
+			// 거절인경우
+			setPopMsg(commMessage('CONFIRM_DELETE'))
+			setPopType('confirm')
+			setPopDP(true)
+		} else if (type==='reply') {
+			setReplyDP(true)
+		}
+	},[])
+
+	// 요청을 삭제한다.
+	const deleteRequest = useCallback((e: React.SyntheticEvent, id:number) => {
+		e.preventDefault()
+
+		// alert(id+'번 delete')
+		setPopMsg(commMessage('DELETE_COMPLETE'))
+		setPopType('')
+		setPopDP(true)
+	},[])
+
 	useLayoutEffect(() => {
 		// 넘어온 데이터가 있다면 세팅한다.
 		if(propState.searchKeyword) {
@@ -110,46 +149,70 @@ function RequestList() {
 					<ul>
 						{
 							listContent.map((data) => {
+								// 답변여부는 표기하지 않음
+								// 지원, 참여완료의 여부
+								let btn1_Name: string, btn1_colorType: string
+								// 지원 또는 참여마감 기한이 지났거나, 이미 지원, 참여한 경우
+								if(data.applyDeadLine < todayDate || data.applyFlag) {
+									btn1_colorType = 'disabled'
+								}
+								// 지원 또는 참여를 한 경우
+								if(data.applyFlag) {
+									btn1_Name = (data.requestKind==='recruit') ? '지원완료' : '참여완료'
+								} else {
+									btn1_Name = (data.requestKind==='recruit') ? '지원' : '참여'
+								}
+
 								return (
 									<li key={data.id} className={'listRow'}>
 										<div className={'listColumn'}>
 											<article className={'listSubjectArea'}>
-												<span className={'listSubjectText'}>{data.title}</span>
+												<span className={'listSubjectText'} onClick={(e) => popupHandling(e, data.id, 'reply')}>{data.title}</span>
+												{(data.replyFlag) &&
+													<>
+														<div className={'emptyDivWidth'} />
+														<ButtonRound title={'답변완료'} buttontype={'popupsmall'}
+														/>
+													</>
+												}
 											</article>
 											<article className={'listContentDesc'}>
 												{(data.requestKind==='recruit') ?
 													<ButtonRound
 														title={'채용'}
-														buttontype={''}
+														buttontype={'small'}
 													/>
 													:
 													<ButtonRound
 														title={'일거리'}
-														buttontype={''}
-													/>}
+														buttontype={'small'}
+													/>
+												}
 												<div className={'emptyDivWidth'} />
-												{data.recruitORprojectName}
+												<span onClick={() => alert('공고로 가자')}>{data.recruitORprojectName}</span>
 											</article>
 										</div>
 										<div className={'listColumnBar'}></div>
 										<div className={'listColumn applyListColumnWidth'}>
-											<p className={'listColumnTitle listColumnMargin'}>검토마감</p>
-											<p className={'listColumnContent listColumnMargin'}>{data.reviewDeadLine}</p>
+											<p className={'listColumnTitle listColumnMargin'}>요청일</p>
+											<p className={'listColumnContent listColumnMargin'}>{data.requestDate}</p>
 										</div>
 										<div className={'listColumnBar'}></div>
 										<div className={'listColumn applyListColumnWidth'}>
-											<p className={'listColumnTitle listColumnMargin'}>지원마감</p>
+											<p className={'listColumnTitle listColumnMargin'}>
+												{(data.requestKind==='recruit') ? '지원마감' : '참여마감'}</p>
 											<p className={'listColumnContent listColumnMargin'}>{data.applyDeadLine}</p>
 										</div>
 										<div className={'listColumn'}>
 											<ButtonGeneral
-												title={'거절'}
-												colortype={'disabled'}
+												title={btn1_Name}
+												colortype={btn1_colorType!}
 											/>
 											<div style={{height: '1rem'}} />
+											<span onClick={(e) => popupHandling(e, data.id, 'delete')}>
 											<ButtonGeneral
-												title={'지원'}
-											/>
+												title={'삭제'}
+											/></span>
 										</div>
 									</li>
 								)
@@ -159,8 +222,8 @@ function RequestList() {
 						<div className={'emptyDivHeight'} />
 						<PaginationForPage
 							currentPage={listState.currentPage}
-							pageSize={applyListOnePageSize}
-							pageBlockSize={applyListPageBlockSize}
+							pageSize={requestListOnePageSize}
+							pageBlockSize={requestListPageBlockSize}
 							totalCounts={totalListCount}
 							getData={getListContent}
 							liststate={listState}
@@ -169,10 +232,13 @@ function RequestList() {
 					</ul>}
 			</section>
 			{popDP && <Popup
-				popMsg={commMessage(popMsgCode)}
-				okFunc={(e) => popupClose(e, setPopDP)}
+				popMsg={popMsg}
+				okFunc={(e) => deleteRequest(e, contentID!)}
 				bgFunc={(e) => popupClose(e, setPopDP)}
+				cancelFunc={(e) => popupClose(e, setPopDP)}
+				popupType={popType}
 			/>}
+			{replyDP && <RequestReply targetId={contentID!} bgFunc={(e) => popupClose(e, setReplyDP)}/>}
 		</main>
 	)
 }

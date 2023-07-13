@@ -69,3 +69,8 @@ export const applyListPageBlockSize: number = 5
  *********************************************************************************************************/
 export const involveListOnePageSize: number = 10
 export const involveListPageBlockSize: number = 5
+/********************************************************************************************************
+	Request
+ *********************************************************************************************************/
+export const requestListOnePageSize: number = 10
+export const requestListPageBlockSize: number = 5

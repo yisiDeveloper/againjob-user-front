@@ -1,0 +1,21 @@
+@charset "utf-8";
+
+/************************** 공통 정의 *******************************/
+.requestTitle {
+	color: var(--fontBasicColor);
+	height: 4rem;
+	font-size: 2rem;
+	/*border: 1px solid red;*/
+}
+
+.requestContent {
+	font-size: 1.6rem;
+	color: var(--fontBasicColor);
+	margin: 2rem 0 2rem 0;
+}
+
+.replyContent {
+	border: 1px solid var(--inputLineBasic);
+	background-color: var(--bgBtnCancel);
+	padding: 1rem;
+}

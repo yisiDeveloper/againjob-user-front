@@ -10,7 +10,8 @@ interface listType {
 	popupdpsetter: React.SetStateAction<any>,
 	popupmsgsetter: React.SetStateAction<any>,
 	apiURL: any,
-	setliststate: React.SetStateAction<any>
+	setliststate: React.SetStateAction<any>,
+	poptypesetter: React.SetStateAction<any>
 }
 function useList({
 	popupdpsetter,
@@ -50,7 +51,8 @@ function useList({
 		// console.log('new liststate', tmpQueryData)
 
 		// popupdpsetter(true)
-		// popupmsgsetter('ALL_CHECK_FALSE')
+		// popupmsgsetter(commMessage('ALL_CHECK_FALSE'))
+		// poptypesetter('')
 	},[])
 
 	return {

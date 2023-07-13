@@ -24,5 +24,6 @@ export {
 	findKeyInObjectByValue,
 	calcPaginationData,
 	makePageBlock,
-	findKeyWithRequired
+	findKeyWithRequired,
+	changeDate
 } from './common'

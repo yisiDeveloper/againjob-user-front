@@ -72,6 +72,14 @@ export const commMessage = (code: string, name: string = '', min: string|number 
 			return {title: '알림', message: '수정되었습니다.'}
 		case 'DELETE_COMPLETE':
 			return {title: '알림', message: '삭제되었습니다.'}
+		case 'CONFIRM_ACCEPT':
+			return {title: '확인', message: '수락하시겠습니까?'}
+		case 'CONFIRM_COMPLETE':
+			return {title: '알림', message: '수락되었습니다.'}
+		case 'CONFIRM_REJECT':
+			return {title: '확인', message: '거절하시겠습니까?'}
+		case 'REJECT_COMPLETE':
+			return {title: '알림', message: '거절되었습니다.'}
 		case 'DELETE_FILE_COMPLETE':
 			return {title: '알림', message: '파일을 삭제했습니다.'}
 		case 'EMAIL_ADDRESS_INVALID':
@@ -202,6 +210,8 @@ export const infoMessage = (code: string): Message => {
 			return {title: '알림', message: '최종 학력만 입력해주세요.'}
 		case 'RESUME_CAREER':
 			return {title: '알림', message: '경력은 최대 3개까지만 입력 가능합니다.'}
+		case 'REQUEST_INFO':
+			return {title: '알림', message: '제목을 클릭하시면 상세 내용을 보실 수 있습니다.'}
 		default:
 			return {title: '주의', message: '알수없는 에러가 발생했습니다.\n아래의 코드와 함께 관리자에게 문의해주세요.\nERR_CODE:' + code}
 	}
@@ -255,7 +265,23 @@ export const placeholderMessage = (code: string): string => {
 			return '자기 소개를 1,000자 이내로 작성해주세요.'
 		case 'CAREER_INTRODUCE':
 			return '경력에 대해 200자 이내로 간략히 기술해주세요.'
+		case 'REQUEST_REPLY':
+			return '요청에 대한 답변을 100자 이내로 작성해주세요.'
 		default:
 			return '내용을 입력해주세요.'
+	}
+}
+
+/**********************************************************************************************************************
+ *
+ * 		받은 요청 메뉴에서 사용하는 메시지
+ *
+ **********************************************************************************************************************/
+export const requestMessage = (code: string, name: string = ''): Message => {
+	switch(code) {
+		case 'DELETE_CONFIRM':
+			return {title: '주의', message: '요청을 거절하시겠습니까?\n한번 거절하시면 취소할 수 없습니다.'}
+		default:
+			return {title: '주의', message: '알수없는 에러가 발생했습니다.\n아래의 코드와 함께 관리자에게 문의해주세요.\nERR_CODE:' + code}
 	}
 }

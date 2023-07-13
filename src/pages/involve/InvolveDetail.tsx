@@ -18,7 +18,7 @@ function InvolveDetail() {
 
 	// 한번 만 실행되도록 하기 위함
 	useEffect(() => {
-		console.log('detailPage', listState)
+		// console.log('detailPage', listState)
 	}, [])
 
 	return (

@@ -360,47 +360,59 @@ export const requestList = [
 		title: '저희 회사 회계팀장으로 입사를 요청드립니다.',
 		requestKind: 'recruit',
 		recruitORprojectName: '10년 이상 경력의 회계 팀장님을 모십니다.',
-		reviewDeadLine: '2023-01-01',
-		applyDeadLine: '2023-02-01'
+		requestDate: '2023-01-01',
+		applyDeadLine: '2023-08-01',
+		applyFlag: false,
+		replyFlag: true
 	},
 	{
 		id: 9,
-		title: '저희 회사 회계팀장으로 입사를 요청드립니다.',
+		title: '이번 차세대 프로젝트에 참여를 요청합니다.',
 		requestKind: 'project',
-		recruitORprojectName: '10년 이상 경력의 회계 팀장님을 모십니다.',
-		reviewDeadLine: '2023-01-01',
-		applyDeadLine: '2023-02-01'
+		recruitORprojectName: '차세대 프로젝트를 진행하고자 합니다.',
+		requestDate: '2023-01-01',
+		applyDeadLine: '2023-08-01',
+		applyFlag: true,
+		replyFlag: false
 	},
 	{
 		id: 8,
-		title: '저희 회사 회계팀장으로 입사를 요청드립니다.',
-		requestKind: 'project',
-		recruitORprojectName: '10년 이상 경력의 회계 팀장님을 모십니다.',
-		reviewDeadLine: '2023-01-01',
-		applyDeadLine: '2023-02-01'
+		title: '저희의 Product Owner로 모시고자 합니다.',
+		requestKind: 'recruit',
+		recruitORprojectName: '20년 이상의 Product 전문가를 찾습니다.',
+		requestDate: '2023-01-01',
+		applyDeadLine: '2023-02-01',
+		applyFlag: true,
+		replyFlag: true
 	},
 	{
 		id: 7,
-		title: '저희 회사 회계팀장으로 입사를 요청드립니다.',
-		requestKind: 'recruit',
-		recruitORprojectName: '10년 이상 경력의 회계 팀장님을 모십니다.',
-		reviewDeadLine: '2023-01-01',
-		applyDeadLine: '2023-02-01'
+		title: '신규 홈페이지 제작에 참여를 부탁드립니다.',
+		requestKind: 'project',
+		recruitORprojectName: '간단한 홈페이지를 제작하고자 합니다.',
+		requestDate: '2023-01-01',
+		applyDeadLine: '2023-06-01',
+		applyFlag: false,
+		replyFlag: false
 	},
 	{
 		id: 6,
 		title: '저희 회사 회계팀장으로 입사를 요청드립니다.',
 		requestKind: 'project',
 		recruitORprojectName: '10년 이상 경력의 회계 팀장님을 모십니다.',
-		reviewDeadLine: '2023-01-01',
-		applyDeadLine: '2023-02-01'
+		requestDate: '2023-01-01',
+		applyDeadLine: '2023-02-01',
+		applyFlag: false,
+		replyFlag: false
 	},
 	{
 		id: 5,
 		title: '저희 회사 회계팀장으로 입사를 요청드립니다.',
 		requestKind: 'recruit',
 		recruitORprojectName: '10년 이상 경력의 회계 팀장님을 모십니다.',
-		reviewDeadLine: '2023-01-01',
-		applyDeadLine: '2023-02-01'
+		requestDate: '2023-01-01',
+		applyDeadLine: '2023-02-01',
+		applyFlag: false,
+		replyFlag: false
 	},
 ]

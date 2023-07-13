@@ -1,14 +1,16 @@
 import React, {useLayoutEffect, useState} from 'react'
 import {
+	commMessage,
 	faqListOnePageSize,
 	faqListPageBlockSize, pageURL_CS_FaqDetail
 } from '@env'
 import {ArrowNext} from '@assets'
 import {useForm, useList, useNavigation} from '@hook'
 import CsTitles from './CsTitles'
-import {ButtonRound, ListSearch, PaginationForPage} from '@components'
+import {ButtonRound, ListSearch, PaginationForPage, Popup} from '@components'
 import {faqData} from '../../_env/SampleData'
 import {styled} from 'styled-components'
+import {popupClose} from '@handler'
 
 
 interface FAQPropType {
@@ -34,7 +36,8 @@ function Faq({}: FAQPropType) {
 	})
 	//  팝업을 관리할 state
 	const [popDP, setPopDP] = useState<boolean>(false)
-	const [popMsgCode, setPopMsgCode] = useState<string>('')
+	const [popMsg, setPopMsg] = useState<object>()
+	const [popType, setPopType] = useState<string>('')
 
 	// list를 정의한다.
 	const {
@@ -43,9 +46,10 @@ function Faq({}: FAQPropType) {
 		totalListCount
 	} = useList({
 		popupdpsetter: setPopDP,
-		popupmsgsetter: setPopMsgCode,
+		popupmsgsetter: setPopMsg,
 		apiURL: faqData,
-		setliststate: setListState
+		setliststate: setListState,
+		poptypesetter: setPopType
 	})
 
 	// 모든 입력값의 초기값을 만든다.
@@ -138,6 +142,12 @@ function Faq({}: FAQPropType) {
 				/>
 				<div className={'emptyDivHeight'} />
 			</section>
+			{popDP && <Popup
+				popMsg={popMsg}
+				okFunc={(e) => popupClose(e, setPopDP)}
+				bgFunc={(e) => popupClose(e, setPopDP)}
+				popupType={popType}
+			/>}
 		</main>
 	)
 }

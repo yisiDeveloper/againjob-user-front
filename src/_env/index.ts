@@ -8,7 +8,8 @@ export {
 	requestContactInfoOnePageSize, requestContactInfoPageBlockSize,
 	portfolioMaxFileSize,portfolioMaxLength,portfolioFileTypes,
 	applyListOnePageSize, applyListPageBlockSize,
-	involveListPageBlockSize, involveListOnePageSize
+	involveListPageBlockSize, involveListOnePageSize,
+	requestListPageBlockSize, requestListOnePageSize
 } from './common'
 
 
@@ -20,7 +21,8 @@ export {
 	memberMessage,
 	errorMessage,
 	infoMessage,
-	placeholderMessage
+	placeholderMessage,
+	requestMessage
 } from './msgDefine'
 
 /*********************************** API URL *******************************/

@@ -1,6 +1,6 @@
 import React, {MutableRefObject, useCallback, useState} from 'react'
 import {comValidate, findValueInObject, makeTheValue} from '@handler'
-import {fileMessage} from '@env'
+import {commMessage, fileMessage} from '@env'
 
 
 interface useFormPropType {
@@ -71,19 +71,27 @@ function useForm({ initialValues, initialErrors }: useFormPropType) {
 	/*************************************************************************************************
 	 * Editor를 위한 별도 handling
 	 * **********************************************************************************************/
-	const editorHandler = useCallback((ref: MutableRefObject<any>, min: number, type: string, name: string, elName: string, ) => {
+	const editorHandler = useCallback((ref: MutableRefObject<any>, min: number, type: string, name: string, elName: string, max: number = 0 ) => {
 
 		let htmlValue = ref.current.value
 		let tmpValue = ref.current.getEditor().getText()
+		// editor의 MaxLength를 체크하기 위함
+		let tmpLength = ref.current.getEditor().getLength()
 
-		let result = comValidate(elName, tmpValue, min, type)
-		// console.log('result', result)
-		if(!result.isChecked) {
+		// quill editor는 무조건 length가 1을 반환한다. 빈줄도 1이기 때문에 그래서 max에 1을 더한다.
+		if(max > 0 && tmpLength > max+1) {
 			setErrors({...errors, [name]: true})
-			setMessage({...messages,[name]: result.alertMessage})
+			setMessage({...messages,[name]: elName + '은 최대 ' + max +'자 까지만 입력해주세요.'})
 		} else {
-			setErrors({...errors, [name]: false})
-			setValues({...values, [name]: htmlValue})
+			let result = comValidate(elName, tmpValue, min, type)
+
+			if(!result.isChecked) {
+				setErrors({...errors, [name]: true})
+				setMessage({...messages,[name]: result.alertMessage})
+			} else {
+				setErrors({...errors, [name]: false})
+				setValues({...values, [name]: htmlValue})
+			}
 		}
 
 	},[values, errors])
@@ -158,8 +166,6 @@ function useForm({ initialValues, initialErrors }: useFormPropType) {
 
 			// console.log('등록할 files',beforeFiles)
 		}
-
-
 	},[values, errors])
 
 

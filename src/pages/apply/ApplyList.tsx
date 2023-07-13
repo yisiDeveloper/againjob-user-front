@@ -30,7 +30,8 @@ function ApplyList() {
 
 	//  팝업을 관리할 state
 	const [popDP, setPopDP] = useState<boolean>(false)
-	const [popMsgCode, setPopMsgCode] = useState<string>('')
+	const [popMsg, setPopMsg] = useState<object>()
+	const [popType, setPopType] = useState<string>('')
 
 	// list를 정의한다.
 	const {
@@ -39,9 +40,10 @@ function ApplyList() {
 		totalListCount
 	} = useList({
 		popupdpsetter: setPopDP,
-		popupmsgsetter: setPopMsgCode,
+		popupmsgsetter: setPopMsg,
 		apiURL: applyList,
-		setliststate: setListState
+		setliststate: setListState,
+		poptypesetter: setPopType
 	})
 
 	// 모든 입력값의 초기값을 만든다.
@@ -165,9 +167,10 @@ function ApplyList() {
 				</ul>}
 			</section>
 			{popDP && <Popup
-				popMsg={commMessage(popMsgCode)}
+				popMsg={popMsg}
 				okFunc={(e) => popupClose(e, setPopDP)}
 				bgFunc={(e) => popupClose(e, setPopDP)}
+				popupType={popType}
 			/>}
 		</main>
 	)

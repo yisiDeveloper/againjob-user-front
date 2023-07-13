@@ -96,3 +96,15 @@ export const QuillEditorUser = ({
 
 	return <ReactQuill defaultValue={value} ref={quillRef} modules={userModules} onChange={onChange} placeholder={placeholder} style={style} />;
 }
+
+
+export const QuillEditorLight = ({
+	value,
+	onChange,
+	style = {},
+	placeholder,
+	quillRef
+}: EditorPropType): ReactElement => {
+
+	return <ReactQuill defaultValue={value} ref={quillRef} onChange={onChange} placeholder={placeholder} style={style} />;
+}

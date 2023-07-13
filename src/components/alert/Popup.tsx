@@ -7,7 +7,7 @@ import './alert.css'
 
 interface PopupProps {
 	popMsg: any,
-	okFunc: (e: React.MouseEvent) => void,
+	okFunc?: (e: React.MouseEvent) => void | object | null,
 	cancelFunc?: (e: React.MouseEvent) => void | null,
 	bgFunc: (e: React.MouseEvent) => void,
 	popupType?: string | null
@@ -38,14 +38,20 @@ function Popup({
 					{popMsg.message}
 				</div>
 				<div style={{textAlign: 'center'}}>
-				{popupType==='confirm' &&
-					<span onClick={cancelFunc} style={{marginRight: '2rem'}}>
-						<ButtonGeneral title='취소' buttontype={'popup'} colortype={'cancel'} />
-					</span>
-				}
-					<span onClick={okFunc}>
+				{popupType==='confirm' ?
+					<>
+						<span onClick={cancelFunc} style={{marginRight: '2rem'}}>
+							<ButtonGeneral title='취소' buttontype={'popup'} colortype={'cancel'} />
+						</span>
+						<span onClick={okFunc}>
+							<ButtonGeneral title='확인' buttontype={'popup'}  />
+						</span>
+					</>
+					:
+					<span onClick={bgFunc}>
 						<ButtonGeneral title='확인' buttontype={'popup'}  />
 					</span>
+				}
 				</div>
 			</PopWrap>
 			<div className={'comBG'} onClick={bgFunc} />

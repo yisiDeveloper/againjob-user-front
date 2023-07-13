@@ -13,7 +13,7 @@ import {
 	InfoAlert,
 	InputTitleType,
 	InputWithAlert,
-	PageTitle, Popup, QuillEditorUser
+	PageTitle, Popup, QuillEditorLight, QuillEditorUser
 } from '@components'
 import {popupClose, comValidate} from '@handler'
 
@@ -724,8 +724,8 @@ function ResumeRegister() {
 			<section className={'editorContainer'}>
 				<QuillEditorUser
 					value={values.profile}
-					onChange={() => editorHandler(editorRef, 10, '', 'content','자기 소개는')}
-					style={{height: '300px'}}
+					onChange={() => editorHandler(editorRef, 10, '', 'profile','자기 소개는', 1000)}
+					style={{height: '350px'}}
 					placeholder={placeholderMessage('RESUME_PROFILE')}
 					quillRef={editorRef}
 				/>

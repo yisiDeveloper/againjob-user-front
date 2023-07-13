@@ -1,11 +1,16 @@
 import React, {useCallback, useLayoutEffect, useState} from 'react'
-import {useNavigation} from '@hook'
+import {useList, useNavigation} from '@hook'
 import {popup_CLoseButton} from '@assets'
-import {qnaData, requestOpenContact} from '../../_env/SampleData'
-
-import styled from 'styled-components'
-import {ButtonGeneral, ButtonRound, PaginationForPage} from '@components'
-import {pageURL_Resume_Detail, requestContactInfoOnePageSize, requestContactInfoPageBlockSize} from '@env'
+import {requestList, requestOpenContact} from '../../_env/SampleData'
+import {ButtonGeneral, ButtonRound, PaginationForPage, Popup} from '@components'
+import {
+	commMessage,
+	requestContactInfoOnePageSize,
+	requestContactInfoPageBlockSize,
+	requestListOnePageSize,
+	requestListPageBlockSize
+} from '@env'
+import {popupClose} from '@handler'
 
 
 interface RequestContactInfoPropType {
@@ -19,7 +24,7 @@ function RequestContactInfo({
 }: RequestContactInfoPropType) {
 
 	/****************************************************** common basic definition ***************************************************/
-	const {goToURL, propState} = useNavigation()
+	const {propState} = useNavigation()
 
 	/****************************************************** contents initialization or definition ***************************************************/
 	type listState = {
@@ -27,37 +32,68 @@ function RequestContactInfo({
 	}
 	const [listState, setListState] = useState<listState>({currentPage: propState.currentPage
 	})
-	// 전체 게시물 수
-	const [totalNotiCount, setTotalNotiCount] = useState<number>(1)
-	// 현재 페이지
-	const [currentPage, setCurrentPage] = useState<number>(1)
-	// 데이터
-	const [requestData, setRequestData] = useState<any[]>([])
+	//  팝업을 관리할 state
+	const [popDP, setPopDP] = useState<boolean>(false)
+	const [popMsg, setPopMsg] = useState<object>()
+	const [popType, setPopType] = useState<string>('')
+	const [contentID, setContentID] = useState<number>()
+
+	// list를 정의한다.
+	const {
+		getListContent,
+		listContent,
+		totalListCount
+	} = useList({
+		popupdpsetter: setPopDP,
+		popupmsgsetter: setPopMsg,
+		apiURL: requestOpenContact,
+		setliststate: setListState,
+		poptypesetter: setPopType
+	})
 
 	/****************************************************** Handling ***************************************************/
-	// 요청 목록을 불러오자
-	const getRequestList = useCallback((requestPage: number) => {
+	// 지원, 참여, 거절을 위한 팝업 handling
+	const popupHandling = useCallback((e:React.SyntheticEvent, id: number, type: string) => {
+			e.preventDefault()
 
-		if(requestPage===undefined) {
-			requestPage = currentPage
-		}
-		let tmpQueryData = {
-			currentPage: requestPage
-		}
-		// 전체 게시물 수 세팅
-		setCurrentPage(requestPage)
-		setTotalNotiCount(161 )
-		setListState(tmpQueryData)
-		setRequestData(requestOpenContact)
-	},[targetId, currentPage])
+			if(type==='delete') {
+				// 거절인경우
+				setPopMsg(commMessage('CONFIRM_DELETE'))
+				setPopType('confirm')
+				setPopDP(true)
+				setContentID(id)
+			} else if(type==='accept') {
+				setPopMsg(commMessage('CONFIRM_ACCEPT'))
+				setPopType('confirm')
+				setPopDP(true)
+				setContentID(id)
+			} else if(type==='reject') {
+				setPopMsg(commMessage('CONFIRM_REJECT'))
+				setPopType('confirm')
+				setPopDP(true)
+				setContentID(id)
+			}
+		},[popDP, contentID, popMsg, popType])
 
+	// 요청을 삭제한다.
+	const requestHandling = useCallback((e: React.SyntheticEvent, id:number) => {
+		e.preventDefault()
+
+		// alert(id+'번 delete')
+		setPopMsg(commMessage('DELETE_COMPLETE'))
+		setPopType('')
+		setPopDP(true)
+	},[])
 
 	useLayoutEffect(() => {
-		getRequestList(currentPage)
-		if(listState.currentPage) {
-			setCurrentPage(listState.currentPage)
+		// 넘어온 데이터가 있다면 세팅한다.
+		if(propState.searchKeyword) {
+			setListState(propState)
+			getListContent(propState.currentPage, propState)
+		} else {
+			getListContent(listState.currentPage, listState)
 		}
-	},[targetId])
+	},[])
 
 
 	return (
@@ -72,7 +108,7 @@ function RequestContactInfo({
 				<div className={'emptyDivHeight'} />
 				<div>
 					{
-						requestData.map((data) => {
+						listContent.map((data) => {
 
 							return (
 								//
@@ -100,27 +136,36 @@ function RequestContactInfo({
 										</article>
 									</div>
 									<div>
-										<div><ButtonGeneral title={'승락'} buttontype={'small'} colortype={'sky'} /></div>
+										<div onClick={(e) => popupHandling(e,  data.id,'accept')}><ButtonGeneral title={'승락'} buttontype={'small'} colortype={'sky'} /></div>
 										<div style={{height: '0.5rem'}} />
-										<div><ButtonGeneral title={'거절'} buttontype={'small'} /></div>
+										<div onClick={(e) => popupHandling(e,  data.id,'reject')}><ButtonGeneral title={'거절'} buttontype={'small'} /></div>
 										<div style={{height: '0.5rem'}} />
-										<div><ButtonGeneral title={'삭제'} buttontype={'small'} /></div>
+										<div onClick={(e) => popupHandling(e,  data.id,'delete')}><ButtonGeneral title={'삭제'} buttontype={'small'} /></div>
 									</div>
 								</li>
 							)
 						})
 					}
-					<div className={'emptyDivWidth'} />
+					<div className={'emptyDivHeight'} />
 					<PaginationForPage
-						currentPage={currentPage}
+						currentPage={listState.currentPage}
 						pageSize={requestContactInfoOnePageSize}
 						pageBlockSize={requestContactInfoPageBlockSize}
-						totalCounts={50}
-						getData={getRequestList}
+						totalCounts={totalListCount}
+						getData={getListContent}
+						liststate={listState}
 					/>
+					<div style={{height: '1.5rem'}} />
 				</div>
 			</section>
 			<div className={'comBG'} onClick={bgFunc} />
+			{popDP && <Popup
+				popMsg={popMsg}
+				okFunc={(e) => requestHandling(e, contentID!)}
+				bgFunc={(e) => popupClose(e, setPopDP)}
+				cancelFunc={(e) => popupClose(e, setPopDP)}
+				popupType={popType}
+			/>}
 		</>
 	)
 }

@@ -66,4 +66,4 @@ export { default as DropdownForSearch} from './dropdown/DropdownForSearch'
 export { default as PaginationForPage } from './pagination/PaginationForPage'
 
 /************************** Editor *******************************/
-export { QuillEditorAdmin, QuillEditorUser } from './quillEditor/QuillEditor'
+export { QuillEditorAdmin, QuillEditorUser, QuillEditorLight } from './quillEditor/QuillEditor'

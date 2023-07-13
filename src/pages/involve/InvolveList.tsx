@@ -1,5 +1,9 @@
 import React, {useLayoutEffect, useState} from 'react'
-import {applyListOnePageSize, applyListPageBlockSize, commMessage, involveType, pageURL_Involve_Detail} from '@env'
+import {
+	commMessage,
+	involveListOnePageSize, involveListPageBlockSize,
+	pageURL_Involve_Detail
+} from '@env'
 import {useForm, useList, useNavigation} from '@hook'
 import {ButtonGeneral, ListSearch, PageTitle, PaginationForPage, Popup} from '@components'
 import './involve.css'
@@ -27,6 +31,7 @@ function InvolveList() {
 	//  팝업을 관리할 state
 	const [popDP, setPopDP] = useState<boolean>(false)
 	const [popMsgCode, setPopMsgCode] = useState<string>('')
+	const [popType, setPopType] = useState<string>('')
 
 	// list를 정의한다.
 	const {
@@ -37,7 +42,8 @@ function InvolveList() {
 		popupdpsetter: setPopDP,
 		popupmsgsetter: setPopMsgCode,
 		apiURL: involveList,
-		setliststate: setListState
+		setliststate: setListState,
+		poptypesetter: setPopType
 	})
 
 	// 모든 입력값의 초기값을 만든다.
@@ -175,8 +181,8 @@ function InvolveList() {
 						<div className={'emptyDivHeight'} />
 						<PaginationForPage
 							currentPage={listState.currentPage}
-							pageSize={applyListOnePageSize}
-							pageBlockSize={applyListPageBlockSize}
+							pageSize={involveListOnePageSize}
+							pageBlockSize={involveListPageBlockSize}
 							totalCounts={totalListCount}
 							getData={getListContent}
 							liststate={listState}
@@ -188,6 +194,7 @@ function InvolveList() {
 				popMsg={commMessage(popMsgCode)}
 				okFunc={(e) => popupClose(e, setPopDP)}
 				bgFunc={(e) => popupClose(e, setPopDP)}
+				popupType={popType}
 			/>}
 		</main>
 	)

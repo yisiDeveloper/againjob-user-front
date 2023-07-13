@@ -25,7 +25,7 @@ interface btnType {
 
 const Button = styled.button<btnType>`
 	border-radius: var(--radiusButtonRound);
-	min-width: var(--widthButtonMinBasic);	
+	//min-width: var(--widthButtonMinBasic);
 	font-size: var(--fontSizeBasicButton);
 	font-weight: var(--fontWeightMiddle);
 	color: var(--fontWhiteColor);
@@ -36,7 +36,7 @@ const Button = styled.button<btnType>`
 	${({buttontype}) => {
 		switch (buttontype) {
 			case 'small':
-				return css`background-color: var(--bgBtnBasic);padding: var(--paddingButtonRound);height: var(--heightButtonSmall);`
+				return css`background-color: var(--bgBtnYellowGreen);padding: var(--paddingButtonRound);height: var(--heightButtonSmall);`
 			case 'popupsmall':
 				return css`background-color: var(--bgBtnCancel);padding: var(--paddingButtonRound);height: var(--heightButtonPopupSmall);color: var(--fontBasicColor);font-size:var(--fontSizePopupSmallButton)`
 			case 'normal':

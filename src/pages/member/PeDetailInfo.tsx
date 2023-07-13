@@ -146,8 +146,8 @@ function PeDetailInfo() {
 
 	// 한번 만 실행되도록 하기 위함
 	useLayoutEffect(() => {
-		console.log('values', values)
-		console.log('errors', errors)
+		// console.log('values', values)
+		// console.log('errors', errors)
 
 		// 휴대전화번호를 바꿀 경우를 대비하여 인증완료 false로 바꾼다.
 		if(errors?.mobileNumber2) {

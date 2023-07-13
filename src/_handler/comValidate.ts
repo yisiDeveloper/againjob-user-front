@@ -131,26 +131,6 @@ function emailCheck(value: string, minLength: number) {
 // }
 
 /*
-	날짜를 YYYY-MM-DD 형식으로 돌려주기
-*/
-function changeDate(value: string): string {
-
-	// console.log('original date', value);
-	let tmpDate = new Date(value);
-
-	let year = tmpDate.getFullYear().toString();
-	let month = (tmpDate.getMonth() + 1).toString();
-	let day = tmpDate.getDate().toString();
-
-	// console.log(year, month, day);
-
-	month = (month.length === 1) ? '0' + month : month;
-	day = (day.length === 1) ? '0' + day : day;
-
-	return (year + '-' +  month + '-' + day);
-}
-
-/*
 비밀번호 체크
 */
 function pwdCheck(value: string, name: string, minLength: number) {
